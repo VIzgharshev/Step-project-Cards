@@ -1,0 +1,22 @@
+@mixin text300 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 300;
+}
+@mixin text500 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+}
+@mixin text700 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+}
+
+@mixin header-btn {
+  @include text500;
+  right: 28px;
+  background-color: $main-color;
+  border: none;
+}
