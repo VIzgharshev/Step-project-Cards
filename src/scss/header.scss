@@ -1,0 +1,43 @@
+.header {
+  &__text {
+    @include text300;
+    color: $main-color;
+  }
+
+  &__text::before {
+    content: '';
+    height: 62px;
+    width: 1px;
+    position: absolute;
+    left: -26px;
+    top: -20px;
+    background-color: $main-color;
+  }
+
+  &__btn-login {
+    @include header-btn;
+  }
+  &__btn-create {
+    @include header-btn;
+  }
+}
+
+.modal-login {
+  &__text {
+    @include text700;
+    color: $main-color;
+  }
+  &__label{
+   color: $main-color;
+  }
+  &____input {
+   border: 2px;
+   border-color: $main-color;
+  }
+  &__btn-done {
+    @include header-btn;
+  }
+  &__btn-close {
+    @include header-btn;
+  }
+}
