@@ -1,4 +1,6 @@
-const headerBtn = document.querySelector('.header__btn-login');
+const headerBtnLogin = document.querySelector('.header__btn-login');
+const headerBtnExit = document.querySelector('.header__btn-exit');
+const headerBtns = document.querySelector('.header__btns');
 const modalLoginBtnDone = document.querySelector('.modal-login__btn-done');
 const modalLoginBtnClose = document.querySelector('.modal-login__btn-close');
 const token = '';
@@ -9,7 +11,13 @@ function headerLogin() {
   modalLogin.classList.remove('invisible');
 }
 
-headerBtn.onclick = headerLogin;
+headerBtnLogin.onclick = headerLogin;
+
+function headerExit() {
+location.reload();
+};
+
+headerBtnExit.onclick = headerExit;
 
 //-----------------------------modal login btns functions------------------------------------
 
@@ -34,6 +42,8 @@ async function modalDoneBtn() {
       } else {
         headerText.innerHTML = `Вітаємо, ви зайшли в акаунт ${email}!`;
         modalLogin.classList.add('invisible');
+        headerBtnLogin.classList.add('invisible');
+        headerBtns.classList.remove('invisible');
         return response.text();
       }
     })
