@@ -174,10 +174,8 @@ function watch() {
 }
 
 const build = series(clean, html, styles, scripts, images, watch);
-const dev = series(clean, html, stylesDev, scriptsDev, watch);
+const dev = series(clean, html, stylesDev, scriptsDev, images, watch);
 
 exports.build = build
 exports.dev = dev
 
-
-//
