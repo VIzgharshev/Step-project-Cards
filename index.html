@@ -57,8 +57,51 @@
     </div>
 </section>
 
+
 <section class="main-section">
     <div class="container">
+      
+        <!-- -----------------filter-------------------->
+
+         <div class="filter container d-flex justify-content-center position-relative mt-3 p-0"
+            style="height: 50px;">
+
+            <div class="container mx-1 d-flex justify-content-end align-items-center position-relative p-0" style="width: 700px;">
+               <label for="exampleInputEmail1" class="filter__lable form-label text-uppercase mt-2 me-2">по змісту</label>
+               <input type="text" class="form-control mx-2" id="filter-text" style="border-color:#6BB961; color: #307570; width: 270px; height: 30px;">
+               <button type="button" id="filter-serch-btn" class="filter__search-btn position-absolute border-0 bg-white" style="right: 15px; top: 10px">
+                  <img src="./dist/img/search-icon.png" alt="search-icon">
+               </button>
+            </div>
+
+            <div class="container mx-1 d-flex justify-content-center align-items-center p-0" style="width: 500px;">
+               <label for="exampleInputEmail1" class="filter__lable form-label text-uppercase mt-2 me-3">по статусу</label>
+               <button type="button" id="filter-open-btn" class="filter__btn me-1 ">
+                  open
+               </button>
+               <button type="button" id="filter-done-btn" class="filter__btn filter__btn--active">
+                  done
+               </button>
+            </div>
+
+            <div class="container mx-1 d-flex justify-content-center align-items-center p-0 me-5" style="width: 700px;">
+               <label for="exampleInputEmail1" class="filter__lable form-label text-uppercase mt-2 me-3">по терміновості</label>
+               <button type="button" id="filter-high-btn" class="filter__btn me-1 ">
+                  high
+               </button>
+               <button type="button" id="filter-normal-btn" class="filter__btn-lg me-1">
+                  normal
+               </button>
+               <button type="button" id="filter-low-btn" class="filter__btn filter__btn--active">
+                  low
+               </button>
+            </div>
+
+         </div>
+
+         <!-- -----------------main-------------------->
+      
+      
         <div class="main-section__card-container">
             <h2 class="main-section__header-novisit mb-0 ms-5">немає візитів</h2>
             <div class="modal-login container-fluid p-0 vh-100 position-absolute top-0 start-0 bg-black bg-opacity-25"

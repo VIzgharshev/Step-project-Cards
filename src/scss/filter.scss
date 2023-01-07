@@ -1,0 +1,53 @@
+.filter {
+   z-index: 0;
+  &__lable {
+    @include text500;
+    color: $main-color;
+  }
+  &__btn {
+    @include text500;
+    width: 73px;
+    height: 30px;
+    color: $main-color;
+    border-radius: 5px;
+    background-color: #fff;
+    text-transform: uppercase;
+    border: 1px solid $main-color;
+  }
+  &__btn-lg {
+    @include text500;
+    width: 110px;
+    height: 30px;
+    color: $main-color;
+    border-radius: 5px;
+    background-color: #fff;
+    text-transform: uppercase;
+    border: 1px solid $main-color;
+  }
+  &__btn:hover {
+    border: none;
+    color: #fff;
+    background-color: #157347;
+  }
+  &__btn-lg:hover {
+    border: none;
+    color: #fff;
+    background-color: #157347;
+  }
+  &__btn--active {
+    color: #fff;
+    border: none;
+    background-color: $main-color;
+  }
+}
+
+.filter::after {
+  content: '';
+  position: absolute;
+  width: 1290px;
+  height: 1px;
+  background-color: $main-color;
+  right: 0px;
+  bottom: -10px;
+  z-index: 0;
+}
