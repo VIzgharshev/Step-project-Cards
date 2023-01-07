@@ -60,8 +60,9 @@
 
 <section class="main-section">
     <div class="container">
-      
-        <!-- -----------------filter-------------------->
+
+        <div class="main-section__wrapper">
+                  <!-- -----------------filter-------------------->
          <div class="filter container d-flex justify-content-center position-relative mt-3 p-0"
             style="height: 50px;">
 
@@ -99,68 +100,79 @@
          </div>
 
          <!-- -----------------main-------------------->
-        <div class="main-section__card-container">
             <h2 class="main-section__header-novisit mb-0 ms-5">немає візитів</h2>
-            <div class="modal-login container-fluid p-0 vh-100 position-absolute top-0 start-0 bg-black bg-opacity-25"
-                 style="backdrop-filter: blur(3px); overflow: hidden; display: none" id="new_visit_form">
-                <div class="main-section__new-visit container-sm bg-white position-absolute top-50 start-50 translate-middle p-4"
-                     style="border-radius:10px; width: 40vw; overflow: scroll; max-height: 90%">
-                    <h2 style="color: #6BB961; text-decoration: underline">новий візит</h2>
-                    <div class="form-group">
-                        <label for="doctor">Оберіть лікаря</label>
-                        <select class="form-control" id="doctor" style="color: #307570;">
-                            <option style="" selected>Кардиолог</option>
-                            <option style="">Стоматолог</option>
-                            <option style="">Терапевт</option>
-                        </select>
-                    </div>
-                    <form>
-                        <div class="form-group">
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="ПІБ(пацієнта)">
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="Ціль візита">
-                            </div>
-                            <div class="col">
-                                <input type="number" class="form-control" placeholder="Вік">
-                            </div>
-                            <div class="col">
-                                <input type="number" class="form-control" placeholder="Звичайний тиск">
-                            </div>
-                            <div class="col">
-                                <input type="number" class="form-control" placeholder="Індекс маси тіла">
-                            </div>
-                            <div class="col">
-                                <textarea type="text" class="form-control" placeholder="Короткі замітки"></textarea>
-                            </div>
-                            <div class="col">
-                                <textarea type="text" class="form-control"
-                                          placeholder="Змінні захворювання серцево-судинної системи"></textarea>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="form-group">
-                        <label for="urgently">Терміновість візита</label>
-                        <select class="form-control" id="urgently" style="color: #307570;">
-                            <option>High</option>
-                            <option>Normal</option>
-                            <option>Low</option>
-                        </select>
-                    </div>
-                    <div class="main-section__button-container">
-                        <button type="button" class="modal-login__btn-done btn  btn-success" id="close_new_visit"
-                                style="margin-top: 20px; background-color: red ">Закрити
-                        </button>
-                        <button type="button" class="modal-login__btn-done btn btn-success" style="margin-top: 20px">
-                            Створити
-                        </button>
-                    </div>
+            <div class="main-section__cards-container">
+                <div class="main-section__card">
+<!--                    <div>top block</div>-->
+<!--                    <div>-->
+<!--                        <div>name</div>-->
+<!--                        <div>doctor name</div>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<div class="modal-login container-fluid p-0 vh-100 position-fixed top-0 start-0 bg-black bg-opacity-25"
+     style="backdrop-filter: blur(3px); overflow: hidden; display: none" id="new-visit-form">
+    <div class="main-section__new-visit container-sm bg-white position-absolute top-50 start-50 translate-middle p-4"
+         style="border-radius:10px; width: 40vw; overflow: scroll; max-height: 90%">
+        <h2 style="color: #6BB961; text-decoration: underline; text-align: center">новий візит</h2>
+        <div class="form-group">
+            <label for="doctor-type-select" class="form-label">Оберіть лікаря</label>
+            <select class="form-control" id="doctor-type-select" style="color: #307570;">
+                <option style="" selected value="cardiolog">Кардиолог</option>
+                <option style="" value="stomatolog">Стоматолог</option>
+                <option style="" value="terapevt">Терапевт</option>
+            </select>
+        </div>
+        <form>
+            <div class="form-group" id="doctors-form">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="ПІБ(пацієнта)">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Ціль візита">
+                </div>
+                <div class="optional-inputs">
+                    <div class="col">
+                        <input type="number" class="form-control" placeholder="Вік">
+                    </div>
+                    <div class="col">
+                        <input type="number" class="form-control" placeholder="Звичайний тиск">
+                    </div>
+                    <div class="col">
+                        <input type="number" class="form-control" placeholder="Індекс маси тіла">
+                    </div>
+                    <div class="col">
+                                <textarea type="text" class="form-control"
+                                          placeholder="Змінні захворювання серцево-судинної системи"></textarea>
+                    </div>
+                </div>
+                <div class="col">
+                    <textarea type="text" class="form-control" placeholder="Короткі замітки"></textarea>
+                </div>
+                <div class="col">
+                    <label for="urgently" style="text-align: center">Терміновість візита</label>
+                    <select class="form-control" id="urgently" style="color: #307570;">
+                        <option>High</option>
+                        <option>Normal</option>
+                        <option>Low</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+        <div class="main-section__button-container">
+            <button type="button" class="modal-login__btn-done btn  btn-success" id="close_new_visit"
+                    style="margin-top: 20px; background-color: red">Закрити
+            </button>
+            <button type="button" class="modal-login__btn-done btn btn-success" style="margin-top: 20px">
+                Створити
+            </button>
+        </div>
+    </div>
+</div>
 <script src="./dist/js/scripts.min.js"></script>
 </body>
 </html>
