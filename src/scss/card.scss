@@ -1,18 +1,20 @@
-.main-section{
+.main-section {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  height: 86vh;
   width: 100vw;
   background-color: #f5f5ef;
 }
-.container{
+
+.container {
+  margin-top: 4vh;
   background-color: white;
   width: 100%;
-  height: 95%;
+  height: 90%;
   border-radius: 2%;
 }
-.main-section__card-container{
+
+.main-section__card-container {
   width: 100%;
   height: 95%;
   text-align: center;
@@ -20,10 +22,69 @@
   justify-content: center;
   align-items: center;
 }
-.main-section__header-novisit{
+
+.main-section__header-novisit {
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
   text-transform: uppercase;
   color: #6BB961;
 }
+
+.col {
+  margin-top: 20px;
+}
+
+.form-group {
+  margin-top: 20px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type='number'],
+input[type="number"]:hover,
+input[type="number"]:focus {
+  appearance: none;
+  -moz-appearance: textfield;
+}
+
+textarea {
+  resize: none
+}
+
+.form-control {
+  border-color: #6BB961;
+}
+
+.form-control::placeholder {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 17px;
+  color: #6BB961;
+}
+
+label {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 17px;
+  color: #6BB961;
+  margin-bottom: 10px;
+}
+
+select option {
+  color: white;
+  background-color: black;
+  font-size: 20px;
+}
+
+.main-section__button-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+
