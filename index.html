@@ -2,65 +2,66 @@
 <html lang="en, ua">
 
 <head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
-   <link rel="shortcut icon" href="./src/img/logo.png" type="image/x-icon">
-   <link rel="stylesheet" href="./dist/styles.min.css">
-   <title>MedNote</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="./src/img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="./dist/styles.min.css">
+    <title>MedNote</title>
 </head>
 
 <body>
 
 
-   <!-- -----------------HEADER------------------ -->
-   <section>
-      <div class="header container-xxl d-flex align-items-center bg-white py-4 position-relative">
-         <img class="header__img" src="./dist/img/icon-header.png" alt="logo" style="width: 168px;">
-         <p class="header__text mb-0 ms-5 align-middle position-relative">Вітаємо, зайдіть в систему щоб побачити
+<!-- -----------------HEADER------------------ -->
+<section>
+    <div class="header container-xxl d-flex align-items-center bg-white py-4 position-relative">
+        <img class="header__img" src="./dist/img/icon-header.png" alt="logo" style="width: 168px;">
+        <p class="header__text mb-0 ms-5 align-middle position-relative">Вітаємо, зайдіть в систему щоб побачити
             візити!</p>
-         <button type="button" class="header__btn-login btn btn-success position-absolute btn-lg ">Увійти</button>
-         <div class="header__btns position-absolute invisible">
+        <button type="button" class="header__btn-login btn btn-success position-absolute btn-lg ">Увійти</button>
+        <div class="header__btns position-absolute invisible">
             <button type="button" class="header__btn-exit btn btn-success btn-lg me-3">Вийти</button>
-            <button type="button" class="header__btn-create btn btn-success btn-lg ">Створити
-               візит</button>
-         </div>
+            <button type="button" class="header__btn-create btn btn-success btn-lg" id="btn_create_visit">Створити
+                візит
+            </button>
+        </div>
 
-      </div>
-   </section>
+    </div>
+</section>
 
-   <!-- -----------------MODAL LOGIN-------------------->
-   <section
-      class="modal-login container-fluid p-0 vh-100 position-absolute top-0 start-0 bg-black bg-opacity-25 invisible"
-      style="backdrop-filter: blur(3px)">
-      <div class="modal-login__form container-sm bg-white position-absolute top-50 start-50 translate-middle p-5"
+<!-- -----------------MODAL LOGIN------------------ -->
+<section
+        class="modal-login container-fluid p-0 vh-100 position-absolute top-0 start-0 bg-black bg-opacity-25 invisible"
+        style="backdrop-filter: blur(3px)">
+    <div class="modal-login__form container-sm bg-white position-absolute top-50 start-50 translate-middle p-5"
          style="width: 400px; height: 400px; border-radius: 10px;">
-         <form>
+        <form>
             <h1 class="modal-login__text text-center mb-3">Увійти</h1>
             <div class="mb-3 text-center">
-               <label for="exampleInputEmail1" class="modal-login__label form-label">поштa</label>
-               <input type="email" class="form-control" id="loginEmail" style="border-color:#6BB961;">
-               <div id="emailHelp" class="form-text"></div>
+                <label for="exampleInputEmail1" class="modal-login__label form-label">поштa</label>
+                <input type="email" class="form-control" id="loginEmail" style="border-color:#6BB961;">
+                <div id="emailHelp" class="form-text"></div>
             </div>
             <div class="mb-3 text-center">
-               <label for="exampleInputPassword1" class="modal-login__label form-label">пароль</label>
-               <input type="password" class="form-control" id="loginPassword" style="border-color:#6BB961;">
+                <label for="exampleInputPassword1" class="modal-login__label form-label">пароль</label>
+                <input type="password" class="form-control" id="loginPassword" style="border-color:#6BB961;">
             </div>
             <div class="container mt-4 d-flex justify-content-between">
-               <button type="button" class="modal-login__btn-done btn btn-lg btn-success ">Готово</button>
-               <button type="button" class="modal-login__btn-close btn btn-lg btn-success ">Закрити</button>
+                <button type="button" class="modal-login__btn-done btn btn-lg btn-success ">Готово</button>
+                <button type="button" class="modal-login__btn-close btn btn-lg btn-success ">Закрити</button>
             </div>
 
-         </form>
-      </div>
-   </section>
+        </form>
+    </div>
+</section>
 
-   <!-- -----------------MAIN-------------------->
-   <section class="main-section">
-      <div class="container">
 
-         <!-- -----------------filter-------------------->
+<section class="main-section">
+    <div class="container">
+      
+        <!-- -----------------filter-------------------->
 
          <div class="filter container d-flex justify-content-center position-relative mt-3 p-0"
             style="height: 50px;">
@@ -99,12 +100,70 @@
          </div>
 
          <!-- -----------------main-------------------->
-
-      </div>
-   </section>
-
-
-   <script src="./dist/js/scripts.min.js"></script>
+      
+      
+        <div class="main-section__card-container">
+            <h2 class="main-section__header-novisit mb-0 ms-5">немає візитів</h2>
+            <div class="modal-login container-fluid p-0 vh-100 position-absolute top-0 start-0 bg-black bg-opacity-25"
+                 style="backdrop-filter: blur(3px); overflow: hidden; display: none" id="new_visit_form">
+                <div class="main-section__new-visit container-sm bg-white position-absolute top-50 start-50 translate-middle p-4"
+                     style="border-radius:10px; width: 40vw; overflow: scroll; max-height: 90%">
+                    <h2 style="color: #6BB961; text-decoration: underline">новий візит</h2>
+                    <div class="form-group">
+                        <label for="doctor">Оберіть лікаря</label>
+                        <select class="form-control" id="doctor" style="color: #307570;">
+                            <option style="" selected>Кардиолог</option>
+                            <option style="">Стоматолог</option>
+                            <option style="">Терапевт</option>
+                        </select>
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="ПІБ(пацієнта)">
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Ціль візита">
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Вік">
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Звичайний тиск">
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Індекс маси тіла">
+                            </div>
+                            <div class="col">
+                                <textarea type="text" class="form-control" placeholder="Короткі замітки"></textarea>
+                            </div>
+                            <div class="col">
+                                <textarea type="text" class="form-control"
+                                          placeholder="Змінні захворювання серцево-судинної системи"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="form-group">
+                        <label for="urgently">Терміновість візита</label>
+                        <select class="form-control" id="urgently" style="color: #307570;">
+                            <option>High</option>
+                            <option>Normal</option>
+                            <option>Low</option>
+                        </select>
+                    </div>
+                    <div class="main-section__button-container">
+                        <button type="button" class="modal-login__btn-done btn  btn-success" id="close_new_visit"
+                                style="margin-top: 20px; background-color: red ">Закрити
+                        </button>
+                        <button type="button" class="modal-login__btn-done btn btn-success" style="margin-top: 20px">
+                            Створити
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="./dist/js/scripts.min.js"></script>
 </body>
-
 </html>
