@@ -24,6 +24,7 @@
 }
 
 .modal-login {
+   z-index: 100;
   &__text {
     @include text700;
     color: $main-color;
