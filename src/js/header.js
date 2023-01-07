@@ -15,7 +15,7 @@ headerBtnLogin.onclick = headerLogin;
 
 function headerExit() {
 location.reload();
-};
+}
 
 headerBtnExit.onclick = headerExit;
 
