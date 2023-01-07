@@ -6,7 +6,7 @@
   background-color: #f5f5ef;
 }
 
-.container {
+.main-section-container {
   margin-top: 4vh;
   background-color: white;
   width: 100%;
@@ -19,6 +19,7 @@
   height: 95%;
   text-align: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
