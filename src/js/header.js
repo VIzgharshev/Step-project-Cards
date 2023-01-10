@@ -48,8 +48,9 @@ async function modalDoneBtn() {
       }
     })
     .then((resp) => {
-      sessionStorage.setItem('token', resp);
-    });
+       sessionStorage.setItem('token', resp);
+       return resp;
+    })
 }
 
 function modalCloseBtn() {
