@@ -47,7 +47,7 @@ function test(e) {
 //------------small filter function-----------
 function statusBtnsS(e) {
   e.target.classList.add('filter-s__btn--active');
-  if (e.target === openBtnS) {
+  if (e.target === openBtnS || e.target === openBtn) {
     doneBtnS.classList.remove('filter-s__btn--active');
   } else {
     openBtnS.classList.remove('filter-s__btn--active');
