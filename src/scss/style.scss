@@ -2,4 +2,6 @@
 @import './_mixins';
 @import './_variables';
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
-@import './header.scss'
+@import './header.scss';
+@import "./card.scss";
+@import "./filter.scss";

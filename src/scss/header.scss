@@ -13,26 +13,28 @@
     top: -20px;
     background-color: $main-color;
   }
-
-  &__btn-login {
-    @include header-btn;
+  &__btns{
+    right: 28px;
   }
-  &__btn-create {
+  &__btn-login,
+  &__btn-create,
+  &__btn-exit {
     @include header-btn;
   }
 }
 
 .modal-login {
+   z-index: 100;
   &__text {
     @include text700;
     color: $main-color;
   }
-  &__label{
-   color: $main-color;
+  &__label {
+    color: $main-color;
   }
   &____input {
-   border: 2px;
-   border-color: $main-color;
+    border: 2px;
+    border-color: $main-color;
   }
   &__btn-done {
     @include header-btn;
