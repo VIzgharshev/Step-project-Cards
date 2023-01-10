@@ -146,7 +146,6 @@ class CardsController {
     constructor() {
         this.cards = [];
         this.cardsContainer = document.querySelector(".main-section__cards-container");
-
         this.doctorVisitModal = new DoctorVisitModal();
     }
 
