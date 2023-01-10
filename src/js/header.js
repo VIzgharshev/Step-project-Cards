@@ -40,7 +40,7 @@ async function modalDoneBtn() {
         emailText.style.color = 'red';
         emailText.innerHTML = 'Incorrect username or password!';
       } else {
-        headerText.innerHTML = `Вітаємо, ви зайшли в акаунт ${email}!`;
+        headerText.innerHTML = `Вітаємо, ${email}!`;
         modalLogin.classList.add('invisible');
         headerBtnLogin.classList.add('invisible');
         headerBtns.classList.remove('invisible');
@@ -48,8 +48,9 @@ async function modalDoneBtn() {
       }
     })
     .then((resp) => {
-      sessionStorage.setItem('token', resp);
-    });
+       sessionStorage.setItem('token', resp);
+       return resp;
+    })
 }
 
 function modalCloseBtn() {
