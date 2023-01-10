@@ -1,296 +1,317 @@
 @include media-breakpoint-up(sm) {
-	.open-filter-btn {
-		border: none;
-		width: fit-content;
-		height: fit-content;
-		background: none;
-		margin: 15px;
-	}
+  .open-filter-btn {
+    border: none;
+    width: fit-content;
+    height: fit-content;
+    background: none;
+    margin: 15px;
+  }
 
-	.filter-wrapper {
-		display: none;
-	}
+  .close-filter-btn {
+    border: none;
+    width: fit-content;
+    height: fit-content;
+    background: none;
+    margin: 15px;
+    scale: 1.2;
+    left: 4px;
+  }
 
-	.filter {
-		z-index: 0;
-		font-size: 14px;
-		&__one {
-			width: 530px;
-		}
-		&__two {
-		}
-		&__three {
-		}
-		&__lable {
-			font-size: 14px;
-			@include text500;
-			color: $main-color;
-		}
-		&__input {
-			max-width: 200px;
-		}
-		&__btn {
-			@include text500;
-			width: 73px;
-			height: 30px;
-			color: $main-color;
-			border-radius: 5px;
-			background-color: #fff;
-			text-transform: uppercase;
-			border: 1px solid $main-color;
-		}
-		&__btn-lg {
-			@include text500;
-			width: 110px;
-			height: 30px;
-			color: $main-color;
-			border-radius: 5px;
-			background-color: #fff;
-			text-transform: uppercase;
-			border: 1px solid $main-color;
-		}
-		&__btn:hover {
-			border: none;
-			color: #fff;
-			background-color: #157347;
-		}
-		&__btn-lg:hover {
-			border: none;
-			color: #fff;
-			background-color: #157347;
-		}
-		&__btn--active {
-			color: #fff;
-			border: none;
-			background-color: $main-color;
-		}
-	}
+  .filter-sm {
+    display: block;
+  }
+  .filter-lg {
+    display: none;
+  }
 
-	.line {
-		height: 1px;
-		margin-top: 15px;
-		background-color: $main-color;
-	}
-}
-@include media-breakpoint-up(md) {
-	.open-filter-btn {
-		border: none;
-		width: fit-content;
-		height: fit-content;
-		background: none;
-		margin: 15px;
-	}
+  .filter-s {
+    z-index: 0;
+    font-size: 14px;
+    width: fit-content;
+    border-radius: 5px;
+    top: 20px;
+    left: 64px;
+    background-color: #fff;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+    &__one,
+    &__two,
+    &__three {
+      width: 425px;
+    }
+    &__lable {
+      font-size: 14px;
+      @include text500;
+      color: $main-color;
+    }
+    &__input {
+      max-width: 260px;
+    }
+    &__btn {
+      @include text500;
+      width: 73px;
+      height: 30px;
+      color: $main-color;
+      border-radius: 5px;
+      background-color: #fff;
+      text-transform: uppercase;
+      border: 1px solid $main-color;
+    }
+    &__search-btn {
+      right: 15px;
+      top: 4px;
+    }
+    &__btn-lg {
+      @include text500;
+      width: 110px;
+      height: 30px;
+      color: $main-color;
+      border-radius: 5px;
+      background-color: #fff;
+      text-transform: uppercase;
+      border: 1px solid $main-color;
+    }
+    &__btn:hover {
+      border: none;
+      color: #fff;
+      background-color: #157347;
+    }
+    &__btn-lg:hover {
+      border: none;
+      color: #fff;
+      background-color: #157347;
+    }
+    &__btn--active {
+      color: #fff;
+      border: none;
+      background-color: $main-color;
+    }
+  }
 
-	.filter-wrapper {
-		display: none;
-	}
-
-	.filter {
-		z-index: 0;
-		font-size: 14px;
-		&__one {
-			width: 530px;
-		}
-		&__two {
-		}
-		&__three {
-		}
-		&__lable {
-			font-size: 14px;
-			@include text500;
-			color: $main-color;
-		}
-		&__input {
-			max-width: 200px;
-		}
-		&__btn {
-			@include text500;
-			width: 73px;
-			height: 30px;
-			color: $main-color;
-			border-radius: 5px;
-			background-color: #fff;
-			text-transform: uppercase;
-			border: 1px solid $main-color;
-		}
-		&__btn-lg {
-			@include text500;
-			width: 110px;
-			height: 30px;
-			color: $main-color;
-			border-radius: 5px;
-			background-color: #fff;
-			text-transform: uppercase;
-			border: 1px solid $main-color;
-		}
-		&__btn:hover {
-			border: none;
-			color: #fff;
-			background-color: #157347;
-		}
-		&__btn-lg:hover {
-			border: none;
-			color: #fff;
-			background-color: #157347;
-		}
-		&__btn--active {
-			color: #fff;
-			border: none;
-			background-color: $main-color;
-		}
-	}
-
-	.line {
-		height: 1px;
-		margin-top: 15px;
-		background-color: $main-color;
-	}
 }
 @include media-breakpoint-up(lg) {
-	.open-filter-btn {
-		display: none;
-	}
+  .open-filter-btn {
+    display: none;
+  }
+  .close-filter-btn {
+    display: none;
+  }
 
-	.filter-wrapper {
-		display: block;
-	}
+  .filter-wrapper {
+    display: block;
+  }
 
-	.filter {
-		z-index: 0;
-		font-size: 12px;
-		&__one {
-			width: 530px;
-		}
-		&__two {
-			width: 440px;
-		}
-		&__three {
-			width: 600px;
-		}
-		&__lable {
-			font-size: 12px;
-			@include text500;
-			color: $main-color;
-		}
-		&__input {
-			max-width: 200px;
-		}
-		&__btn {
-			@include text500;
-			width: 53px;
-			height: 30px;
-			color: $main-color;
-			border-radius: 5px;
-			background-color: #fff;
-			text-transform: uppercase;
-			border: 1px solid $main-color;
-		}
-		&__search-btn {
-			right: 12px;
-			top: 14px;
-		}
-		&__btn-lg {
-			@include text500;
-			width: 70px;
-			height: 30px;
-			color: $main-color;
-			border-radius: 5px;
-			background-color: #fff;
-			text-transform: uppercase;
-			border: 1px solid $main-color;
-		}
-		&__btn:hover {
-			border: none;
-			color: #fff;
-			background-color: #157347;
-		}
-		&__btn-lg:hover {
-			border: none;
-			color: #fff;
-			background-color: #157347;
-		}
-		&__btn--active {
-			color: #fff;
-			border: none;
-			background-color: $main-color;
-		}
-	}
+  .filter-sm {
+    display: none;
+  }
 
-	.line {
-		height: 1px;
-		margin-top: 15px;
-		background-color: $main-color;
-	}
+  .filter-lg {
+    display: block;
+  }
+
+  .filter {
+    z-index: 0;
+    font-size: 12px;
+    &__one {
+      width: 530px;
+    }
+    &__two {
+      width: 440px;
+    }
+    &__three {
+      width: 600px;
+    }
+    &__lable {
+      font-size: 12px;
+      @include text500;
+      color: $main-color;
+    }
+    &__input {
+      max-width: 200px;
+    }
+    &__btn {
+      @include text500;
+      width: 55px;
+      height: 30px;
+      color: $main-color;
+      border-radius: 5px;
+      background-color: #fff;
+      text-transform: uppercase;
+      border: 1px solid $main-color;
+    }
+    &__search-btn {
+      right: 12px;
+      top: 14px;
+    }
+    &__btn-lg {
+      @include text500;
+      width: 70px;
+      height: 30px;
+      color: $main-color;
+      border-radius: 5px;
+      background-color: #fff;
+      text-transform: uppercase;
+      border: 1px solid $main-color;
+    }
+    &__btn:hover {
+      border: none;
+      color: #fff;
+      background-color: #157347;
+    }
+    &__btn-lg:hover {
+      border: none;
+      color: #fff;
+      background-color: #157347;
+    }
+    &__btn--active {
+      color: #fff;
+      border: none;
+      background-color: $main-color;
+    }
+  }
+
+  .line {
+    height: 1px;
+    margin-top: 15px;
+    background-color: $main-color;
+  }
 }
 @include media-breakpoint-up(xl) {
-	.open-filter-btn {
-		display: none;
-	}
+  .filter {
+    z-index: 0;
+    font-size: 14px;
+    &__one {
+      width: 560px;
+    }
+    &__two {
+      width: 440px;
+    }
+    &__three {
+      width: 700px;
+    }
+    &__lable {
+      font-size: 14px;
+      @include text500;
+      color: $main-color;
+    }
+    &__input {
+      max-width: 200px;
+    }
+    &__btn {
+      @include text500;
+      width: 73px;
+      height: 30px;
+      color: $main-color;
+      border-radius: 5px;
+      background-color: #fff;
+      text-transform: uppercase;
+      border: 1px solid $main-color;
+    }
+    &__search-btn {
+      right: 12px;
+      top: 11px;
+    }
+    &__btn-lg {
+      @include text500;
+      width: 110px;
+      height: 30px;
+      color: $main-color;
+      border-radius: 5px;
+      background-color: #fff;
+      text-transform: uppercase;
+      border: 1px solid $main-color;
+    }
+    &__btn:hover {
+      border: none;
+      color: #fff;
+      background-color: #157347;
+    }
+    &__btn-lg:hover {
+      border: none;
+      color: #fff;
+      background-color: #157347;
+    }
+    &__btn--active {
+      color: #fff;
+      border: none;
+      background-color: $main-color;
+    }
+  }
 
-	.filter {
-		z-index: 0;
-		font-size: 14px;
-		&__one {
-			width: 560px;
-		}
-		&__two {
-			width: 440px;
-		}
-		&__three {
-			width: 700px;
-		}
-		&__lable {
-			font-size: 14px;
-			@include text500;
-			color: $main-color;
-		}
-		&__input {
-			max-width: 200px;
-		}
-		&__btn {
-			@include text500;
-			width: 73px;
-			height: 30px;
-			color: $main-color;
-			border-radius: 5px;
-			background-color: #fff;
-			text-transform: uppercase;
-			border: 1px solid $main-color;
-		}
-		&__search-btn {
-			right: 12px;
-			top: 11px;
-		}
-		&__btn-lg {
-			@include text500;
-			width: 110px;
-			height: 30px;
-			color: $main-color;
-			border-radius: 5px;
-			background-color: #fff;
-			text-transform: uppercase;
-			border: 1px solid $main-color;
-		}
-		&__btn:hover {
-			border: none;
-			color: #fff;
-			background-color: #157347;
-		}
-		&__btn-lg:hover {
-			border: none;
-			color: #fff;
-			background-color: #157347;
-		}
-		&__btn--active {
-			color: #fff;
-			border: none;
-			background-color: $main-color;
-		}
-	}
+  .line {
+    height: 1px;
+    margin-top: 15px;
+    background-color: $main-color;
+  }
+}
+@include media-breakpoint-up(xxl) {
+  .open-filter-btn {
+    display: none;
+  }
 
-	.line {
-		height: 1px;
-		margin-top: 15px;
-		background-color: $main-color;
-	}
+  .filter {
+    z-index: 0;
+    font-size: 16px;
+    &__one {
+      width: 560px;
+    }
+    &__two {
+      width: 440px;
+    }
+    &__three {
+      width: 620px;
+    }
+    &__lable {
+      font-size: 16px;
+      @include text500;
+      color: $main-color;
+    }
+    &__input {
+      max-width: 300px;
+    }
+    &__btn {
+      @include text500;
+      width: 73px;
+      height: 30px;
+      color: $main-color;
+      border-radius: 5px;
+      background-color: #fff;
+      text-transform: uppercase;
+      border: 1px solid $main-color;
+    }
+    &__search-btn {
+      right: 12px;
+      top: 11px;
+    }
+    &__btn-lg {
+      @include text500;
+      width: 110px;
+      height: 30px;
+      color: $main-color;
+      border-radius: 5px;
+      background-color: #fff;
+      text-transform: uppercase;
+      border: 1px solid $main-color;
+    }
+    &__btn:hover {
+      border: none;
+      color: #fff;
+      background-color: #157347;
+    }
+    &__btn-lg:hover {
+      border: none;
+      color: #fff;
+      background-color: #157347;
+    }
+    &__btn--active {
+      color: #fff;
+      border: none;
+      background-color: $main-color;
+    }
+  }
+
+  .line {
+    height: 1px;
+    margin-top: 15px;
+    background-color: $main-color;
+  }
 }

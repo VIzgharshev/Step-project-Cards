@@ -17,7 +17,8 @@
    <!-- -----------------HEADER------------------ -->
    <section>
       <div class="header container d-flex align-items-center bg-white py-4 position-relative">
-         <img class="header__img" src="./dist/img/icon-header.png" alt="logo" style="width: 168px;">
+         <img class="header__img1" src="./dist/img/icon-header.png" alt="logo" style="width: 168px;">
+         <img class="header__img2" src="./dist/img/logo.png" alt="logo" style="width: 58px;">
          <p class="header__text mb-0 ms-5 align-middle position-relative">Вітаємо, зайдіть в систему щоб побачити
             візити!</p>
          <button type="button" class="header__btn-login btn btn-success position-absolute btn-lg ">Увійти</button>
@@ -62,19 +63,66 @@
       <div class="main-section-container container">
 
          <!-- -----------------filter-------------------->
-         <button type="button" id="open-filter-btn" class="open-filter-btn">
+         
+         <!-- small filter buttons -->
+         <div class="position-relative">
+         <button type="button" id="open-filter-btn" class="open-filter-btn position-absolute">
             <img src="/dist/img/Більше інфо-light.png" alt="#">
          </button>
+         <button type="button" id="close-filter-btn" class="close-filter-btn position-absolute invisible">
+            <img src="/dist/img/close-filter-btn.png" alt="#">
+         </button>
+         </div>
+         <!-- small filter -->
+         <div class="filter-wrapper filter-sm container-fluid position-relative ">
+            <div class="filter-s container d-flex flex-column position-absolute p-2" >
 
-         <div class="filter-wrapper container-fluid">
-            <div class="filter container d-flex justify-content-center position-relative mt-3 p-0 "
-               style="height: 50px;">
+               <div class="filter-s__one container mx-1 d-flex align-items-center position-relative p-0">
+                  <label for="exampleInputEmail1" class="filter-s__lable form-label text-uppercase mt-2 me-5">по
+                     змісту</label>
+                  <input type="text" class="filter-s__input form-control mx-2 ms-4" id="filter-text-s"
+                     style="border-color:#6BB961; color: #307570; height: 30px;">
+                  <button type="button" id="filter-serch-btn-s"
+                     class="filter-s__search-btn position-absolute border-0 bg-white">
+                     <img src="./dist/img/search-icon.png" alt="search-icon">
+                  </button>
+               </div>
+
+               <div class="filter-s__two container mx-1 d-flex align-items-center p-0">
+                  <label for="exampleInputEmail1" class="filter-s__lable form-label text-uppercase mt-2 me-5">по
+                     статусу</label>
+                  <button type="button" id="filter-open-btn-s" class="filter-s__btn me-1 ms-3">
+                     open
+                  </button>
+                  <button type="button" id="filter-done-btn-s" class="filter-s__btn filter__btn--active ">
+                     done
+                  </button>
+               </div>
+
+               <div class="filter-s__three container mx-1 d-flex align-items-center p-0">
+                  <label for="exampleInputEmail1" class="filter-s__lable form-label text-uppercase mt-2 ">по
+                     терміновості</label>
+                  <button type="button" id="filter-high-btn-s" class="filter-s__btn me-1 ms-3">
+                     high
+                  </button>
+                  <button type="button" id="filter-normal-btn-s" class="filter-s__btn-lg me-1">
+                     normal
+                  </button>
+                  <button type="button" id="filter-low-btn-s" class="filter-s__btn filter-s__btn--active">
+                     low
+                  </button>
+               </div>
+            </div>
+         </div>
+         <!-- large filter -->
+         <div class="filter-wrapper filter-lg container-fluid">
+            <div class="filter filter-wrapper-sm container d-flex justify-content-center position-relative mt-3 p-0 " style="height: 50px;">
 
                <div class="filter__one container mx-1 d-flex justify-content-end align-items-center position-relative p-0">
                   <label for="exampleInputEmail1" class="filter__lable form-label text-uppercase mt-2 me-2 ">по
                      змісту</label>
                   <input type="text" class="filter__input form-control mx-2" id="filter-text"
-                     style="border-color:#6BB961; color: #307570; width: 270px; height: 30px;">
+                     style="border-color:#6BB961; color: #307570; height: 30px;">
                   <button type="button" id="filter-serch-btn"
                      class="filter__search-btn position-absolute border-0 bg-white">
                      <img src="./dist/img/search-icon.png" alt="search-icon">
