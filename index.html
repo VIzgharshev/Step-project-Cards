@@ -63,7 +63,7 @@
       <div class="main-section-container container">
 
          <!-- -----------------filter-------------------->
-         
+
          <!-- small filter buttons -->
          <div class="position-relative">
          <button type="button" id="open-filter-btn" class="open-filter-btn position-absolute">
@@ -118,57 +118,51 @@
          <div class="filter-wrapper filter-lg container-fluid">
             <div class="filter filter-wrapper-sm container d-flex justify-content-center position-relative mt-3 p-0 " style="height: 50px;">
 
-               <div class="filter__one container mx-1 d-flex justify-content-end align-items-center position-relative p-0">
-                  <label for="exampleInputEmail1" class="filter__lable form-label text-uppercase mt-2 me-2 ">по
-                     змісту</label>
-                  <input type="text" class="filter__input form-control mx-2" id="filter-text"
-                     style="border-color:#6BB961; color: #307570; height: 30px;">
-                  <button type="button" id="filter-serch-btn"
-                     class="filter__search-btn position-absolute border-0 bg-white">
+               <div class="filter__onecontainer mx-1 d-flex justify-content-end align-items-center position-relative p-0"
+                 >
+                <label for="exampleInputEmail1" class="filter__lable form-label text-uppercase mt-2 me-2">по
+                    змісту</label>
+                <input type="text" class="filter__inputform-control mx-2" id="filter-text"
+                       style="border-color:#6BB961; color: #307570;  height: 30px;">
+                <button type="button" id="filter-serch-btn"
+                        class="filter__search-btn position-absolute border-0 bg-white" >
                      <img src="./dist/img/search-icon.png" alt="search-icon">
                   </button>
                </div>
 
                <div class="filter__two container mx-1 d-flex justify-content-center align-items-center p-0">
-                  <label for="exampleInputEmail1" class="filter__lable form-label text-uppercase mt-2 me-3">по
-                     статусу</label>
-                  <button type="button" id="filter-open-btn" class="filter__btn me-1 ">
-                     open
-                  </button>
-                  <button type="button" id="filter-done-btn" class="filter__btn filter__btn--active">
-                     done
-                  </button>
-               </div>
+                <label for="exampleInputEmail1" class="filter__lable form-label text-uppercase mt-2 me-3">по
+                    статусу</label>
+                <button type="button" id="filter-open-btn" class="filter__btn me-1 ">
+                    open
+                </button>
+                <button type="button" id="filter-done-btn" class="filter__btn filter__btn--active">
+                    done
+                </button>
+            </div>
 
                <div class="filter__three container mx-1 d-flex justify-content-center align-items-center p-0">
-                  <label for="exampleInputEmail1" class="filter__lable form-label text-uppercase mt-2 me-3">по
-                     терміновості</label>
-                  <button type="button" id="filter-high-btn" class="filter__btn me-1 ">
-                     high
-                  </button>
-                  <button type="button" id="filter-normal-btn" class="filter__btn-lg me-1">
-                     normal
-                  </button>
-                  <button type="button" id="filter-low-btn" class="filter__btn filter__btn--active">
-                     low
-                  </button>
-               </div>
+                <label for="exampleInputEmail1" class="filter__lable form-label text-uppercase mt-2 me-3">по
+                    терміновості</label>
+                <button type="button" id="filter-high-btn" class="filter__btn me-1 ">
+                    high
+                </button>
+                <button type="button" id="filter-normal-btn" class="filter__btn-lg me-1">
+                    normal
+                </button>
+                <button type="button" id="filter-low-btn" class="filter__btn filter__btn--active">
+                    low
+                </button>
+</div>
             </div>
 
             <div class="line container"></div>
          </div>
 
-         <!-- -----------------main-------------------->
+        <!-- -----------------main-------------------->
          <div class="main-section__wrapper">
-            <h2 class="main-section__header-novisit mb-0 ms-5">немає візитів</h2>
+            <h2 class="main-section__header-novisit mb-0 ms-5" style="margin-left: 0">немає візитів</h2>
             <div class="main-section__cards-container">
-               <div class="main-section__card">
-                  <!--                    <div>top block</div>-->
-                  <!--                    <div>-->
-                  <!--                        <div>name</div>-->
-                  <!--                        <div>doctor name</div>-->
-                  <!--                    </div>-->
-               </div>
             </div>
          </div>
       </div>
@@ -182,53 +176,53 @@
          <div class="form-group">
             <label for="doctor-type-select" class="form-label">Оберіть лікаря</label>
             <select class="form-control" id="doctor-type-select" style="color: #307570;">
-               <option style="" selected value="cardiolog">Кардиолог</option>
-               <option style="" value="stomatolog">Стоматолог</option>
-               <option style="" value="terapevt">Терапевт</option>
+                <option  selected value="cardiolog">Кардиолог</option>
+                <option  value="stomatolog">Стоматолог</option>
+                <option  value="terapevt">Терапевт</option>
             </select>
          </div>
          <form>
             <div class="form-group" id="doctors-form">
-               <div class="col">
-                  <input type="text" class="form-control" placeholder="ПІБ(пацієнта)">
-               </div>
-               <div class="col">
-                  <input type="text" class="form-control" placeholder="Ціль візита">
-               </div>
-               <div class="optional-inputs">
-                  <div class="col">
-                     <input type="number" class="form-control" placeholder="Вік">
-                  </div>
-                  <div class="col">
-                     <input type="number" class="form-control" placeholder="Звичайний тиск">
-                  </div>
-                  <div class="col">
-                     <input type="number" class="form-control" placeholder="Індекс маси тіла">
-                  </div>
-                  <div class="col">
-                     <textarea type="text" class="form-control"
-                        placeholder="Змінні захворювання серцево-судинної системи"></textarea>
-                  </div>
-               </div>
-               <div class="col">
-                  <textarea type="text" class="form-control" placeholder="Короткі замітки"></textarea>
-               </div>
-               <div class="col">
-                  <label for="urgently" style="text-align: center">Терміновість візита</label>
-                  <select class="form-control" id="urgently" style="color: #307570;">
-                     <option>High</option>
-                     <option>Normal</option>
-                     <option>Low</option>
-                  </select>
-               </div>
+                <div class="col">
+                    <input type="text" id="patient_name" class="form-control" placeholder="ПІБ(пацієнта)">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Ціль візита">
+                </div>
+                <div class="optional-inputs">
+                    <div class="col">
+                        <input type="number" class="form-control" placeholder="Вік">
+                    </div>
+                    <div class="col">
+                        <input type="number" class="form-control" placeholder="Звичайний тиск">
+                    </div>
+                    <div class="col">
+                        <input type="number" class="form-control" placeholder="Індекс маси тіла">
+                    </div>
+                    <div class="col">
+                                <textarea type="text" class="form-control"
+                                          placeholder="Змінні захворювання серцево-судинної системи"></textarea>
+                    </div>
+                </div>
+                <div class="col">
+                    <textarea type="text" class="form-control" placeholder="Короткі замітки"></textarea>
+                </div>
+                <div class="col">
+                    <label for="urgently" style="text-align: center">Терміновість візита</label>
+                    <select class="form-control" id="urgently" style="color: #307570;">
+                        <option value="High">High</option>
+                        <option value="Normal">Normal</option>
+                        <option value="Low">Low</option>
+                    </select>
+                </div>
             </div>
          </form>
          <div class="main-section__button-container">
             <button type="button" class="modal-login__btn-done btn  btn-success" id="close_new_visit"
                style="margin-top: 20px; background-color: red">Закрити
             </button>
-            <button type="button" class="modal-login__btn-done btn btn-success" style="margin-top: 20px">
-               Створити
+            <button type="button" class="modal-login__btn-done btn btn-success" id="add_new_visit_button" style="margin-top: 20px">
+                Створити
             </button>
          </div>
       </div>
