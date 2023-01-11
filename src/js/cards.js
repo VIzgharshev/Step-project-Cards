@@ -118,12 +118,15 @@ class DoctorVisitModal extends Modal {
 
 class Card {
 
+
     constructor(cardData) {
         this.cardData = cardData;
         this.card = document.createElement("div");
         this.card.classList.add("main-section__card");
         this.doctorsValue()
         this.urgently()
+        this.sendCardData = null;
+        this.jsonDataReturn = null;
     }
 
     doctorsValue(){
@@ -189,8 +192,66 @@ class Card {
         container.append(this.card);
     }
 
-    sendData(){
-
+   async sendDataServer(){
+        switch (this.doctorValue){
+            case "cardiolog":
+                this.sendCardData = await  fetch("https://ajax.test-danit.com/api/v2/cards", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({
+                        doctor: 'cardiolog',
+                        patientName: 'Mielnikova Anastasiia',
+                        title: 'Визит к кардиологу',
+                        age: '23',
+                        normalPressure: '90',
+                        bodyMassIndex: '30',
+                        cardiovascularDisease: '-',
+                        description: 'Плановый визит',
+                        urgency: 'high',
+                    })
+                })
+                this.jsonDataReturn = this.sendCardData.json()
+                return this.jsonDataReturn
+            case "stomatolog":
+                this.sendCardData  = await  fetch("https://ajax.test-danit.com/api/v2/cards", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({
+                        doctor: 'stomatolog',
+                        patientName: 'Mielnikova Anastasiia',
+                        title: 'Визит к кардиологу',
+                        date: '24.11.2000',
+                        description: 'Плановый визит',
+                        urgency: 'high',
+                    })
+                })
+                 this.jsonDataReturn = this.sendCardData.json()
+                return this.jsonDataReturn;
+            case "terapevt":
+                this.sendCardData  = await  fetch("https://ajax.test-danit.com/api/v2/cards", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({
+                        doctor: 'Cardiologist',
+                        patientName: 'Mielnikova Anastasiia',
+                        title: 'Визит к кардиологу',
+                        age: 23,
+                        description: 'Плановый визит',
+                        urgency: 'high',
+                    })
+                })
+                this.jsonDataReturn = this.sendCardData.json()
+                return this.jsonDataReturn;
+        }
     }
 
     remove() {
@@ -207,8 +268,9 @@ class CardsController {
         this.doctorVisitModal = new DoctorVisitModal();
     }
 
-    addNewCard(newCardData) {
+    async addNewCard(newCardData) {
         const card = new Card(newCardData);
+        await card.sendDataServer()
         card.render(this.cardsContainer);
         this.cards.push(card);
     }
