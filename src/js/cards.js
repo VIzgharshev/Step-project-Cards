@@ -35,11 +35,9 @@ class DoctorVisitModal extends Modal {
         super("#new-visit-form", "#btn_create_visit", "#close_new_visit");
         this.doctorValue = document.querySelector("#doctor-type-select").value
         this.onModalFormSubmit = onModalFormSubmit;
-
         this.form = this.modal.querySelector("form");
         this.doctorSelect = this.modal.querySelector("#doctor-type-select");
         this.optionalInputs = this.modal.querySelector(".optional-inputs");
-
         this.changeDoctorType = this.changeDoctorType.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.addNewVisitBtn = document.querySelector("#add_new_visit_button");
@@ -118,7 +116,6 @@ class DoctorVisitModal extends Modal {
     async sendDataServer() {
         switch (this.doctorValue) {
             case "cardiolog":
-                console.log(this.optionalInputs)
                 this.sendCardData = await fetch("https://ajax.test-danit.com/api/v2/cards", {
                     method: 'POST',
                     headers: {
@@ -157,7 +154,6 @@ class DoctorVisitModal extends Modal {
                     })
                 })
                 this.jsonDataReturn = await this.sendCardData.json()
-                console.log(this.jsonDataReturn.id)
                 this.cardId = this.jsonDataReturn.id
                 return this.cardId
             case "terapevt":
@@ -177,7 +173,6 @@ class DoctorVisitModal extends Modal {
                     })
                 })
                 this.jsonDataReturn = await this.sendCardData.json()
-                console.log(this.jsonDataReturn.id)
                 this.cardId = this.jsonDataReturn.id
                 return this.cardId
         }
@@ -194,9 +189,7 @@ class Card {
         this.urgently();
         this.sendCardData = null;
         this.jsonDataReturn = null;
-        // this.trashBtn = this.card.querySelector(".trash-btn");
-        // console.log(this.trashBtn);
-        // this.trashBtn.addEventListener("click", ()=> this.removeCard(window.cardsController.getId()))
+
     }
 
     doctorsValue() {
@@ -260,19 +253,21 @@ class Card {
                     </div>
         `;
         container.append(this.card);
+        this.trashBtn = this.card.querySelector(".trash-btn");
+        this.trashBtn.addEventListener("click", async ()=> this.removeCard(await window.cardsController.getId()))
     }
 
     async removeCard(cardId) {
             let deleteRequest = await fetch(`https://ajax.test-danit.com/api/v2/cards/${cardId}`, {
                 method: 'DELETE',
                 headers: {
-                    'Authorization': `Bearer${sessionStorage.getItem('token')}`
+                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`
                 },
             })
-            let data = await deleteRequest.json()
-            if (data.status === 200) {
-                this.card.remove();
-            }
+        console.log(deleteRequest)
+        if(deleteRequest.status === 200){
+            this.card.remove();
+        }
     }
 }
 
@@ -285,9 +280,18 @@ class CardsController {
     }
 
    async getId(){
-      return  await this.doctorVisitModal.sendDataServer()
+    return await this.doctorVisitModal.sendDataServer()
     }
-
+  async getAllCards(){
+      let getAll = await fetch(`https://ajax.test-danit.com/api/v2/cards`, {
+          method: 'GET',
+          headers: {
+              'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+          },
+      })
+      let data = await getAll.json()
+      console.log(data)
+    }
     async addNewCard(newCardData) {
         const card = new Card(newCardData);
         card.render(this.cardsContainer);
@@ -298,7 +302,9 @@ class CardsController {
 window.cardsController = new CardsController();
 
 document.querySelector("#add_new_visit_button").addEventListener("click", () => {
+    window.cardsController.getId()
     window.cardsController.addNewCard();
+    window.cardsController.getAllCards()
     document.querySelector(".main-section__header-novisit").style.display = "none";
     document.querySelector("#new-visit-form").style.display = "none";
 })
