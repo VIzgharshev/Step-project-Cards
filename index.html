@@ -187,25 +187,25 @@
                     <input type="text" id="patient_name" class="form-control" placeholder="ПІБ(пацієнта)">
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Ціль візита">
+                    <input type="text" id="visit-propose" class="form-control" placeholder="Ціль візита">
                 </div>
                 <div class="optional-inputs">
                     <div class="col">
-                        <input type="number" class="form-control" placeholder="Вік">
+                        <input type="number" class="form-control"  id="user-age-cardiolog" placeholder="Вік">
                     </div>
                     <div class="col">
-                        <input type="number" class="form-control" placeholder="Звичайний тиск">
+                        <input type="number" class="form-control" id="normal-pressure" placeholder="Звичайний тиск">
                     </div>
                     <div class="col">
-                        <input type="number" class="form-control" placeholder="Індекс маси тіла">
+                        <input type="number" class="form-control"  id="body-mass-index" placeholder="Індекс маси тіла">
                     </div>
                     <div class="col">
-                                <textarea type="text" class="form-control"
+                                <textarea type="text" class="form-control" id="cardiovascular-disease"
                                           placeholder="Змінні захворювання серцево-судинної системи"></textarea>
                     </div>
                 </div>
                 <div class="col">
-                    <textarea type="text" class="form-control" placeholder="Короткі замітки"></textarea>
+                    <textarea type="text" class="form-control" id="short-text" placeholder="Короткі замітки"></textarea>
                 </div>
                 <div class="col">
                     <label for="urgently" style="text-align: center">Терміновість візита</label>
@@ -219,7 +219,7 @@
          </form>
          <div class="main-section__button-container">
             <button type="button" class="modal-login__btn-done btn  btn-success" id="close_new_visit"
-               style="margin-top: 20px; background-color: red">Закрити
+               style="margin-top: 20px; background-color: #D24B4B;">Закрити
             </button>
             <button type="button" class="modal-login__btn-done btn btn-success" id="add_new_visit_button" style="margin-top: 20px">
                 Створити
