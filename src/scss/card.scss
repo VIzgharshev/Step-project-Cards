@@ -178,3 +178,41 @@ select option {
   transform: translate(-50%, -50%);
   margin: 0;
 }
+
+.main-section__see-all-inf-header{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #6BB961;
+}
+
+.main-section__see-all-inf-span{
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #307570;
+}
+
+.main-section__see_all-info-header-text{
+  font-family: 'Montserrat', sans-serif;
+  color: #6BB961;
+  text-decoration: underline;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 34px;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.information_wrapper{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
