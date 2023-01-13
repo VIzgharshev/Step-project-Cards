@@ -174,16 +174,16 @@ class DoctorVisitModal extends Modal {
                     </div>
         `;
         document.querySelector(".main-section__cards-container").append(container)
-        container.querySelector(".trash-btn").addEventListener("click", async (e)=> {
-          let id =  container.querySelector(".main-section__svg-container").getAttribute("data-id")
+        container.querySelector(".trash-btn").addEventListener("click", async (e) => {
+            let id = container.querySelector(".main-section__svg-container").getAttribute("data-id")
             console.log(id)
-           let sendData = await fetch(`https://ajax.test-danit.com/api/v2/cards/${id}`, {
+            let sendData = await fetch(`https://ajax.test-danit.com/api/v2/cards/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${sessionStorage.getItem('token')}`
                 },
             })
-            if(sendData.status ===200){
+            if (sendData.status === 200) {
                 container.remove()
             }
         })
@@ -270,19 +270,19 @@ class DoctorVisitModal extends Modal {
 
 
 let modal = new Modal("#new-visit-form", "#btn_create_visit", "#close_new_visit")
-let doctorVisit =  new DoctorVisitModal();
+let doctorVisit = new DoctorVisitModal();
 
 
 createCardBtn.addEventListener("click", async () => {
         document.querySelector(".main-section__header-novisit").style.display = "none";
-        document.querySelector("#new-visit-form").style.display="none"
+        document.querySelector("#new-visit-form").style.display = "none"
         let div = document.createElement("div");
+        div.classList.add("main-section__card");
         let id = await doctorVisit.sendDataServer();
         let getData = await doctorVisit.getDataServer(id);
         let getJsonData = await getData.json();
         console.log(getJsonData);
-        div.classList.add("main-section__card");
-        doctorVisit.render(id, div, getJsonData.patientName, getJsonData.doctor, getJsonData.urgency);
+        doctorVisit.render(getJsonData.id, div, getJsonData.patientName, getJsonData.doctor, getJsonData.urgency);
     }
 )
 
