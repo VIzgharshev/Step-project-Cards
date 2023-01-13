@@ -25,8 +25,9 @@ doneBtnS.onclick = statusBtnsS;
 highBtnS.onclick = urgencyBtnsS;
 normalBtnS.onclick = urgencyBtnsS;
 lowBtnS.onclick = urgencyBtnsS;
-textInputS.onkeyup = test;
-searchBtnS.onclick = test2;
+
+textInputS.onkeyup = onInputEnter;
+searchBtnS.onclick = onInputBtn;
 
 openFilter.onclick = openFilterFunc;
 closeFilter.onclick = closeFilterFunc;
@@ -37,14 +38,99 @@ doneBtn.onclick = statusBtns;
 highBtn.onclick = urgencyBtns;
 normalBtn.onclick = urgencyBtns;
 lowBtn.onclick = urgencyBtns;
-textInput.onkeyup = test;
-searchBtn.onclick = test2;
 
-function test2() {
-	alert('searching...');
+textInput.onkeyup = onInputEnter;
+searchBtn.onclick = onInputBtn;
+
+//--------------------ARRAY FOR FILTERS VARIABLE
+const arrForFilter = [];
+
+
+//---------------------INPUT FILTER ON BTN
+function onInputBtn() {
+   //alert('searching...');
+   const inputValueSmallFilter = document.querySelector('#filter-text-s').value;
+   const inputValueLargeFilter = document.querySelector('#filter-text').value;
+   let inputForCheck = ''; //---------------input value for check in cicles
+
+   if (inputValueSmallFilter.length === 0) {
+      inputForCheck = String(inputValueLargeFilter);
+   } else {
+      inputForCheck = String(inputValueSmallFilter);
+   }
+
+   if (arrForFilter.length === 0) {
+      fetch('https://ajax.test-danit.com/api/v2/cards', {
+         method: 'GET',
+         headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${sessionStorage.token}`,
+         },
+      })
+         .then(resp => resp.json())
+         .then(allCard => {
+            const forRender = new DoctorVisitModal();
+
+            if (allCard.length != 0) {
+               document.querySelector(
+                  '.main-section__header-novisit'
+               ).style.display = 'none';
+            }
+
+            //-----------------check input value in context object key and render it
+            for (const card of allCard) {
+               console.log(arrForFilter);
+               for (const key in card) {
+                  let arrContext = String(card[key]).split(' ');
+                  for (const i of arrContext) {
+                     if (i === inputForCheck) {
+                        const mainContainer = document.createElement('div');
+                        mainContainer.classList.add('main-section__card');
+                        forRender.render(
+                           card.id,
+                           mainContainer,
+                           card.patientName,
+                           card.doctor,
+                           card.urgency
+                        );
+                        arrForFilter.push(card);
+                        break
+                     }
+                  }
+               }
+
+               //const mainContainer = document.createElement('div');
+               //mainContainer.classList.add('main-section__card');
+               //forRender.render(card.id, mainContainer, card.patientName, card.doctor, card.urgency);
+            }
+         });
+   } else {
+      //-----------------check input value in context object key and render it
+      for (const card of arrForFilter) {
+         console.log(arrForFilter);
+         for (const key in card) {
+            let arrContext = String(card[key]).split(' ');
+            for (const i of arrContext) {
+               if (i === inputForCheck) {
+                  const mainContainer = document.createElement('div');
+                  mainContainer.classList.add('main-section__card');
+                  forRender.render(
+                     card.id,
+                     mainContainer,
+                     card.patientName,
+                     card.doctor,
+                     card.urgency
+                  );
+                  arrForFilter.push(card);
+                  break
+               }
+            }
+         }
+      }
+   }
 }
 
-function test(e) {
+function onInputEnter(e) {
 	if (e.keyCode === 13) {
 		alert('enter works!!! searching...');
 	}
