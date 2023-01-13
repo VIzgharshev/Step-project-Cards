@@ -1,5 +1,6 @@
 let createCardBtn = document.querySelector("#add_new_visit_button");
 let createVisitBtn = document.querySelector("#btn_create_visit")
+let cardsContainer = document.querySelector(".main-section__cards-container")
 
 class Modal {
 
@@ -7,10 +8,8 @@ class Modal {
         this.modal = document.querySelector(modalSelector);
         this.showButton = document.querySelector(showButtonSelector);
         this.closeButton = document.querySelector(closeButtonSelector);
-
         this.handleShowButtonClick = this.handleShowButtonClick.bind(this);
         this.handleCloseButtonClick = this.handleCloseButtonClick.bind(this);
-
         this.showButton.addEventListener("click", this.handleShowButtonClick);
         this.closeButton.addEventListener("click", this.handleCloseButtonClick);
     }
@@ -186,13 +185,15 @@ class DoctorVisitModal extends Modal {
             if (sendData.status === 200) {
                 container.remove()
             }
+            if (!cardsContainer.firstElementChild) {
+                document.querySelector(".main-section__header-novisit").style.display = "block";
+            }
         })
     }
 
 
     async sendDataServer() {
         this.doctorValue = document.querySelector("#doctor-type-select").value
-        console.log(this.doctorValue);
         switch (this.doctorValue) {
             case "cardiolog":
                 this.sendCardData = await fetch("https://ajax.test-danit.com/api/v2/cards", {
@@ -281,10 +282,10 @@ createCardBtn.addEventListener("click", async () => {
         let id = await doctorVisit.sendDataServer();
         let getData = await doctorVisit.getDataServer(id);
         let getJsonData = await getData.json();
-        console.log(getJsonData);
         doctorVisit.render(getJsonData.id, div, getJsonData.patientName, getJsonData.doctor, getJsonData.urgency);
     }
 )
+
 
 
 
