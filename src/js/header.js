@@ -27,8 +27,8 @@ async function modalDoneBtn() {
 	const password = document.querySelector('#loginPassword').value;
 	const headerText = document.querySelector('.header__text');
 
+	//-----------------------------------------------------------------request for token and login
 	await fetch('https://ajax.test-danit.com/api/v2/cards/login', {
-		//------------------------request for token and login
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -52,8 +52,9 @@ async function modalDoneBtn() {
 			sessionStorage.setItem('token', resp);
 			return resp;
 		})
-		.then(async resp => {
-			//----------------------request for card render
+      .then(async resp => {
+         
+			//-----------------------------------------------------------request for card render
 			await fetch('https://ajax.test-danit.com/api/v2/cards', {
 				method: 'GET',
 				headers: {
@@ -65,9 +66,11 @@ async function modalDoneBtn() {
 				.then(allCard => {
 					console.log(allCard);
 					const forRender = new DoctorVisitModal();
-               if (allCard.length != 0){
-                  document.querySelector('.main-section__header-novisit').style.display = 'none';
-               }
+					if (allCard.length != 0) {
+						document.querySelector(
+							'.main-section__header-novisit'
+						).style.display = 'none';
+					}
 					for (const card of allCard) {
 						const mainContainer = document.createElement('div');
 						mainContainer.classList.add('main-section__card');
@@ -76,7 +79,7 @@ async function modalDoneBtn() {
 							mainContainer,
 							card.patientName,
 							card.doctor,
-							card.ergency
+							card.urgency,
 						);
 					}
 				});
