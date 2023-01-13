@@ -4,36 +4,161 @@
   height: 86vh;
   width: 100vw;
   background-color: #f5f5ef;
-}
 
-.main-section-container {
-  margin-top: 4vh;
-  background-color: white;
-  width: 100%;
-  height: 90%;
-  border-radius: 2%;
-  overflow: hidden;
-}
+  &-container {
+    margin-top: 4vh;
+    background-color: white;
+    width: 100%;
+    height: 90%;
+    border-radius: 2%;
+    overflow: hidden;
+  }
 
-.main-section__wrapper{
-  width: 100%;
-  height: 95%;
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: start;
-  position: relative;
-}
+  &__wrapper {
+    width: 100%;
+    height: 95%;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: start;
+    position: relative;
+  }
 
+  &__header-novisit {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    text-transform: uppercase;
+    color: #6BB961;
+  }
 
+  &__button-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
 
-.main-section__header-novisit {
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 24px;
-  text-transform: uppercase;
-  color: #6BB961;
+  &__card {
+    border-radius: 10px;
+    background: #E3F3E1;
+    max-width: 240px;
+    min-width: 230px;
+  }
+
+  &__urgency {
+    background-color: #FF8A98;
+    width: 40px;
+    height: 18px;
+    border-radius: 26px;
+  }
+
+  &__icon-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+  }
+
+  &__card-text-container {
+    padding: 0 15px;
+  }
+
+  &__card-name-doctor {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: #307570;
+    text-align: start;
+    margin: 0;
+    padding-bottom: 20px;
+    position: relative;
+    word-wrap: break-word;
+
+    &::before {
+      content: "";
+      min-width: 100px;
+      height: 1px;
+      width: 200px;
+      max-width: 208px;
+      background-color: white;
+      position: absolute;
+      top: 78%;
+    }
+  }
+
+  &__card-name-patient {
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 20px;
+    color: #307570;
+    text-align: start;
+    margin: 0;
+    padding-bottom: 12px;
+    word-wrap: break-word;
+  }
+
+  &__svg-container {
+    display: flex;
+    max-width: 75px;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+   &__cards-container {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-wrap: wrap;
+    gap: 20px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding-top: 20px;
+    scroll-behavior: smooth;
+    height: 90%;
+     width: 100%;
+  }
+  &__header-novisit {
+    position: absolute;
+    top: 50%;
+    left: 47%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+  }
+  &__see-all-inf-header {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #6BB961;
+  }
+  &__see-all-inf-span {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #307570;
+  }
+  &__see_all-info-header-text {
+    font-family: 'Montserrat', sans-serif;
+    color: #6BB961;
+    text-decoration: underline;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 34px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  &__new-visit {
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
 
 .col {
@@ -86,133 +211,14 @@ select option {
   font-size: 20px;
 }
 
-.main-section__button-container {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-
-.main-section__card{
-  border-radius: 10px;
-  background: #E3F3E1;
-  max-width: 240px;
-  min-width: 230px;
-}
-
-.main-section__urgency{
-  background-color: #FF8A98;
-  width: 40px;
-  height: 18px;
-  border-radius: 26px;
-}
-
-.main-section__icon-container{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-}
-
-.main-section__card-text-container{
-  padding: 0 15px;
-}
-
-.main-section__card-name-doctor{
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 24px;
-  color: #307570;
-  text-align: start;
-  margin: 0;
-  padding-bottom: 20px;
-  position: relative;
-  word-wrap: break-word;
-}
-.main-section__card-name-doctor::before{
-  content: "";
-  min-width: 100px;
-  height: 1px;
-  width: 200px;
-  max-width: 208px;
-  background-color: white;
-  position: absolute;
-  top: 78%;
-}
-
-.main-section__card-name-patient{
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 20px;
-  color: #307570;
-  text-align: start;
-  margin: 0;
-  padding-bottom: 12px;
-  word-wrap: break-word;
-}
-
-.main-section__svg-container{
-  display: flex;
-  max-width: 75px;
-  flex-grow: 1;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.main-section__cards-container{
- display: flex;
-  justify-content: start;
-  align-items: start;
-  flex-wrap: wrap;
-  gap:20px;
-  overflow: scroll;
-  padding-top: 20px;
-  scroll-behavior: smooth;
- height: 90%;
-}
-
-.main-section__header-novisit{
-  position: absolute;
-  top: 50%;
-  left: 47%;
-  transform: translate(-50%, -50%);
-  margin: 0;
-}
-
-.main-section__see-all-inf-header{
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 20px;
-  color: #6BB961;
-}
-
-.main-section__see-all-inf-span{
-  font-family: 'Montserrat', sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 20px;
-  color: #307570;
-}
-
-.main-section__see_all-info-header-text{
-  font-family: 'Montserrat', sans-serif;
-  color: #6BB961;
-  text-decoration: underline;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 28px;
-  line-height: 34px;
-  text-align: center;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-
-.information_wrapper{
+.information_wrapper {
   display: flex;
   flex-direction: column;
   text-align: center;
   justify-content: center;
   align-items: center;
 }
+
+
+
+
