@@ -34,9 +34,9 @@
 
    <!-- -----------------MODAL LOGIN------------------ -->
    <section
-      class="modal-login container-fluid p-0 vh-100 position-absolute top-0 start-0 bg-black bg-opacity-25 invisible"
+      class="modal-login container-fluid p-0 vh-100 d-flex align-items-center justify-content-center position-absolute top-0 start-0 bg-black bg-opacity-25 invisible"
       style="backdrop-filter: blur(3px)">
-      <div class="modal-login__form container-sm bg-white position-absolute top-50 start-50 translate-middle p-5"
+      <div class="modal-login__form container-sm bg-white p-5"
          style="width: 400px; height: 400px; border-radius: 10px;">
          <form>
             <h1 class="modal-login__text text-center mb-3">Увійти</h1>
@@ -65,22 +65,22 @@
          <!-- -----------------filter-------------------->
 
          <!-- small filter buttons -->
-         <div class="position-relative">
-         <button type="button" id="open-filter-btn" class="open-filter-btn position-absolute">
+         <div class="small-filte-btns container position-relative">
+         <button type="button" id="open-filter-btn" class="open-filter-btn position-relative ">
             <img src="/dist/img/Більше інфо-light.png" alt="#">
          </button>
-         <button type="button" id="close-filter-btn" class="close-filter-btn position-absolute invisible">
+         <button type="button" id="close-filter-btn" class="close-filter-btn position-relative invisible">
             <img src="/dist/img/close-filter-btn.png" alt="#">
          </button>
          </div>
          <!-- small filter -->
-         <div class="filter-wrapper filter-sm container-fluid position-relative ">
+         <div class="filter-wrapper filter-sm container-fluid position-relative invisible">
             <div class="filter-s container d-flex flex-column position-absolute p-2" >
 
                <div class="filter-s__one container mx-1 d-flex align-items-center position-relative p-0">
                   <label for="exampleInputEmail1" class="filter-s__lable form-label text-uppercase mt-2 me-5">по
                      змісту</label>
-                  <input type="text" class="filter-s__input form-control mx-2 ms-4" id="filter-text-s"
+                  <input type="text" class="filter-s__input form-control mx-2 ms-3" id="filter-text-s"
                      style="border-color:#6BB961; color: #307570; height: 30px;">
                   <button type="button" id="filter-serch-btn-s"
                      class="filter-s__search-btn position-absolute border-0 bg-white">
@@ -91,7 +91,7 @@
                <div class="filter-s__two container mx-1 d-flex align-items-center p-0">
                   <label for="exampleInputEmail1" class="filter-s__lable form-label text-uppercase mt-2 me-5">по
                      статусу</label>
-                  <button type="button" id="filter-open-btn-s" class="filter-s__btn me-1 ms-3">
+                  <button type="button" id="filter-open-btn-s" class="filter-s__btn me-1 ms-3 ">
                      open
                   </button>
                   <button type="button" id="filter-done-btn-s" class="filter-s__btn filter__btn--active ">
@@ -102,7 +102,7 @@
                <div class="filter-s__three container mx-1 d-flex align-items-center p-0">
                   <label for="exampleInputEmail1" class="filter-s__lable form-label text-uppercase mt-2 ">по
                      терміновості</label>
-                  <button type="button" id="filter-high-btn-s" class="filter-s__btn me-1 ms-3">
+                  <button type="button" id="filter-high-btn-s" class="filter-s__btn me-1 ms-3 ">
                      high
                   </button>
                   <button type="button" id="filter-normal-btn-s" class="filter-s__btn-lg me-1">
@@ -118,11 +118,11 @@
          <div class="filter-wrapper filter-lg container-fluid">
             <div class="filter filter-wrapper-sm container d-flex justify-content-center position-relative mt-3 p-0 " style="height: 50px;">
 
-               <div class="filter__onecontainer mx-1 d-flex justify-content-end align-items-center position-relative p-0"
+               <div class="filter__one container mx-1 d-flex justify-content-end align-items-center position-relative p-0"
                  >
                 <label for="exampleInputEmail1" class="filter__lable form-label text-uppercase mt-2 me-2">по
                     змісту</label>
-                <input type="text" class="filter__inputform-control mx-2" id="filter-text"
+                <input type="text" class="filter__input form-control mx-2" id="filter-text"
                        style="border-color:#6BB961; color: #307570;  height: 30px;">
                 <button type="button" id="filter-serch-btn"
                         class="filter__search-btn position-absolute border-0 bg-white" >
