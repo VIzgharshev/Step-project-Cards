@@ -76,7 +76,7 @@ async function modalDoneBtn() {
 							mainContainer,
 							card.patientName,
 							card.doctor,
-							card.ergency
+							card.urgency
 						);
 					}
 				});
