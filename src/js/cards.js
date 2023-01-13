@@ -261,6 +261,7 @@ let doctorVisit =  new DoctorVisitModal();
 
 createCardBtn.addEventListener("click", async () => {
         document.querySelector(".main-section__header-novisit").style.display = "none";
+        document.querySelector("#new-visit-form").style.display="none"
         let div = document.createElement("div");
         let id = await doctorVisit.sendDataServer();
         let getData = await doctorVisit.getDataServer(id);
