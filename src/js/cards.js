@@ -174,7 +174,21 @@ class DoctorVisitModal extends Modal {
                     </div>
         `;
         document.querySelector(".main-section__cards-container").append(container)
+        container.querySelector(".trash-btn").addEventListener("click", async (e)=> {
+          let id =  container.querySelector(".main-section__svg-container").getAttribute("data-id")
+            console.log(id)
+           let sendData = await fetch(`https://ajax.test-danit.com/api/v2/cards/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                },
+            })
+            if(sendData.status ===200){
+                container.remove()
+            }
+        })
     }
+
 
     async sendDataServer() {
         this.doctorValue = document.querySelector("#doctor-type-select").value
@@ -271,6 +285,7 @@ createCardBtn.addEventListener("click", async () => {
         doctorVisit.render(id, div, getJsonData.patientName, getJsonData.doctor, getJsonData.urgency);
     }
 )
+
 
 
 
