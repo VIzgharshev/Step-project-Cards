@@ -51,7 +51,7 @@ function cleanContainer(parent) {
 //--------------------ARRAY FOR FILTERS VARIABLE
 let arrForFilter = [];
 
-//-----------------------------------INPUT FILTER ON ENTER--------------------------------------------
+//-----------------------------------INPUT FILTER--------------------------------------------
 function onInputEnter(e) {
   if (e.keyCode === 13) {
     const forRender = new DoctorVisitModal();
@@ -80,7 +80,6 @@ function onInputEnter(e) {
       })
         .then((resp) => resp.json())
         .then((allCard) => {
-          const forRender = new DoctorVisitModal();
           //---------------hide title
           if (allCard.length != 0) {
             document.querySelector(
@@ -88,11 +87,13 @@ function onInputEnter(e) {
             ).style.display = 'none';
           }
           //-----------------check input value in context object key and render it
+          let arr = [];
           for (const card of allCard) {
             for (const key in card) {
               let arrContext = String(card[key]).split(' ');
+
               for (const i of arrContext) {
-                if (i === inputForCheck) {
+                if (i.toLowerCase() === inputForCheck.toLowerCase()) {
                   const mainContainer = document.createElement('div');
                   mainContainer.classList.add('main-section__card');
                   //--rendering card
@@ -104,18 +105,225 @@ function onInputEnter(e) {
                     card.urgency
                   );
                   //--forming new array for ather filters
-                  arrForFilter.push(card);
+                  arr.push(card);
+                  //arrForFilter.push(card);
                 }
               }
             }
           }
+          arrForFilter = arr;
+        });
+    } else if (inputForCheck === '') {
+      fetch('https://ajax.test-danit.com/api/v2/cards', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sessionStorage.token}`,
+        },
+      })
+        .then((resp) => resp.json())
+        .then((allCard) => {
+          //---------------hide title
+          if (allCard.length != 0) {
+            document.querySelector(
+              '.main-section__header-novisit'
+            ).style.display = 'none';
+          }
+          //-----------------check input value in context object key and render it
+          let arr = [];
+          for (const card of allCard) {
+            const mainContainer = document.createElement('div');
+            mainContainer.classList.add('main-section__card');
+            forRender.render(
+              card.id,
+              mainContainer,
+              card.patientName,
+              card.doctor,
+              card.urgency
+            );
+            arr.push(card);
+          }
+          arrForFilter = arr;
+        });
+    } else {
+      fetch('https://ajax.test-danit.com/api/v2/cards', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sessionStorage.token}`,
+        },
+      })
+        .then((resp) => resp.json())
+        .then((allCard) => {
+          //---------------hide title
+          if (allCard.length != 0) {
+            document.querySelector(
+              '.main-section__header-novisit'
+            ).style.display = 'none';
+          }
+          //-----------------check input value in context object key and render it
+          let arr = [];
+          for (const card of allCard) {
+            for (const key in card) {
+              let arrContext = String(card[key]).split(' ');
+              for (const i of arrContext) {
+                if (i.toLowerCase() === inputForCheck.toLowerCase()) {
+                  const mainContainer = document.createElement('div');
+                  mainContainer.classList.add('main-section__card');
+                  //--rendering card
+                  forRender.render(
+                    card.id,
+                    mainContainer,
+                    card.patientName,
+                    card.doctor,
+                    card.urgency
+                  );
+                  //--forming new array for ather filters
+                  arr.push(card);
+                }
+              }
+            }
+          }
+          arrForFilter = arr;
         });
     }
   }
 }
 
-//-----------------------------------INPUT FILTER ON BTN--------------------------------------------
-function onInputBtn() {}
+function onInputBtn() {
+  const forRender = new DoctorVisitModal();
+  const inputValueSmallFilter = document.querySelector('#filter-text-s').value;
+  const inputValueLargeFilter = document.querySelector('#filter-text').value;
+  let inputForCheck = '';
+
+  //---------------getiing value for cicles
+  if (inputValueSmallFilter.length === 0) {
+    inputForCheck = String(inputValueLargeFilter);
+  } else {
+    inputForCheck = String(inputValueSmallFilter);
+  }
+  //----------------clean '.main-section__cards-container'
+  cleanContainer(document.querySelector('.main-section__cards-container'));
+
+  //----------------CHECKING...
+  if (arrForFilter.length === 0) {
+    fetch('https://ajax.test-danit.com/api/v2/cards', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.token}`,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((allCard) => {
+        //---------------hide title
+        if (allCard.length != 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'none';
+        }
+        //-----------------check input value in context object key and render it
+        let arr = [];
+        for (const card of allCard) {
+          for (const key in card) {
+            let arrContext = String(card[key]).split(' ');
+
+            for (const i of arrContext) {
+              if (i.toLowerCase() === inputForCheck.toLowerCase()) {
+                const mainContainer = document.createElement('div');
+                mainContainer.classList.add('main-section__card');
+                //--rendering card
+                forRender.render(
+                  card.id,
+                  mainContainer,
+                  card.patientName,
+                  card.doctor,
+                  card.urgency
+                );
+                //--forming new array for ather filters
+                arr.push(card);
+                //arrForFilter.push(card);
+              }
+            }
+          }
+        }
+        arrForFilter = arr;
+      });
+  } else if (inputForCheck === '') {
+    fetch('https://ajax.test-danit.com/api/v2/cards', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.token}`,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((allCard) => {
+        //---------------hide title
+        if (allCard.length != 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'none';
+        }
+        //-----------------check input value in context object key and render it
+        let arr = [];
+        for (const card of allCard) {
+          const mainContainer = document.createElement('div');
+          mainContainer.classList.add('main-section__card');
+          forRender.render(
+            card.id,
+            mainContainer,
+            card.patientName,
+            card.doctor,
+            card.urgency
+          );
+          arr.push(card);
+        }
+        arrForFilter = arr;
+      });
+  } else {
+    fetch('https://ajax.test-danit.com/api/v2/cards', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.token}`,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((allCard) => {
+        //---------------hide title
+        if (allCard.length != 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'none';
+        }
+        //-----------------check input value in context object key and render it
+        let arr = [];
+        for (const card of allCard) {
+          for (const key in card) {
+            let arrContext = String(card[key]).split(' ');
+            for (const i of arrContext) {
+              if (i.toLowerCase() === inputForCheck.toLowerCase()) {
+                const mainContainer = document.createElement('div');
+                mainContainer.classList.add('main-section__card');
+                //--rendering card
+                forRender.render(
+                  card.id,
+                  mainContainer,
+                  card.patientName,
+                  card.doctor,
+                  card.urgency
+                );
+                //--forming new array for ather filters
+                arr.push(card);
+              }
+            }
+          }
+        }
+        arrForFilter = arr;
+      });
+  }
+}
 
 //------------small filter function-----------
 function openFilterFunc() {
@@ -142,16 +350,151 @@ function statusBtnsS(e) {
 }
 
 function urgencyBtnsS(e) {
-  e.target.classList.add('filter-s__btn--active');
+  e.target.classList.add('filter__btn--active');
+  openBtn.classList.remove('filter__btn--active');
+  openBtnS.classList.remove('filter__btn--active');
+  doneBtn.classList.remove('filter__btn--active');
+  doneBtnS.classList.remove('filter__btn--active');
+
   if (e.target === highBtnS) {
     normalBtnS.classList.remove('filter-s__btn--active');
     lowBtnS.classList.remove('filter-s__btn--active');
+
+
+    const forRender = new DoctorVisitModal();
+
+    //----------------clean '.main-section__cards-container'
+    cleanContainer(document.querySelector('.main-section__cards-container'));
+
+    //----------------CHECKING...
+    fetch('https://ajax.test-danit.com/api/v2/cards', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.token}`,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((allCard) => {
+        //---------------hide title
+        if (allCard.length != 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'none';
+        }
+        //-----------------check input value in context object key and render it
+        let arr = [];
+        for (const card of allCard) {
+          if (card.urgency === 'high') {
+            const mainContainer = document.createElement('div');
+            mainContainer.classList.add('main-section__card');
+            //--rendering card
+            forRender.render(
+              card.id,
+              mainContainer,
+              card.patientName,
+              card.doctor,
+              card.urgency
+            );
+            //--forming new array for ather filters
+            arr.push(card);
+          }
+        }
+        arrForFilter = arr;
+      });
+
   } else if (e.target === normalBtnS) {
     highBtnS.classList.remove('filter-s__btn--active');
     lowBtnS.classList.remove('filter-s__btn--active');
+
+    const forRender = new DoctorVisitModal();
+
+    //----------------clean '.main-section__cards-container'
+    cleanContainer(document.querySelector('.main-section__cards-container'));
+
+    //----------------CHECKING...
+    fetch('https://ajax.test-danit.com/api/v2/cards', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.token}`,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((allCard) => {
+        //---------------hide title
+        if (allCard.length != 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'none';
+        }
+        //-----------------check input value in context object key and render it
+        let arr = [];
+        for (const card of allCard) {
+          if (card.urgency === 'Normal') {
+            const mainContainer = document.createElement('div');
+            mainContainer.classList.add('main-section__card');
+            //--rendering card
+            forRender.render(
+              card.id,
+              mainContainer,
+              card.patientName,
+              card.doctor,
+              card.urgency
+            );
+            //--forming new array for ather filters
+            arr.push(card);
+          }
+        }
+        arrForFilter = arr;
+      });
+
   } else {
     highBtnS.classList.remove('filter-s__btn--active');
     normalBtnS.classList.remove('filter-s__btn--active');
+
+    const forRender = new DoctorVisitModal();
+
+    //----------------clean '.main-section__cards-container'
+    cleanContainer(document.querySelector('.main-section__cards-container'));
+
+    //----------------CHECKING...
+    fetch('https://ajax.test-danit.com/api/v2/cards', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.token}`,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((allCard) => {
+        //---------------hide title
+        if (allCard.length != 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'none';
+        }
+        //-----------------check input value in context object key and render it
+        let arr = [];
+        for (const card of allCard) {
+          if (card.urgency === 'Low') {
+            const mainContainer = document.createElement('div');
+            mainContainer.classList.add('main-section__card');
+            //--rendering card
+            forRender.render(
+              card.id,
+              mainContainer,
+              card.patientName,
+              card.doctor,
+              card.urgency
+            );
+            //--forming new array for ather filters
+            arr.push(card);
+          }
+        }
+        arrForFilter = arr;
+      });
+
   }
 }
 
@@ -167,14 +510,294 @@ function statusBtns(e) {
 
 function urgencyBtns(e) {
   e.target.classList.add('filter__btn--active');
+  openBtn.classList.remove('filter__btn--active');
+  openBtnS.classList.remove('filter__btn--active');
+  doneBtn.classList.remove('filter__btn--active');
+  doneBtnS.classList.remove('filter__btn--active');
+
   if (e.target === highBtn) {
     normalBtn.classList.remove('filter__btn--active');
     lowBtn.classList.remove('filter__btn--active');
+
+    const forRender = new DoctorVisitModal();
+
+    //----------------clean '.main-section__cards-container'
+    cleanContainer(document.querySelector('.main-section__cards-container'));
+
+    //----------------CHECKING...
+    fetch('https://ajax.test-danit.com/api/v2/cards', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.token}`,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((allCard) => {
+        //---------------hide title
+        if (allCard.length != 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'none';
+        }
+        //-----------------check input value in context object key and render it
+        let arr = [];
+        for (const card of allCard) {
+          if (card.urgency === 'high') {
+            const mainContainer = document.createElement('div');
+            mainContainer.classList.add('main-section__card');
+            //--rendering card
+            forRender.render(
+              card.id,
+              mainContainer,
+              card.patientName,
+              card.doctor,
+              card.urgency
+            );
+            //--forming new array for ather filters
+            arr.push(card);
+          }
+        }
+        arrForFilter = arr;
+      });
   } else if (e.target === normalBtn) {
     highBtn.classList.remove('filter__btn--active');
     lowBtn.classList.remove('filter__btn--active');
+
+    const forRender = new DoctorVisitModal();
+
+    //----------------clean '.main-section__cards-container'
+    cleanContainer(document.querySelector('.main-section__cards-container'));
+
+    //----------------CHECKING...
+    fetch('https://ajax.test-danit.com/api/v2/cards', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.token}`,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((allCard) => {
+        //---------------hide title
+        if (allCard.length != 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'none';
+        }
+        //-----------------check input value in context object key and render it
+        let arr = [];
+        for (const card of allCard) {
+          if (card.urgency === 'Normal') {
+            const mainContainer = document.createElement('div');
+            mainContainer.classList.add('main-section__card');
+            //--rendering card
+            forRender.render(
+              card.id,
+              mainContainer,
+              card.patientName,
+              card.doctor,
+              card.urgency
+            );
+            //--forming new array for ather filters
+            arr.push(card);
+          }
+        }
+        arrForFilter = arr;
+      });
   } else {
     highBtn.classList.remove('filter__btn--active');
     normalBtn.classList.remove('filter__btn--active');
+
+    const forRender = new DoctorVisitModal();
+
+    //----------------clean '.main-section__cards-container'
+    cleanContainer(document.querySelector('.main-section__cards-container'));
+
+    //----------------CHECKING...
+    fetch('https://ajax.test-danit.com/api/v2/cards', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.token}`,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((allCard) => {
+        //---------------hide title
+        if (allCard.length != 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'none';
+        }
+        //-----------------check input value in context object key and render it
+        let arr = [];
+        for (const card of allCard) {
+          if (card.urgency === 'Low') {
+            const mainContainer = document.createElement('div');
+            mainContainer.classList.add('main-section__card');
+            //--rendering card
+            forRender.render(
+              card.id,
+              mainContainer,
+              card.patientName,
+              card.doctor,
+              card.urgency
+            );
+            //--forming new array for ather filters
+            arr.push(card);
+          }
+        }
+        arrForFilter = arr;
+      });
   }
+
+  //if (
+  //  e.target === highBtn &&
+  //  e.target.classList.contains('filter__btn--active') === false
+  //) {
+  //  e.target.classList.add('filter__btn--active');
+  //  normalBtn.classList.remove('filter__btn--active');
+  //  lowBtn.classList.remove('filter__btn--active');
+
+  //  const forRender = new DoctorVisitModal();
+
+  //  //----------------clean '.main-section__cards-container'
+  //  cleanContainer(document.querySelector('.main-section__cards-container'));
+
+  //  //----------------CHECKING...
+  //  if (arrForFilter.length === 0) {
+  //    fetch('https://ajax.test-danit.com/api/v2/cards', {
+  //      method: 'GET',
+  //      headers: {
+  //        'Content-Type': 'application/json',
+  //        Authorization: `Bearer ${sessionStorage.token}`,
+  //      },
+  //    })
+  //      .then((resp) => resp.json())
+  //      .then((allCard) => {
+  //        //---------------hide title
+  //        if (allCard.length != 0) {
+  //          document.querySelector(
+  //            '.main-section__header-novisit'
+  //          ).style.display = 'none';
+  //        }
+  //        //-----------------check input value in context object key and render it
+  //        let arr = [];
+  //        for (const card of allCard) {
+  //          if (card.urgency === 'high') {
+  //            const mainContainer = document.createElement('div');
+  //            mainContainer.classList.add('main-section__card');
+  //            //--rendering card
+  //            forRender.render(
+  //              card.id,
+  //              mainContainer,
+  //              card.patientName,
+  //              card.doctor,
+  //              card.urgency
+  //            );
+  //            //--forming new array for ather filters
+  //            arr.push(card);
+  //          }
+  //        }
+  //        arrForFilter = arr;
+  //      });
+  //  } else {
+  //    //---------------hide title
+  //    if (arrForFilter.length != 0) {
+  //      document.querySelector('.main-section__header-novisit').style.display =
+  //        'none';
+  //    }
+  //    //-----------------check input value in context object key and render it
+  //    let arr = [];
+  //    for (const card of arrForFilter) {
+  //      if (card.urgency === 'high') {
+  //        const mainContainer = document.createElement('div');
+  //        mainContainer.classList.add('main-section__card');
+  //        //--rendering card
+  //        forRender.render(
+  //          card.id,
+  //          mainContainer,
+  //          card.patientName,
+  //          card.doctor,
+  //          card.urgency
+  //        );
+  //        //--forming new array for ather filters
+  //        arr.push(card);
+  //      }
+  //    }
+  //    arrForFilter = arr;
+  //  }
+
+  //} else if (
+  //  e.target === highBtn &&
+  //  e.target.classList.contains('filter__btn--active') === true
+  //) {
+  //  e.target.classList.remove('filter__btn--active');
+
+  //      const forRender = new DoctorVisitModal();
+
+  //      //----------------clean '.main-section__cards-container'
+  //      cleanContainer(
+  //        document.querySelector('.main-section__cards-container')
+  //      );
+
+  //  fetch('https://ajax.test-danit.com/api/v2/cards', {
+  //    method: 'GET',
+  //    headers: {
+  //      'Content-Type': 'application/json',
+  //      Authorization: `Bearer ${sessionStorage.token}`,
+  //    },
+  //  })
+  //    .then((resp) => resp.json())
+  //    .then((allCard) => {
+  //      //---------------hide title
+  //      if (allCard.length != 0) {
+  //        document.querySelector(
+  //          '.main-section__header-novisit'
+  //        ).style.display = 'none';
+  //      }
+  //      //-----------------check input value in context object key and render it
+  //      let arr = [];
+  //      for (const card of allCard) {
+  //        if (card.urgency === 'high') {
+  //          const mainContainer = document.createElement('div');
+  //          mainContainer.classList.add('main-section__card');
+  //          //--rendering card
+  //          forRender.render(
+  //            card.id,
+  //            mainContainer,
+  //            card.patientName,
+  //            card.doctor,
+  //            card.urgency
+  //          );
+  //          //--forming new array for ather filters
+  //          arr.push(card);
+  //        }
+  //      }
+  //      arrForFilter = arr;
+  //    });
+  //} else if (
+  //  e.target === normalBtn &&
+  //  e.target.classList.contains('filter__btn--active') === false
+  //) {
+  //  highBtn.classList.remove('filter__btn--active');
+  //  lowBtn.classList.remove('filter__btn--active');
+  //} else if (
+  //  e.target === normalBtn &&
+  //  e.target.classList.contains('filter__btn--active') === true
+  //) {
+  //  e.target.classList.remove('filter__btn--active');
+  //} else if (
+  //  e.target === lowBtn &&
+  //  e.target.classList.contains('filter__btn--active') === false
+  //) {
+  //  highBtn.classList.remove('filter__btn--active');
+  //  normalBtn.classList.remove('filter__btn--active');
+  //} else if (
+  //  e.target === lowBtn &&
+  //  e.target.classList.contains('filter__btn--active') === true
+  //) {
+  //  e.target.classList.remove('filter__btn--active');
+  //}
 }
