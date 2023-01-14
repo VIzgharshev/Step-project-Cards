@@ -64,20 +64,11 @@ async function modalDoneBtn() {
 				.then(resp => resp.json())
 				.then(allCard => {
 					console.log(allCard);
-					const forRender = new DoctorVisitModal();
                if (allCard.length != 0){
                   document.querySelector('.main-section__header-novisit').style.display = 'none';
                }
 					for (const card of allCard) {
-						const mainContainer = document.createElement('div');
-						mainContainer.classList.add('main-section__card');
-						forRender.render(
-							card.id,
-							mainContainer,
-							card.patientName,
-							card.doctor,
-							card.urgency
-						);
+						cardsController.addCard(card);
 					}
 				});
 		});

@@ -1,7 +1,3 @@
-let createCardBtn = document.querySelector("#add_new_visit_button");
-let createVisitBtn = document.querySelector("#btn_create_visit")
-let cardsContainer = document.querySelector(".main-section__cards-container")
-
 class Modal {
 
     constructor(modalSelector, showButtonSelector, closeButtonSelector) {
@@ -35,33 +31,27 @@ class DoctorVisitModal extends Modal {
 
     constructor(onModalFormSubmit) {
         super("#new-visit-form", "#btn_create_visit", "#close_new_visit");
-        this.onModalFormSubmit = onModalFormSubmit;
-        this.form = this.modal.querySelector("form");
+        this.addNewVisitBtn = document.querySelector("#add_new_visit_button");
+        this.newVisitForm = document.querySelector("#new-visit-form");
         this.doctorSelect = this.modal.querySelector("#doctor-type-select");
         this.optionalInputs = this.modal.querySelector(".optional-inputs");
         this.changeDoctorType = this.changeDoctorType.bind(this);
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
-        this.addNewVisitBtn = document.querySelector("#add_new_visit_button");
+        this.addNewVisitBtn.addEventListener("click", async () => {
+            this.newVisitForm.style.display = "none";
+            onModalFormSubmit(await this.sendDataServer());
+        });
     }
 
     handleShowButtonClick(event) {
         super.handleShowButtonClick(event);
         this.doctorSelect.addEventListener("change", this.changeDoctorType);
-        this.form.addEventListener("submit", this.handleFormSubmit);
     }
 
     handleCloseButtonClick(event) {
         super.handleCloseButtonClick(event);
         this.doctorSelect.removeEventListener("change", this.changeDoctorType);
-        this.form.removeEventListener("submit", this.handleFormSubmit);
         this.setCardiologInputs();
         this.doctorSelect.value = "cardiolog";
-    }
-
-    handleFormSubmit(event) {
-        console.log(event);
-        const data = event;
-        this.onModalFormSubmit(data);
     }
 
     changeDoctorType(event) {
@@ -114,20 +104,98 @@ class DoctorVisitModal extends Modal {
         `;
     }
 
+    getDoctorVisitData() {
+        switch (this.doctorSelect.value) {
+            case "cardiolog":
+                return new VisitCardiologist();
+            case "stomatolog":
+                return new VisitDentist();
+            case "terapevt":
+                return new VisitTherapist();
+        }
+    }
 
-    render(id, container, PatientName, doctor, urgently) {
-        container.innerHTML = `
-         <div class="main-section__icon-container">
-                        <div class="main-section__urgency" style=background-color:${(function (urgently) {
-            if (urgently === "Low") {
-                return "#8AE3FF";
-            } else if (urgently === "Normal") {
-                return "#FDFF8A";
-            } else if (urgently === "High") {
-                return "#FF8A98";
+    async sendDataServer() {
+        let sendCardData = await fetch("https://ajax.test-danit.com/api/v2/cards", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            },
+            body: JSON.stringify(this.getDoctorVisitData()),
+        })
+        return await sendCardData.json()
+    }
+}
+
+class Card {
+
+    constructor({ id, patientName, doctor, urgency }, callbacks) {
+        this.cardWrapper = null;
+        this.cardContainer = null;
+        this.headerNovisit = null;
+        this.id = id;
+        this.patientName = patientName;
+        this.doctor = doctor;
+        this.urgency = urgency;
+        this.callbacks = callbacks;
+    }
+
+    get urgencyColor() {
+        if (this.urgency === "Low") {
+            return "#8AE3FF";
+        } else if (this.urgency === "Normal") {
+            return "#FDFF8A";
+        } else if (this.urgency === "High") {
+            return "#FF8A98";
+        }
+    }
+
+    get doctorLabel() {
+        if (this.doctor === "cardiolog") {
+            return "Кардиолог";
+        } else if (this.doctor === "stomatolog") {
+            return "Стоматолог";
+        } else if (this.doctor === "terapevt") {
+            return "Терапевт";
+        }
+    }
+
+    get patientNameOrPlaceholder() {
+        if (this.patientName) {
+            return this.patientName;
+        }
+        return "ім'я пацієнта не вказане";
+    }
+
+    addOnDeleteListener() {
+        this.cardWrapper.querySelector(".trash-btn").addEventListener("click", async () => {
+            let sendData = await fetch(`https://ajax.test-danit.com/api/v2/cards/${this.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                },
+            })
+            if (sendData.status === 200) {
+                this.cardWrapper.remove();
             }
-        })(urgently)}></div>
-                        <div class="main-section__svg-container" data-id="${id}">
+            if (!this.cardContainer.firstElementChild) {
+                this.headerNovisit.style.display = "block";
+            }
+            this.callbacks.onCardDelete();
+        })
+    }
+
+    render(container) {
+        this.cardContainer = container;
+        this.headerNovisit = this.cardContainer.parentNode.querySelector(".main-section__header-novisit");
+        this.cardWrapper = document.createElement("div");
+        this.cardWrapper.classList.add("main-section__card");
+        this.cardWrapper.innerHTML = `
+            <div class="main-section__card">
+                <div class="main-section__icon-container">
+                        <div class="main-section__urgency" style="background-color:${this.urgencyColor};"></div>
+                        <div class="main-section__svg-container">
                             <a href="#" class="editing-btn">
                             <svg width="20px" height="20px" viewBox="0 0 20 19" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -153,140 +221,81 @@ class DoctorVisitModal extends Modal {
                     </div>
                     <div class="main-section__card-text-container">
                         <h2 class="main-section__card-name-doctor">
-                            Лікар: ${(function (doctor) {
-            if (doctor === "cardiolog") {
-                return "Кардиолог";
-            } else if (doctor === "stomatolog") {
-                return "Стоматолог";
-            } else if (doctor === "terapevt") {
-                return "Терапевт";
-            }
-        })(doctor)}
+                            Лікар: ${this.doctorLabel}
                         </h2>
-                        <p class="main-section__card-name-patient">Пацієнт: ${(function (PatientName) {
-            if (PatientName === "") {
-                return "ім'я пацієнта не вказане";
-            } else {
-                return PatientName
-            }
-        })(PatientName)}</p>
+                        <p class="main-section__card-name-patient">Пацієнт: ${this.patientNameOrPlaceholder}</p>
                     </div>
+            </div>
         `;
-        document.querySelector(".main-section__cards-container").append(container)
-        container.querySelector(".trash-btn").addEventListener("click", async (e) => {
-            let id = container.querySelector(".main-section__svg-container").getAttribute("data-id")
-            console.log(id)
-            let sendData = await fetch(`https://ajax.test-danit.com/api/v2/cards/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-                },
-            })
-            if (sendData.status === 200) {
-                container.remove()
-            }
-            if (!cardsContainer.firstElementChild) {
-                document.querySelector(".main-section__header-novisit").style.display = "block";
-            }
-        })
-    }
-
-
-    async sendDataServer() {
-        this.doctorValue = document.querySelector("#doctor-type-select").value
-        switch (this.doctorValue) {
-            case "cardiolog":
-                this.sendCardData = await fetch("https://ajax.test-danit.com/api/v2/cards", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-                    },
-                    body: JSON.stringify({
-                        doctor: 'cardiolog',
-                        patientName: `${document.querySelector("#patient_name").value}`,
-                        title: `${document.querySelector("#visit-propose").value}`,
-                        age: `${document.querySelector("#user-age-cardiolog").value}`,
-                        normalPressure: `${document.querySelector("#normal-pressure").value}`,
-                        bodyMassIndex: `${document.querySelector("#body-mass-index").value}`,
-                        cardiovascularDisease: `${document.querySelector("#cardiovascular-disease").value}`,
-                        description: `${document.querySelector("#short-text").value}`,
-                        urgency: `${document.querySelector("#urgently").value}`,
-                    })
-                })
-                this.jsonDataReturn = await this.sendCardData.json()
-                this.cardId = this.jsonDataReturn.id
-                return this.cardId
-            case "stomatolog":
-                this.sendCardData = await fetch("https://ajax.test-danit.com/api/v2/cards", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-                    },
-                    body: JSON.stringify({
-                        doctor: 'stomatolog',
-                        patientName: `${document.querySelector("#patient_name").value}`,
-                        title: `${document.querySelector("#visit-propose").value}`,
-                        date: `${this.optionalInputs.querySelector("#date-visit").value}`,
-                        description: `${document.querySelector("#short-text").value}`,
-                        urgency: `${document.querySelector("#urgently").value}`,
-                    })
-                })
-                this.jsonDataReturn = await this.sendCardData.json()
-                this.cardId = this.jsonDataReturn.id
-                return this.cardId
-            case "terapevt":
-                this.sendCardData = await fetch("https://ajax.test-danit.com/api/v2/cards", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-                    },
-                    body: JSON.stringify({
-                        doctor: 'terapevt',
-                        patientName: `${document.querySelector("#patient_name").value}`,
-                        title: `${document.querySelector("#visit-propose").value}`,
-                        age: `${this.optionalInputs.querySelector("#user-age-terapevt").value}`,
-                        description: `${document.querySelector("#short-text").value}`,
-                        urgency: `${document.querySelector("#urgently").value}`,
-                    })
-                })
-                this.jsonDataReturn = await this.sendCardData.json()
-                this.cardId = this.jsonDataReturn.id
-                return this.cardId
+        this.cardContainer.append(this.cardWrapper);
+        this.addOnDeleteListener();
+        if (this.headerNovisit.style.display === "block") {
+            this.headerNovisit.style.display = "none";
         }
-    }
-
-    async getDataServer(id) {
-        return this.sendCardData = await fetch(`https://ajax.test-danit.com/api/v2/cards/${id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-            },
-        })
     }
 }
 
+class Visit {
 
-let modal = new Modal("#new-visit-form", "#btn_create_visit", "#close_new_visit")
-let doctorVisit = new DoctorVisitModal();
-
-
-createCardBtn.addEventListener("click", async () => {
-        document.querySelector(".main-section__header-novisit").style.display = "none";
-        document.querySelector("#new-visit-form").style.display = "none"
-        let div = document.createElement("div");
-        div.classList.add("main-section__card");
-        let id = await doctorVisit.sendDataServer();
-        let getData = await doctorVisit.getDataServer(id);
-        let getJsonData = await getData.json();
-        doctorVisit.render(getJsonData.id, div, getJsonData.patientName, getJsonData.doctor, getJsonData.urgency);
+    constructor() {
+        this.title = document.querySelector("#visit-propose").value;
+        this.description = document.querySelector("#short-text").value;
+        this.urgency = document.querySelector("#urgently").value;
+        this.patientName = document.querySelector("#patient_name").value;
     }
-)
 
+}
 
+class VisitDentist extends Visit {
 
+    constructor() {
+        super();
+        this.doctor = 'stomatolog';
+        this.date = document.querySelector("#date-visit").value;
+    }
 
+}
 
+class VisitCardiologist extends Visit {
+
+    constructor() {
+        super();
+        this.doctor = 'cardiolog';
+        this.age = document.querySelector("#user-age-cardiolog").value;
+        this.normalPressure = document.querySelector("#normal-pressure").value;
+        this.bodyMassIndex = document.querySelector("#body-mass-index").value;
+        this.cardiovascularDisease = document.querySelector("#cardiovascular-disease").value;
+    }
+
+}
+
+class VisitTherapist extends Visit {
+
+    constructor() {
+        super();
+        this.doctor = 'terapevt';
+        this.age = document.querySelector("#user-age-terapevt").value;
+    }
+
+}
+
+class CardsController {
+
+    constructor() {
+        this.cards = [];
+        this.doctorVisitModal = new DoctorVisitModal((cardData) => this.addCard(cardData));
+    }
+
+    addCard(mewCardData, container = document.querySelector(".main-section__cards-container")) {
+        let card = new Card(mewCardData, {
+            onCardDelete: () => {
+                this.cards = this.cards.filter((card) => card.id !== mewCardData.id);
+            },
+        });
+        card.render(container);
+        this.cards.push(card);
+    }
+
+}
+
+let cardsController = new CardsController();
