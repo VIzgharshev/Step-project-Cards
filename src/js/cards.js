@@ -286,10 +286,10 @@ class CardsController {
         this.doctorVisitModal = new DoctorVisitModal((cardData) => this.addCard(cardData));
     }
 
-    addCard(mewCardData, container = document.querySelector(".main-section__cards-container")) {
-        let card = new Card(mewCardData, {
+    addCard(newCardData, container = document.querySelector(".main-section__cards-container")) {
+        let card = new Card(newCardData, {
             onCardDelete: () => {
-                this.cards = this.cards.filter((card) => card.id !== mewCardData.id);
+                this.cards = this.cards.filter((card) => card.id !== newCardData.id);
             },
         });
         card.render(container);
