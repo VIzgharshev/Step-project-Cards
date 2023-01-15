@@ -71,6 +71,7 @@ class DoctorVisitModal extends Modal {
         }
     }
 
+
     setCardiologInputs() {
         this.optionalInputs.innerHTML = `
             <div class="col">
@@ -130,15 +131,16 @@ class DoctorVisitModal extends Modal {
 
 class Card {
 
-    constructor({ id, patientName, doctor, urgency }, callbacks) {
+    constructor(data, onCardDelete) {
         this.cardWrapper = null;
         this.cardContainer = null;
         this.headerNovisit = null;
-        this.id = id;
-        this.patientName = patientName;
-        this.doctor = doctor;
-        this.urgency = urgency;
-        this.callbacks = callbacks;
+        this.cardData = data;
+        this.id = data.id;
+        this.patientName = data.patientName;
+        this.doctor = data.doctor;
+        this.urgency = data.urgency;
+        this.onCardDelete = onCardDelete;
     }
 
     get urgencyColor() {
@@ -182,8 +184,27 @@ class Card {
             if (!this.cardContainer.firstElementChild) {
                 this.headerNovisit.style.display = "block";
             }
-            this.callbacks.onCardDelete();
+            this.onCardDelete();
         })
+    }
+
+    addEditingListener() {
+        this.cardWrapper.querySelector(".editing-btn").addEventListener("click", () => {
+            // ???
+        });
+    }
+
+    addViewingListener() {
+        this.cardWrapper.querySelector(".viewing-btn").addEventListener("click", async () => {
+            let modalContainer = document.createElement("div");
+            if (this.doctor === "cardiolog") {
+                await new VisitCardiologist(this.cardData).showInfoModal(modalContainer)
+            } else if (this.doctor === "stomatolog") {
+                await new VisitDentist(this.cardData).showInfoModal(modalContainer)
+            } else if (this.doctor === "terapevt") {
+                await new VisitTherapist(this.cardData).showInfoModal(modalContainer)
+            }
+        });
     }
 
     render(container) {
@@ -229,6 +250,8 @@ class Card {
         `;
         this.cardContainer.append(this.cardWrapper);
         this.addOnDeleteListener();
+        this.addEditingListener();
+        this.addViewingListener();
         if (this.headerNovisit.style.display === "block") {
             this.headerNovisit.style.display = "none";
         }
@@ -237,44 +260,154 @@ class Card {
 
 class Visit {
 
-    constructor() {
-        this.title = document.querySelector("#visit-propose").value;
-        this.description = document.querySelector("#short-text").value;
-        this.urgency = document.querySelector("#urgently").value;
-        this.patientName = document.querySelector("#patient_name").value;
+    constructor(data) {
+        if (data) {
+            this.title = data.title;
+            this.description = data.description;
+            this.urgency = data.urgency;
+            this.patientName = data.patientName;
+        } else {
+            this.title = document.querySelector("#visit-propose").value;
+            this.description = document.querySelector("#short-text").value;
+            this.urgency = document.querySelector("#urgently").value;
+            this.patientName = document.querySelector("#patient_name").value;
+        }
     }
 
 }
 
 class VisitDentist extends Visit {
 
-    constructor() {
-        super();
+    constructor(data) {
+        super(data);
         this.doctor = 'stomatolog';
-        this.date = document.querySelector("#date-visit").value;
+        if (data) {
+            this.date = data.date;
+        } else {
+            this.date = document.querySelector("#date-visit").value;
+        }
+    }
+
+    showInfoModal(container) {
+        container.innerHTML = `
+                  <div class="modal-login container-fluid p-0 vh-100 position-fixed top-0 start-0 bg-black bg-opacity-25"
+        style="backdrop-filter: blur(3px); overflow: hidden;" id="modal-login">
+       <div class="main-section__new-visit container-sm bg-white position-absolute top-50 start-50 translate-middle p-4"
+            style="border-radius:10px; width: 40vw; overflow: scroll; max-height: 90%">
+           <div class="information_wrapper">
+           <h2 class="main-section__see_all-info-header-text">інфорамція візита</h2>
+           <div>
+               <h5 class="main-section__see-all-inf-header">Лікар: <span class="main-section__see-all-inf-span">Стоматолог</span></h5>
+               <h5 class="main-section__see-all-inf-header">ФІО пацієнта: <span class="main-section__see-all-inf-span">${this.patientName}</span></h5>
+               <h5 class="main-section__see-all-inf-header">Ціль візита: <span class="main-section__see-all-inf-span">${this.description}</span></h5>
+               <h5 class="main-section__see-all-inf-header">Короткі замітки: <span class="main-section__see-all-inf-span">${this.title}</span></h5>
+               <h5 class="main-section__see-all-inf-header">Терміновість візита: <span class="main-section__see-all-inf-span">${this.urgency}</span></h5>
+               <h5 class="main-section__see-all-inf-header">Вік: <span class="main-section__see-all-inf-span">${this.age}</span></h5>
+               <h5 class="main-section__see-all-inf-header">Дата візиту: <span class="main-section__see-all-inf-span">${this.date}</span></h5>
+           </div>
+           <button type="button" class="modal-login__btn-done btn btn-success" id="close_inform_popup" style="margin-top: 20px">
+               ГОТОВО
+           </button>
+           </div>
+       </div>
+       </div> `
+        container.querySelector("#close_inform_popup").addEventListener("click", () => {
+            container.remove()
+        })
+        document.body.append(container)
     }
 
 }
 
 class VisitCardiologist extends Visit {
 
-    constructor() {
-        super();
+    constructor(data) {
+        super(data);
         this.doctor = 'cardiolog';
-        this.age = document.querySelector("#user-age-cardiolog").value;
-        this.normalPressure = document.querySelector("#normal-pressure").value;
-        this.bodyMassIndex = document.querySelector("#body-mass-index").value;
-        this.cardiovascularDisease = document.querySelector("#cardiovascular-disease").value;
+        if (data) {
+            this.age = data.age;
+            this.normalPressure = data.normalPressure;
+            this.bodyMassIndex = data.bodyMassIndex;
+            this.cardiovascularDisease = data.cardiovascularDisease;
+        } else {
+            this.age = document.querySelector("#user-age-cardiolog").value;
+            this.normalPressure = document.querySelector("#normal-pressure").value;
+            this.bodyMassIndex = document.querySelector("#body-mass-index").value;
+            this.cardiovascularDisease = document.querySelector("#cardiovascular-disease").value;
+        }
+    }
+
+    async showInfoModal(container) {
+        container.innerHTML = `
+                  <div class="modal-login container-fluid p-0 vh-100 position-fixed top-0 start-0 bg-black bg-opacity-25"
+        style="backdrop-filter: blur(3px); overflow: hidden;" id="modal-login">
+       <div class="main-section__new-visit container-sm bg-white position-absolute top-50 start-50 translate-middle p-4"
+            style="border-radius:10px; width: 40vw; overflow: scroll; max-height: 90%">
+           <div class="information_wrapper">
+           <h2 class="main-section__see_all-info-header-text">інфорамція візита</h2>
+           <div>
+               <h5 class="main-section__see-all-inf-header">Лікар: <span class="main-section__see-all-inf-span">Кардиолог</span></h5>
+               <h5 class="main-section__see-all-inf-header">ФІО пацієнта: <span class="main-section__see-all-inf-span">${this.patientName}</span></h5>
+               <h5 class="main-section__see-all-inf-header">Ціль візита: <span class="main-section__see-all-inf-span">${this.description}</span></h5>
+               <h5 class="main-section__see-all-inf-header">Короткі замітки: <span class="main-section__see-all-inf-span">${this.title}</span></h5>
+               <h5 class="main-section__see-all-inf-header">Терміновість візита: <span class="main-section__see-all-inf-span">${this.urgency}</span></h5>
+               <h5 class="main-section__see-all-inf-header">Вік: <span class="main-section__see-all-inf-span">${this.age}</span></h5>
+              <h5 class="main-section__see-all-inf-header">Звичайний тиск: <span class="main-section__see-all-inf-span">${this.normalPressure}</span></h5>
+               <h5 class="main-section__see-all-inf-header">Індекс маси тіла: <span class="main-section__see-all-inf-span">${this.bodyMassIndex}</span></h5>
+               <h5 class="main-section__see-all-inf-header">Змінні захворювання серцево-судинної системи: <span class="main-section__see-all-inf-span">${this.cardiovascularDisease}</span></h5>
+           </div>
+           <button type="button" class="modal-login__btn-done btn btn-success" id="close_inform_popup" style="margin-top: 20px">
+               ГОТОВО
+           </button>
+           </div>
+       </div>
+       </div> `
+        container.querySelector("#close_inform_popup").addEventListener("click", () => {
+            container.remove()
+        })
+        document.body.append(container)
     }
 
 }
 
 class VisitTherapist extends Visit {
 
-    constructor() {
-        super();
+    constructor(data) {
+        super(data);
         this.doctor = 'terapevt';
-        this.age = document.querySelector("#user-age-terapevt").value;
+        if (data) {
+            this.age = data.age;
+        } else {
+            this.age = document.querySelector("#user-age-terapevt").value;
+        }
+    }
+
+    async showInfoModal(container) {
+        container.innerHTML = `
+                  <div class="modal-login container-fluid p-0 vh-100 position-fixed top-0 start-0 bg-black bg-opacity-25"
+        style="backdrop-filter: blur(3px); overflow: hidden;" id="modal-login">
+       <div class="main-section__new-visit container-sm bg-white position-absolute top-50 start-50 translate-middle p-4"
+            style="border-radius:10px; width: 40vw; overflow: scroll; max-height: 90%">
+           <div class="information_wrapper">
+           <h2 class="main-section__see_all-info-header-text">інфорамція візита</h2>
+           <div>
+               <h5 class="main-section__see-all-inf-header">Лікар: <span class="main-section__see-all-inf-span">Терапевт</span></h5>
+               <h5 class="main-section__see-all-inf-header">ФІО пацієнта: <span class="main-section__see-all-inf-span">${this.patientName}</span></h5>
+               <h5 class="main-section__see-all-inf-header">Ціль візита: <span class="main-section__see-all-inf-span">${this.description}</span></h5>
+               <h5 class="main-section__see-all-inf-header">Короткі замітки: <span class="main-section__see-all-inf-span">${this.title}</span></h5>
+               <h5 class="main-section__see-all-inf-header">Терміновість візита: <span class="main-section__see-all-inf-span">${this.urgency}</span></h5>
+               <h5 class="main-section__see-all-inf-header">Вік: <span class="main-section__see-all-inf-span">${this.age}</span></h5>
+           </div>
+           <button type="button" class="modal-login__btn-done btn btn-success" id="close_inform_popup" style="margin-top: 20px">
+               ГОТОВО
+           </button>
+           </div>
+       </div>
+       </div> `
+        container.querySelector("#close_inform_popup").addEventListener("click", () => {
+            container.remove()
+        })
+        document.body.append(container)
     }
 
 }
@@ -287,10 +420,8 @@ class CardsController {
     }
 
     addCard(newCardData, container = document.querySelector(".main-section__cards-container")) {
-        let card = new Card(newCardData, {
-            onCardDelete: () => {
-                this.cards = this.cards.filter((card) => card.id !== newCardData.id);
-            },
+        let card = new Card(newCardData, () => {
+            this.cards = this.cards.filter((card) => card.id !== newCardData.id);
         });
         card.render(container);
         this.cards.push(card);
