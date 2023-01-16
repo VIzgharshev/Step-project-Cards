@@ -124,6 +124,7 @@ class DoctorVisitModal extends Modal {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
             },
             body: JSON.stringify(this.getDoctorVisitData()),
+            visit: "open",
         })
         return await sendCardData.json()
     }
@@ -189,13 +190,23 @@ class Card {
     }
 
     addEditingListener() {
-        this.cardWrapper.querySelector(".editing-btn").addEventListener("click", () => {
+        this.cardWrapper.querySelector(".editing-btn").addEventListener("click", async () => {
             // ???
+            let container = document.createElement("div");
+            if (this.doctor === "cardiolog") {
+                await new VisitCardiologist(this.cardData).editingVisit(container)
+            }
+            // } else if (this.doctor === "stomatolog") {
+            //     await new VisitDentist(this.cardData).editingVisit(container)
+            // } else if (this.doctor === "terapevt") {
+            //     await new VisitTherapist(this.cardData).editingVisit(container)
+            // }
         });
     }
 
     addViewingListener() {
         this.cardWrapper.querySelector(".viewing-btn").addEventListener("click", async () => {
+            document.querySelector(".main-section__header-novisit ").style.display ="none"
             let modalContainer = document.createElement("div");
             if (this.doctor === "cardiolog") {
                 await new VisitCardiologist(this.cardData).showInfoModal(modalContainer)
@@ -368,6 +379,91 @@ class VisitCardiologist extends Visit {
         document.body.append(container)
     }
 
+    editingDataServer(){
+
+    }
+
+    editingVisit(container){
+       container.innerHTML= `<div class="modal-login container-fluid p-0 vh-100 position-fixed top-0 start-0 bg-black bg-opacity-25"
+             style="backdrop-filter: blur(3px); overflow: hidden;">
+            <div
+                class="main-section__new-visit container-sm bg-white position-absolute top-50 start-50 translate-middle p-4"
+                style="border-radius:10px; width: 40vw; overflow: scroll; max-height: 90%">
+                <h2 style="color: #6BB961; text-decoration: underline; text-align: center">редагувати візит</h2>
+                <div class="form-group">
+                    <label for="doctor-type-select" class="form-label">Лікар</label>
+                    <select class="form-control" id="doctor-type-select" style="color: #307570;">
+                        <option value="cardiolog" selected="selected">Кардиолог</option>
+                        <option value="stomatolog">Стоматолог</option>
+                        <option value="terapevt">Терапевт</option>
+                    </select>
+                </div>
+                <form>
+                    <div class="form-group" id="doctors-form">
+                        <div class="col">
+                            <input type="text" id="patient_name" class="form-control" value=${this.patientName} placeholder="ПІБ(пацієнта)">
+                        </div>
+                        <div class="col">
+                            <input type="text" id="visit-propose" class="form-control" value=${this.description} placeholder="Ціль візита">
+                        </div>
+                        <div class="optional-inputs">
+                            <div class="col">
+                                <input type="number" class="form-control" id="user-age-cardiolog" value=${this.age} placeholder="Вік">
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" id="normal-pressure"
+                                     value=${this.normalPressure}  placeholder="Звичайний тиск">
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" id="body-mass-index"
+                                   value=${this.bodyMassIndex}    placeholder="Індекс маси тіла">
+                            </div>
+                            <div class="col">
+                                <textarea type="text" class="form-control" id="cardiovascular-disease"
+                                     placeholder="Змінні захворювання серцево-судинної системи">${this.cardiovascularDisease}</textarea>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <textarea type="text" class="form-control" id="short-text"
+                                      placeholder="Короткі замітки">${this.title}</textarea>
+                        </div>
+                        <div class="col">
+                            <label for="urgently" style="text-align: center">Терміновість візита</label>
+                            <select class="form-control"  id="urgently" style="color: #307570;">
+                                <option value="High">High</option>
+                                <option value="Normal">Normal</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </div>
+                              <div class="col">
+                            <label for="visit" style="text-align: center">Візит</label>
+                            <select class="form-control"  id="visit" style="color: #307570;">
+                                <option value="close">close</option>
+                                <option value="open" selected="selected">open</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+                <div class="main-section__button-container">
+                    <button type="button" class="modal-login__btn-done btn  btn-success" id="close_new_visit"
+                            style="margin-top: 20px; background-color: #D24B4B;">Закрити
+                    </button>
+                    <button type="button" class="modal-login__btn-done btn btn-success" id="add_new_visit_button"
+                            style="margin-top: 20px">
+                        ГОТОВО
+                    </button>
+                       <button type="button" class="modal-login__btn-done btn btn-success" id="add_new_visit_button"
+                            style="margin-top: 20px">
+                        Видалити
+                    </button>
+                </div>
+               
+            </div>
+        </div>`
+        let selectUrgency = container.querySelector("#urgently")
+        selectUrgency.value = `${this.urgency}`
+        document.body.append(container)
+    }
 }
 
 class VisitTherapist extends Visit {
@@ -409,8 +505,8 @@ class VisitTherapist extends Visit {
         })
         document.body.append(container)
     }
-
 }
+
 
 class CardsController {
 
