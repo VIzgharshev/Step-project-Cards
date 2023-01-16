@@ -84,19 +84,15 @@ function onInputEnter(e) {
 						document.querySelector('.main-section__header-novisit').style.display = 'none';
 					}
 					//-----------------check input value in context object key and render it
-					//let arr = [];
 					for (const card of allCard) {
 						for (const key in card) {
-							let arrContext = String(card[key]).toLowerCase().split(' ');
+							let arrContext = String(card[key]).toLowerCase();
 
 							if (arrContext.includes(inputForCheck.toLowerCase())) {
 								cardsController.addCard(card);
-								//arr.push(card);
 							}
 						}
 					}
-					//[...arrForFilter] = arr;
-					//console.log(arrForFilter);
 				});
 			console.log(inputForCheck);
 		} else if (inputForCheck === '') {
@@ -114,12 +110,9 @@ function onInputEnter(e) {
 						document.querySelector('.main-section__header-novisit').style.display = 'none';
 					}
 					//-----------------check input value in context object key and render it
-					//let arr = [];
 					for (const card of allCard) {
 						cardsController.addCard(card);
 					}
-					//[...arrForFilter] = arr;
-					//console.log(arrForFilter);
 				});
 			console.log(inputForCheck);
 		}
@@ -142,92 +135,6 @@ function onInputBtn() {
 	cleanContainer(document.querySelector('.main-section__cards-container'));
 
 	//----------------CHECKING...
-	//if (arrForFilter.length === 0) {
-	//	fetch('https://ajax.test-danit.com/api/v2/cards', {
-	//		method: 'GET',
-	//		headers: {
-	//			'Content-Type': 'application/json',
-	//			Authorization: `Bearer ${sessionStorage.token}`,
-	//		},
-	//	})
-	//		.then(resp => resp.json())
-	//		.then(allCard => {
-	//			//---------------hide title
-	//			if (allCard.length != 0) {
-	//				document.querySelector('.main-section__header-novisit').style.display = 'none';
-	//			}
-	//			//-----------------check input value in context object key and render it
-	//			let arr = [];
-	//			for (const card of allCard) {
-	//				for (const key in card) {
-	//					let arrContext = String(card[key]).split(' ');
-
-	//					for (const i of arrContext) {
-	//						if (i.toLowerCase() === inputForCheck.toLowerCase()) {
-	//							cardsController.addCard(card);
-	//							arr.push(card);
-	//						}
-	//					}
-	//				}
-	//			}
-	//			arrForFilter = arr;
-	//			console.log(arrForFilter);
-	//		});
-	//} else if (inputForCheck === '') {
-	//	fetch('https://ajax.test-danit.com/api/v2/cards', {
-	//		method: 'GET',
-	//		headers: {
-	//			'Content-Type': 'application/json',
-	//			Authorization: `Bearer ${sessionStorage.token}`,
-	//		},
-	//	})
-	//		.then(resp => resp.json())
-	//		.then(allCard => {
-	//			//---------------hide title
-	//			if (allCard.length != 0) {
-	//				document.querySelector('.main-section__header-novisit').style.display = 'none';
-	//			}
-	//			//-----------------check input value in context object key and render it
-	//			let arr = [];
-	//			for (const card of allCard) {
-	//				cardsController.addCard(card);
-	//				arr.push(card);
-	//			}
-	//			arrForFilter = arr;
-	//			console.log(arrForFilter);
-	//		});
-	//} else {
-	//	fetch('https://ajax.test-danit.com/api/v2/cards', {
-	//		method: 'GET',
-	//		headers: {
-	//			'Content-Type': 'application/json',
-	//			Authorization: `Bearer ${sessionStorage.token}`,
-	//		},
-	//	})
-	//		.then(resp => resp.json())
-	//		.then(allCard => {
-	//			//---------------hide title
-	//			if (allCard.length != 0) {
-	//				document.querySelector('.main-section__header-novisit').style.display = 'none';
-	//			}
-	//			//-----------------check input value in context object key and render it
-	//			let arr = [];
-	//			for (const card of allCard) {
-	//				for (const key in card) {
-	//					let arrContext = String(card[key]).split(' ');
-	//					for (const i of arrContext) {
-	//						if (i.toLowerCase() === inputForCheck.toLowerCase()) {
-	//							cardsController.addCard(card);
-	//							arr.push(card);
-	//							console.log(arrForFilter);
-	//						}
-	//					}
-	//				}
-	//			}
-	//			arrForFilter = arr;
-	//		});
-	//}
-
 	if (inputForCheck != '') {
 		fetch('https://ajax.test-danit.com/api/v2/cards', {
 			method: 'GET',
@@ -243,21 +150,16 @@ function onInputBtn() {
 					document.querySelector('.main-section__header-novisit').style.display = 'none';
 				}
 				//-----------------check input value in context object key and render it
-				//let arr = [];
 				for (const card of allCard) {
 					for (const key in card) {
 						let arrContext = String(card[key]).toLowerCase().split(' ');
 
 						if (arrContext.includes(inputForCheck.toLowerCase())) {
 							cardsController.addCard(card);
-							//arr.push(card);
 						}
 					}
 				}
-				//[...arrForFilter] = arr;
-				//console.log(arrForFilter);
 			});
-		console.log(inputForCheck);
 	} else if (inputForCheck === '') {
 		fetch('https://ajax.test-danit.com/api/v2/cards', {
 			method: 'GET',
@@ -273,14 +175,10 @@ function onInputBtn() {
 					document.querySelector('.main-section__header-novisit').style.display = 'none';
 				}
 				//-----------------check input value in context object key and render it
-				//let arr = [];
 				for (const card of allCard) {
 					cardsController.addCard(card);
 				}
-				//[...arrForFilter] = arr;
-				//console.log(arrForFilter);
 			});
-		console.log(inputForCheck);
 	}
 }
 
