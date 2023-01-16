@@ -18,6 +18,11 @@ const lowBtnS = document.querySelector('#filter-low-btn-s');
 
 const openFilter = document.querySelector('#open-filter-btn');
 const closeFilter = document.querySelector('#close-filter-btn');
+const refreshFilterBtnS = document.querySelector('.filter-s__refresh-btn');
+const refreshFilterBtn = document.querySelector('.filter__refresh-btn');
+
+refreshFilterBtnS.addEventListener('click', refreshFilter);
+refreshFilterBtn.addEventListener('click', refreshFilter);
 
 //--------------------small filter function usege
 openBtnS.addEventListener('click', statusBtnsS);
@@ -49,8 +54,27 @@ function cleanContainer(parent) {
 	}
 }
 
-//--------------------ARRAY FOR FILTERS
-//let arrForFilter = [];
+//--------------------refreshFilter
+function refreshFilter() {
+	fetch('https://ajax.test-danit.com/api/v2/cards', {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${sessionStorage.token}`,
+		},
+	})
+		.then(resp => resp.json())
+		.then(allCard => {
+			//---------------hide title
+			if (allCard.length != 0) {
+				document.querySelector('.main-section__header-novisit').style.display = 'none';
+			}
+			//-----------------check input value in context object key and render it
+			for (const card of allCard) {
+				cardsController.addCard(card);
+			}
+		});
+}
 
 //-----------------------------------INPUT FILTER--------------------------------------------
 function onInputEnter(e) {
@@ -84,17 +108,14 @@ function onInputEnter(e) {
 						document.querySelector('.main-section__header-novisit').style.display = 'none';
 					}
 					//-----------------check input value in context object key and render it
-					for (const card of allCard) {
+					allCard.forEach(card => {
 						for (const key in card) {
-							let arrContext = String(card[key]).toLowerCase();
-
-							if (arrContext.includes(inputForCheck.toLowerCase())) {
+							if (String(card[key]).toLowerCase().includes(inputForCheck.toLowerCase())) {
 								cardsController.addCard(card);
 							}
 						}
-					}
+					});
 				});
-			console.log(inputForCheck);
 		} else if (inputForCheck === '') {
 			fetch('https://ajax.test-danit.com/api/v2/cards', {
 				method: 'GET',
@@ -114,7 +135,6 @@ function onInputEnter(e) {
 						cardsController.addCard(card);
 					}
 				});
-			console.log(inputForCheck);
 		}
 	}
 }
@@ -150,15 +170,13 @@ function onInputBtn() {
 					document.querySelector('.main-section__header-novisit').style.display = 'none';
 				}
 				//-----------------check input value in context object key and render it
-				for (const card of allCard) {
+				allCard.forEach(card => {
 					for (const key in card) {
-						let arrContext = String(card[key]).toLowerCase().split(' ');
-
-						if (arrContext.includes(inputForCheck.toLowerCase())) {
+						if (String(card[key]).toLowerCase().includes(inputForCheck.toLowerCase())) {
 							cardsController.addCard(card);
 						}
 					}
-				}
+				});
 			});
 	} else if (inputForCheck === '') {
 		fetch('https://ajax.test-danit.com/api/v2/cards', {
@@ -344,7 +362,6 @@ function urgencyBtns(e) {
 						cardsController.addCard(card);
 					}
 				}
-				console.log(allCard);
 			});
 	} else if (e.target === normalBtn) {
 		highBtn.classList.remove('filter__btn--active');
