@@ -86,7 +86,7 @@ function onInputEnter(e) {
 					//-----------------check input value in context object key and render it
 					for (const card of allCard) {
 						for (const key in card) {
-							let arrContext = String(card[key]).toLowerCase().split(' ');
+							let arrContext = String(card[key]).toLowerCase();
 
 							if (arrContext.includes(inputForCheck.toLowerCase())) {
 								cardsController.addCard(card);
