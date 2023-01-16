@@ -7,14 +7,14 @@ const token = '';
 
 //-----------------------------header btn function------------------------------------
 function headerLogin() {
-	const modalLogin = document.querySelector('.modal-login');
-	modalLogin.classList.remove('invisible');
+  const modalLogin = document.querySelector('.modal-login');
+  modalLogin.classList.remove('invisible');
 }
 
 headerBtnLogin.onclick = headerLogin;
 
 function headerExit() {
-	location.reload();
+  location.reload();
 }
 
 headerBtnExit.onclick = headerExit;
@@ -22,10 +22,10 @@ headerBtnExit.onclick = headerExit;
 //-----------------------------modal login btns functions------------------------------------
 
 async function modalDoneBtn() {
-	const modalLogin = document.querySelector('.modal-login');
-	const email = document.querySelector('#loginEmail').value;
-	const password = document.querySelector('#loginPassword').value;
-	const headerText = document.querySelector('.header__text');
+  const modalLogin = document.querySelector('.modal-login');
+  const email = document.querySelector('#loginEmail').value;
+  const password = document.querySelector('#loginPassword').value;
+  const headerText = document.querySelector('.header__text');
 
 	await fetch('https://ajax.test-danit.com/api/v2/cards/login', {
 		//------------------------request for token and login
@@ -72,11 +72,12 @@ async function modalDoneBtn() {
 					}
 				});
 		});
+
 }
 
 function modalCloseBtn() {
-	const modalLogin = document.querySelector('.modal-login');
-	modalLogin.classList.add('invisible');
+  const modalLogin = document.querySelector('.modal-login');
+  modalLogin.classList.add('invisible');
 }
 
 modalLoginBtnDone.onclick = modalDoneBtn;
