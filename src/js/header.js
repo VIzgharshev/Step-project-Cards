@@ -24,7 +24,7 @@ headerBtnExit.onclick = headerExit;
 
 async function modalDoneBtn() {
 	const modalLogin = document.querySelector('.modal-login');
-	const email = document.querySelector('#loginEmail').value;
+  const email = document.querySelector('#loginEmail').value;
 	const password = document.querySelector('#loginPassword').value;
 	const headerText = document.querySelector('.header__text');
 
@@ -41,8 +41,8 @@ async function modalDoneBtn() {
 				let emailText = document.querySelector('#emailHelp');
 				emailText.style.color = 'red';
 				emailText.innerHTML = 'Incorrect username or password!';
-			} else {
-				headerText.innerHTML = `Вітаємо, ${email}!`;
+      } else {
+				headerText.innerHTML = `Вітаємо, <b>${(email)}</b>!`;
 				modalLogin.classList.add('invisible');
 				headerBtnLogin.classList.add('invisible');
 				headerBtns.classList.remove('invisible');
