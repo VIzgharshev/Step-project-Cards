@@ -54,6 +54,10 @@ class Card {
             body: JSON.stringify(this.cardData),
         });
         this.cardData = await refreshDataServer.json();
+        console.log(this.cardData.visit)
+        if(this.cardData.visit === "close"){
+            this.cardWrapper.querySelector(".main-section__card").style.backgroundColor = "#DB7093"
+        }
         this.cardWrapper.querySelector(".main-section__urgency").style.backgroundColor = this.urgencyColor;
         this.cardWrapper.querySelector(".main-section__card-name-doctor").textContent = this.doctorLabel;
         this.cardWrapper.querySelector(".main-section__card-name-patient").textContent = this.patientNameLabel;
@@ -89,6 +93,9 @@ class Card {
             return new VisitTherapist(this.cardData);
         }
     }
+
+
+
 
     render(container) {
         this.cardContainer = container;
@@ -154,6 +161,7 @@ class CardsController {
         });
         card.render(container);
         this.cards.push(card);
+
     }
 
 }
