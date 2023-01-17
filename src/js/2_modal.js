@@ -126,6 +126,7 @@ class DoctorVisitModal extends Modal {
             body: JSON.stringify(this.getDoctorVisitData()),
             visit: "open",
         });
+        document.querySelector(".main-section__header-novisit").style.display="none";
         return await sendCardData.json();
     }
 }
