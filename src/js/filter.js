@@ -360,9 +360,6 @@ function urgencyBtnsS(e) {
     normalBtnS.classList.remove('filter-s__btn--active');
     lowBtnS.classList.remove('filter-s__btn--active');
 
-
-    const forRender = new DoctorVisitModal();
-
     //----------------clean '.main-section__cards-container'
     cleanContainer(document.querySelector('.main-section__cards-container'));
 
@@ -402,7 +399,6 @@ function urgencyBtnsS(e) {
         }
         arrForFilter = arr;
       });
-
   } else if (e.target === normalBtnS) {
     highBtnS.classList.remove('filter-s__btn--active');
     lowBtnS.classList.remove('filter-s__btn--active');
@@ -448,7 +444,6 @@ function urgencyBtnsS(e) {
         }
         arrForFilter = arr;
       });
-
   } else {
     highBtnS.classList.remove('filter-s__btn--active');
     normalBtnS.classList.remove('filter-s__btn--active');
@@ -494,7 +489,6 @@ function urgencyBtnsS(e) {
         }
         arrForFilter = arr;
       });
-
   }
 }
 
