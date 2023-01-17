@@ -75,9 +75,9 @@ class Visit {
                 <div class="form-group">
                     <label for="doctor-type-select" class="form-label">Лікар</label>
                     <select class="form-control" id="doctor-type-select" style="color: #307570;" disabled>
-                        <option value="cardiolog" selected="selected">Кардиолог</option>
-                        <option value="stomatolog">Стоматолог</option>
-                        <option value="terapevt">Терапевт</option>
+                        <option value="cardiolog" ${this.doctor === 'cardiolog' && 'selected' || ''}>Кардиолог</option>
+                        <option value="stomatolog" ${this.doctor === 'stomatolog' && 'selected' || ''}>Стоматолог</option>
+                        <option value="terapevt" ${this.doctor === 'terapevt' && 'selected' || ''}>Терапевт</option>
                     </select>
                 </div>
                 <form>
@@ -98,16 +98,16 @@ class Visit {
                         <div class="col">
                             <label for="urgently" style="text-align: center">Терміновість візита</label>
                             <select class="form-control"  id="urgently" style="color: #307570;">
-                                <option value="High">High</option>
-                                <option value="Normal">Normal</option>
-                                <option value="Low">Low</option>
+                                <option value="High" ${this.urgency === 'High' && 'selected' || ''}>High</option>
+                                <option value="Normal" ${this.urgency === 'Normal' && 'selected' || ''}>Normal</option>
+                                <option value="Low" ${this.urgency === 'Low' && 'selected' || ''}>Low</option>
                             </select>
                         </div>
                               <div class="col">
                             <label for="visit" style="text-align: center">Візит</label>
-                            <select class="form-control"  id="visit" style="color: #307570;">
-                                <option value="close">close</option>
-                                <option value="open" selected="selected">open</option>
+                            <select class="form-control" id="visit" style="color: #307570;">
+                                <option value="close" ${this.visit === 'close' && 'selected' || ''}>close</option>
+                                <option value="open" ${this.visit === 'open' && 'selected' || ''}>open</option>
                             </select>
                         </div>
                     </div>

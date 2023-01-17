@@ -8,6 +8,10 @@ class Card {
         this.onCardDelete = onCardDelete;
     }
 
+    get cardBackgroundColor() {
+        return this.cardData.visit === "close" ? "#DB7093" : "#e3f3e1";
+    }
+
     get urgencyColor() {
         if (this.cardData.urgency === "Low") {
             return "#8AE3FF";
@@ -54,10 +58,7 @@ class Card {
             body: JSON.stringify(this.cardData),
         });
         this.cardData = await refreshDataServer.json();
-        console.log(this.cardData.visit)
-        if(this.cardData.visit === "close"){
-            this.cardWrapper.querySelector(".main-section__card").style.backgroundColor = "#DB7093"
-        }
+        this.cardWrapper.querySelector(".main-section__card").style.backgroundColor = this.cardBackgroundColor;
         this.cardWrapper.querySelector(".main-section__urgency").style.backgroundColor = this.urgencyColor;
         this.cardWrapper.querySelector(".main-section__card-name-doctor").textContent = this.doctorLabel;
         this.cardWrapper.querySelector(".main-section__card-name-patient").textContent = this.patientNameLabel;
@@ -94,16 +95,13 @@ class Card {
         }
     }
 
-
-
-
     render(container) {
         this.cardContainer = container;
         this.headerNovisit = this.cardContainer.parentNode.querySelector(".main-section__header-novisit");
         this.cardWrapper = document.createElement("div");
         this.cardWrapper.classList.add("main-section__card");
         this.cardWrapper.innerHTML = `
-            <div class="main-section__card">
+            <div class="main-section__card" style="background-color:${this.cardBackgroundColor};">
                 <div class="main-section__icon-container">
                         <div class="main-section__urgency" style="background-color:${this.urgencyColor};"></div>
                         <div class="main-section__svg-container">
