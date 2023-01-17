@@ -56,6 +56,20 @@ function cleanContainer(parent) {
 
 //--------------------refreshFilter
 function refreshFilter() {
+	highBtn.classList.remove('filter__btn--active');
+	normalBtn.classList.remove('filter__btn--active');
+	lowBtn.classList.remove('filter__btn--active');
+	highBtnS.classList.remove('filter-s__btn--active');
+	normalBtnS.classList.remove('filter-s__btn--active');
+	lowBtnS.classList.remove('filter-s__btn--active');
+	openBtn.classList.remove('filter__btn--active');
+	openBtnS.classList.remove('filter-s__btn--active');
+	doneBtn.classList.remove('filter__btn--active');
+	doneBtnS.classList.remove('filter-s__btn--active');
+
+	//----------------clean '.main-section__cards-container'
+	cleanContainer(document.querySelector('.main-section__cards-container'));
+
 	fetch('https://ajax.test-danit.com/api/v2/cards', {
 		method: 'GET',
 		headers: {
@@ -79,6 +93,17 @@ function refreshFilter() {
 //-----------------------------------INPUT FILTER--------------------------------------------
 function onInputEnter(e) {
 	if (e.keyCode === 13) {
+		openBtnS.classList.remove('filter-s__btn--active');
+		doneBtnS.classList.remove('filter-s__btn--active');
+		highBtnS.classList.remove('filter-s__btn--active');
+		normalBtnS.classList.remove('filter-s__btn--active');
+		lowBtnS.classList.remove('filter-s__btn--active');
+		openBtn.classList.remove('filter__btn--active');
+		doneBtn.classList.remove('filter__btn--active');
+		highBtn.classList.remove('filter__btn--active');
+		normalBtn.classList.remove('filter__btn--active');
+		lowBtn.classList.remove('filter__btn--active');
+
 		const inputValueSmallFilter = document.querySelector('#filter-text-s').value;
 		const inputValueLargeFilter = document.querySelector('#filter-text').value;
 		let inputForCheck = '';
@@ -104,43 +129,45 @@ function onInputEnter(e) {
 				.then(resp => resp.json())
 				.then(allCard => {
 					//---------------hide title
-					if (allCard.length != 0) {
+
+					let counter = 0;
+					if (counter === 0) {
 						document.querySelector('.main-section__header-novisit').style.display = 'none';
 					}
 					//-----------------check input value in context object key and render it
 					allCard.forEach(card => {
 						for (const key in card) {
 							if (String(card[key]).toLowerCase().includes(inputForCheck.toLowerCase())) {
+								counter++;
 								cardsController.addCard(card);
 							}
 						}
 					});
+					if (counter === 0) {
+						document.querySelector('.main-section__header-novisit').style.display = 'block';
+					}
 				});
 		} else if (inputForCheck === '') {
-			fetch('https://ajax.test-danit.com/api/v2/cards', {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${sessionStorage.token}`,
-				},
-			})
-				.then(resp => resp.json())
-				.then(allCard => {
-					//---------------hide title
-					if (allCard.length != 0) {
-						document.querySelector('.main-section__header-novisit').style.display = 'none';
-					}
-					//-----------------check input value in context object key and render it
-					for (const card of allCard) {
-						cardsController.addCard(card);
-					}
-				});
+			let counter = 0;
+			if (counter === 0) {
+				document.querySelector('.main-section__header-novisit').style.display = 'block';
+			}
 		}
 	}
 }
 
 function onInputBtn() {
-	const forRender = new DoctorVisitModal();
+	openBtnS.classList.remove('filter-s__btn--active');
+	doneBtnS.classList.remove('filter-s__btn--active');
+	highBtnS.classList.remove('filter-s__btn--active');
+	normalBtnS.classList.remove('filter-s__btn--active');
+	lowBtnS.classList.remove('filter-s__btn--active');
+	openBtn.classList.remove('filter__btn--active');
+	doneBtn.classList.remove('filter__btn--active');
+	highBtn.classList.remove('filter__btn--active');
+	normalBtn.classList.remove('filter__btn--active');
+	lowBtn.classList.remove('filter__btn--active');
+
 	const inputValueSmallFilter = document.querySelector('#filter-text-s').value;
 	const inputValueLargeFilter = document.querySelector('#filter-text').value;
 	let inputForCheck = '';
@@ -166,37 +193,28 @@ function onInputBtn() {
 			.then(resp => resp.json())
 			.then(allCard => {
 				//---------------hide title
-				if (allCard.length != 0) {
+				let counter = 0;
+				if (counter === 0) {
 					document.querySelector('.main-section__header-novisit').style.display = 'none';
 				}
 				//-----------------check input value in context object key and render it
 				allCard.forEach(card => {
 					for (const key in card) {
 						if (String(card[key]).toLowerCase().includes(inputForCheck.toLowerCase())) {
+							counter++;
 							cardsController.addCard(card);
 						}
 					}
 				});
+				if (counter === 0) {
+					document.querySelector('.main-section__header-novisit').style.display = 'block';
+				}
 			});
 	} else if (inputForCheck === '') {
-		fetch('https://ajax.test-danit.com/api/v2/cards', {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${sessionStorage.token}`,
-			},
-		})
-			.then(resp => resp.json())
-			.then(allCard => {
-				//---------------hide title
-				if (allCard.length != 0) {
-					document.querySelector('.main-section__header-novisit').style.display = 'none';
-				}
-				//-----------------check input value in context object key and render it
-				for (const card of allCard) {
-					cardsController.addCard(card);
-				}
-			});
+		let counter = 0;
+		if (counter === 0) {
+			document.querySelector('.main-section__header-novisit').style.display = 'block';
+		}
 	}
 }
 
@@ -217,10 +235,72 @@ function closeFilterFunc() {
 
 function statusBtnsS(e) {
 	e.target.classList.add('filter-s__btn--active');
-	if (e.target === openBtnS || e.target === openBtn) {
+	if (e.target === openBtnS) {
 		doneBtnS.classList.remove('filter-s__btn--active');
+		highBtnS.classList.remove('filter-s__btn--active');
+		normalBtnS.classList.remove('filter-s__btn--active');
+		lowBtnS.classList.remove('filter-s__btn--active');
+		//----------------clean '.main-section__cards-container'
+		cleanContainer(document.querySelector('.main-section__cards-container'));
+		//----------------CHECKING...
+		fetch('https://ajax.test-danit.com/api/v2/cards', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${sessionStorage.token}`,
+			},
+		})
+			.then(resp => resp.json())
+			.then(allCard => {
+				//---------------hide title
+				let counter = 0;
+				if (counter === 0) {
+					document.querySelector('.main-section__header-novisit').style.display = 'none';
+				}
+				//-----------------check input value in context object key and render it
+				for (const card of allCard) {
+					if (card.visit === 'open') {
+						counter++;
+						cardsController.addCard(card);
+					}
+				}
+				if (counter === 0) {
+					document.querySelector('.main-section__header-novisit').style.display = 'block';
+				}
+			});
 	} else {
 		openBtnS.classList.remove('filter-s__btn--active');
+		highBtnS.classList.remove('filter-s__btn--active');
+		normalBtnS.classList.remove('filter-s__btn--active');
+		lowBtnS.classList.remove('filter-s__btn--active');
+		//----------------clean '.main-section__cards-container'
+		cleanContainer(document.querySelector('.main-section__cards-container'));
+		//----------------CHECKING...
+		fetch('https://ajax.test-danit.com/api/v2/cards', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${sessionStorage.token}`,
+			},
+		})
+			.then(resp => resp.json())
+			.then(allCard => {
+				//---------------hide title
+				let counter = 0;
+				if (counter === 0) {
+					document.querySelector('.main-section__header-novisit').style.display = 'none';
+				}
+				//-----------------check input value in context object key and render it
+				for (const card of allCard) {
+					if (card.visit === 'close') {
+						counter++;
+						cardsController.addCard(card);
+					}
+				}
+				if (counter === 0) {
+					document.querySelector('.main-section__header-novisit').style.display = 'block';
+				}
+			});
 	}
 }
 
@@ -254,7 +334,7 @@ function urgencyBtnsS(e) {
 				}
 				//-----------------check input value in context object key and render it
 				for (const card of allCard) {
-					if (card.urgency === 'high') {
+					if (card.urgency === 'High') {
 						cardsController.addCard(card);
 					}
 				}
@@ -323,8 +403,70 @@ function statusBtns(e) {
 	e.target.classList.add('filter__btn--active');
 	if (e.target === openBtn) {
 		doneBtn.classList.remove('filter__btn--active');
+		highBtn.classList.remove('filter__btn--active');
+		normalBtn.classList.remove('filter__btn--active');
+		lowBtn.classList.remove('filter__btn--active');
+		//----------------clean '.main-section__cards-container'
+		cleanContainer(document.querySelector('.main-section__cards-container'));
+		//----------------CHECKING...
+		fetch('https://ajax.test-danit.com/api/v2/cards', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${sessionStorage.token}`,
+			},
+		})
+			.then(resp => resp.json())
+			.then(allCard => {
+				//---------------hide title
+				let counter = 0;
+				if (counter === 0) {
+					document.querySelector('.main-section__header-novisit').style.display = 'none';
+				}
+				//-----------------check input value in context object key and render it
+				for (const card of allCard) {
+					if (card.visit === 'open') {
+						counter++;
+						cardsController.addCard(card);
+					}
+				}
+				if (counter === 0) {
+					document.querySelector('.main-section__header-novisit').style.display = 'block';
+				}
+			});
 	} else {
 		openBtn.classList.remove('filter__btn--active');
+		highBtn.classList.remove('filter__btn--active');
+		normalBtn.classList.remove('filter__btn--active');
+		lowBtn.classList.remove('filter__btn--active');
+		//----------------clean '.main-section__cards-container'
+		cleanContainer(document.querySelector('.main-section__cards-container'));
+		//----------------CHECKING...
+		fetch('https://ajax.test-danit.com/api/v2/cards', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${sessionStorage.token}`,
+			},
+		})
+			.then(resp => resp.json())
+			.then(allCard => {
+				//---------------hide title
+				let counter = 0;
+				if (counter === 0) {
+					document.querySelector('.main-section__header-novisit').style.display = 'none';
+				}
+				//-----------------check input value in context object key and render it
+				for (const card of allCard) {
+					if (card.visit === 'close') {
+						counter++;
+						cardsController.addCard(card);
+					}
+				}
+				if (counter === 0) {
+					document.querySelector('.main-section__header-novisit').style.display = 'block';
+				}
+			});
 	}
 }
 
@@ -353,14 +495,19 @@ function urgencyBtns(e) {
 			.then(resp => resp.json())
 			.then(allCard => {
 				//---------------hide title
-				if (allCard.length != 0) {
+				let counter = 0;
+				if (counter === 0) {
 					document.querySelector('.main-section__header-novisit').style.display = 'none';
 				}
 				//-----------------check input value in context object key and render it
 				for (const card of allCard) {
 					if (card.urgency === 'High') {
+						counter++;
 						cardsController.addCard(card);
 					}
+				}
+				if (counter === 0) {
+					document.querySelector('.main-section__header-novisit').style.display = 'block';
 				}
 			});
 	} else if (e.target === normalBtn) {
@@ -381,7 +528,8 @@ function urgencyBtns(e) {
 			.then(resp => resp.json())
 			.then(allCard => {
 				//---------------hide title
-				if (allCard.length != 0) {
+				let counter = 0;
+				if (counter === 0) {
 					document.querySelector('.main-section__header-novisit').style.display = 'none';
 				}
 				//-----------------check input value in context object key and render it
@@ -389,6 +537,9 @@ function urgencyBtns(e) {
 					if (card.urgency === 'Normal') {
 						cardsController.addCard(card);
 					}
+				}
+				if (counter === 0) {
+					document.querySelector('.main-section__header-novisit').style.display = 'block';
 				}
 			});
 	} else {
@@ -409,7 +560,8 @@ function urgencyBtns(e) {
 			.then(resp => resp.json())
 			.then(allCard => {
 				//---------------hide title
-				if (allCard.length != 0) {
+				let counter = 0;
+				if (counter === 0) {
 					document.querySelector('.main-section__header-novisit').style.display = 'none';
 				}
 				//-----------------check input value in context object key and render it
@@ -418,155 +570,9 @@ function urgencyBtns(e) {
 						cardsController.addCard(card);
 					}
 				}
+				if (counter === 0) {
+					document.querySelector('.main-section__header-novisit').style.display = 'block';
+				}
 			});
 	}
-
-	//if (
-	//  e.target === highBtn &&
-	//  e.target.classList.contains('filter__btn--active') === false
-	//) {
-	//  e.target.classList.add('filter__btn--active');
-	//  normalBtn.classList.remove('filter__btn--active');
-	//  lowBtn.classList.remove('filter__btn--active');
-
-	//  const forRender = new DoctorVisitModal();
-
-	//  //----------------clean '.main-section__cards-container'
-	//  cleanContainer(document.querySelector('.main-section__cards-container'));
-
-	//  //----------------CHECKING...
-	//  if (arrForFilter.length === 0) {
-	//    fetch('https://ajax.test-danit.com/api/v2/cards', {
-	//      method: 'GET',
-	//      headers: {
-	//        'Content-Type': 'application/json',
-	//        Authorization: `Bearer ${sessionStorage.token}`,
-	//      },
-	//    })
-	//      .then((resp) => resp.json())
-	//      .then((allCard) => {
-	//        //---------------hide title
-	//        if (allCard.length != 0) {
-	//          document.querySelector(
-	//            '.main-section__header-novisit'
-	//          ).style.display = 'none';
-	//        }
-	//        //-----------------check input value in context object key and render it
-	//        let arr = [];
-	//        for (const card of allCard) {
-	//          if (card.urgency === 'high') {
-	//            const mainContainer = document.createElement('div');
-	//            mainContainer.classList.add('main-section__card');
-	//            //--rendering card
-	//            forRender.render(
-	//              card.id,
-	//              mainContainer,
-	//              card.patientName,
-	//              card.doctor,
-	//              card.urgency
-	//            );
-	//            //--forming new array for ather filters
-	//            arr.push(card);
-	//          }
-	//        }
-	//        arrForFilter = arr;
-	//      });
-	//  } else {
-	//    //---------------hide title
-	//    if (arrForFilter.length != 0) {
-	//      document.querySelector('.main-section__header-novisit').style.display =
-	//        'none';
-	//    }
-	//    //-----------------check input value in context object key and render it
-	//    let arr = [];
-	//    for (const card of arrForFilter) {
-	//      if (card.urgency === 'high') {
-	//        const mainContainer = document.createElement('div');
-	//        mainContainer.classList.add('main-section__card');
-	//        //--rendering card
-	//        forRender.render(
-	//          card.id,
-	//          mainContainer,
-	//          card.patientName,
-	//          card.doctor,
-	//          card.urgency
-	//        );
-	//        //--forming new array for ather filters
-	//        arr.push(card);
-	//      }
-	//    }
-	//    arrForFilter = arr;
-	//  }
-
-	//} else if (
-	//  e.target === highBtn &&
-	//  e.target.classList.contains('filter__btn--active') === true
-	//) {
-	//  e.target.classList.remove('filter__btn--active');
-
-	//      const forRender = new DoctorVisitModal();
-
-	//      //----------------clean '.main-section__cards-container'
-	//      cleanContainer(
-	//        document.querySelector('.main-section__cards-container')
-	//      );
-
-	//  fetch('https://ajax.test-danit.com/api/v2/cards', {
-	//    method: 'GET',
-	//    headers: {
-	//      'Content-Type': 'application/json',
-	//      Authorization: `Bearer ${sessionStorage.token}`,
-	//    },
-	//  })
-	//    .then((resp) => resp.json())
-	//    .then((allCard) => {
-	//      //---------------hide title
-	//      if (allCard.length != 0) {
-	//        document.querySelector(
-	//          '.main-section__header-novisit'
-	//        ).style.display = 'none';
-	//      }
-	//      //-----------------check input value in context object key and render it
-	//      let arr = [];
-	//      for (const card of allCard) {
-	//        if (card.urgency === 'high') {
-	//          const mainContainer = document.createElement('div');
-	//          mainContainer.classList.add('main-section__card');
-	//          //--rendering card
-	//          forRender.render(
-	//            card.id,
-	//            mainContainer,
-	//            card.patientName,
-	//            card.doctor,
-	//            card.urgency
-	//          );
-	//          //--forming new array for ather filters
-	//          arr.push(card);
-	//        }
-	//      }
-	//      arrForFilter = arr;
-	//    });
-	//} else if (
-	//  e.target === normalBtn &&
-	//  e.target.classList.contains('filter__btn--active') === false
-	//) {
-	//  highBtn.classList.remove('filter__btn--active');
-	//  lowBtn.classList.remove('filter__btn--active');
-	//} else if (
-	//  e.target === normalBtn &&
-	//  e.target.classList.contains('filter__btn--active') === true
-	//) {
-	//  e.target.classList.remove('filter__btn--active');
-	//} else if (
-	//  e.target === lowBtn &&
-	//  e.target.classList.contains('filter__btn--active') === false
-	//) {
-	//  highBtn.classList.remove('filter__btn--active');
-	//  normalBtn.classList.remove('filter__btn--active');
-	//} else if (
-	//  e.target === lowBtn &&
-	//  e.target.classList.contains('filter__btn--active') === true
-	//) {
-	//  e.target.classList.remove('filter__btn--active');
-	//}
 }
