@@ -2,233 +2,242 @@
 <html lang="en, ua">
 
 <head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
-   <link rel="shortcut icon" href="./src/img/logo.png" type="image/x-icon">
-   <link rel="stylesheet" href="./dist/styles.min.css">
-   <title>MedNote</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="./src/img/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="./dist/styles.min.css">
+  <title>MedNote</title>
 </head>
 
 <body>
 
 
-   <!-- -----------------HEADER------------------ -->
-   <section>
-      <div class="header container d-flex align-items-center bg-white py-4 position-relative">
-         <img class="header__img1" src="./dist/img/icon-header.png" alt="logo" style="width: 168px;">
-         <img class="header__img2" src="./dist/img/logo.png" alt="logo" style="width: 58px;">
-         <p class="header__text mb-0 ms-5 align-middle position-relative">Вітаємо, зайдіть в систему щоб побачити
-            візити!</p>
-         <button type="button" class="header__btn-login btn btn-success position-absolute btn-lg ">Увійти</button>
-         <div class="header__btns position-absolute invisible">
-            <button type="button" class="header__btn-exit btn btn-success btn-lg me-3">Вийти</button>
-            <button type="button" class="header__btn-create btn btn-success btn-lg" id="btn_create_visit">Створити
-               візит
+  <!-- -----------------HEADER------------------ -->
+  <section>
+    <div class="header container d-flex align-items-center bg-white py-4 position-relative">
+      <img class="header__img1" src="./dist/img/icon-header.png" alt="logo" style="width: 168px;">
+      <img class="header__img2" src="./dist/img/logo.png" alt="logo" style="width: 58px;">
+      <p class="header__text mb-0 ms-5 align-middle position-relative">Вітаємо, зайдіть в систему щоб побачити
+        візити!</p>
+      <button type="button" class="header__btn-login btn btn-success position-absolute btn-lg ">Увійти</button>
+      <div class="header__btns position-absolute invisible">
+        <button type="button" class="header__btn-exit btn btn-success btn-lg me-3">Вийти</button>
+        <button type="button" class="header__btn-create btn btn-success btn-lg" id="btn_create_visit">Створити
+          візит
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- -----------------MODAL LOGIN------------------ -->
+  <section
+    class="modal-login container-fluid p-0 vh-100 d-flex align-items-center justify-content-center position-absolute top-0 start-0 bg-black bg-opacity-25 invisible"
+    style="backdrop-filter: blur(3px)">
+    <div class="modal-login__form container-sm bg-white p-5" style="width: 400px; height: 400px; border-radius: 10px;">
+      <form>
+        <h1 class="modal-login__text text-center mb-3">Увійти</h1>
+        <div class="mb-3 text-center">
+          <label for="exampleInputEmail1" class="modal-login__label form-label">поштa</label>
+          <input type="email" class="form-control" id="loginEmail" style="border-color:#6BB961;">
+          <div id="emailHelp" class="form-text"></div>
+        </div>
+        <div class="mb-3 text-center">
+          <label for="exampleInputPassword1" class="modal-login__label form-label">пароль</label>
+          <input type="password" class="form-control" id="loginPassword" style="border-color:#6BB961;">
+        </div>
+        <div class="container mt-4 d-flex justify-content-between">
+          <button type="button" class="modal-login__btn-close btn btn-lg btn-success ">Закрити</button>
+          <button type="button" class="modal-login__btn-done btn btn-lg btn-success ">Готово</button>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+
+  <section class="main-section">
+    <div class="main-section-container container">
+
+      <!-- -----------------filter-------------------->
+
+      <!-- small filter buttons -->
+      <div class="small-filte-btns container position-relative">
+        <button type="button" id="open-filter-btn" class="open-filter-btn position-relative ">
+          <img src="/dist/img/Більше інфо-light.png" alt="#">
+        </button>
+        <button type="button" id="close-filter-btn" class="close-filter-btn position-relative invisible">
+          <img src="/dist/img/close-filter-btn.png" alt="#">
+        </button>
+      </div>
+      <!-- small filter -->
+      <div class="filter-wrapper filter-sm container-fluid position-relative invisible">
+        <div class="filter-s container d-flex flex-column position-absolute p-2">
+
+          <button class="filter-s__refresh-btn ">
+            <img src="./src/img/refresh.png" alt="refresh icon">
+          </button>
+
+          <div class="filter-s__one container mx-1 d-flex align-items-center position-relative p-0">
+            <label for="exampleInputEmail1" class="filter-s__lable form-label text-uppercase mt-2 me-5">по
+              змісту</label>
+            <input type="text" class="filter-s__input form-control" id="filter-text-s"
+              style="border-color:#6BB961; color: #307570; height: 30px;">
+            <button type="button" id="filter-serch-btn-s"
+              class="filter-s__search-btn search-btn position-absolute border-0 bg-white">
+              <img src="./dist/img/search-icon.png" alt="search-icon">
             </button>
-         </div>
+          </div>
 
+          <div class="filter-s__two container mx-1 d-flex align-items-center p-0">
+            <label for="exampleInputEmail1" class="filter-s__lable form-label text-uppercase mt-2 me-5">по
+              статусу</label>
+            <button type="button" id="filter-open-btn-s" class="filter-s__btn me-1 ms-3 ">
+              open
+            </button>
+            <button type="button" id="filter-done-btn-s" class="filter-s__btn ">
+              done
+            </button>
+          </div>
+
+          <div class="filter-s__three container mx-1 d-flex align-items-center p-0">
+            <label for="exampleInputEmail1" class="filter-s__lable form-label text-uppercase mt-2 ">по
+              терміновості</label>
+            <button type="button" id="filter-high-btn-s" class="filter-s__btn me-1 ms-3 ">
+              high
+            </button>
+            <button type="button" id="filter-normal-btn-s" class="filter-s__btn-lg me-1">
+              normal
+            </button>
+            <button type="button" id="filter-low-btn-s" class="filter-s__btn">
+              low
+            </button>
+          </div>
+
+        </div>
       </div>
-   </section>
+      <!-- large filter -->
+      <div class="filter-wrapper filter-lg container-fluid">
+        <div class="filter filter-wrapper-sm container d-flex justify-content-center position-relative mt-3 p-0 "
+          style="height: 50px;">
 
-   <!-- -----------------MODAL LOGIN------------------ -->
-   <section
-      class="modal-login container-fluid p-0 vh-100 d-flex align-items-center justify-content-center position-absolute top-0 start-0 bg-black bg-opacity-25 invisible"
-      style="backdrop-filter: blur(3px)">
-      <div class="modal-login__form container-sm bg-white p-5"
-         style="width: 400px; height: 400px; border-radius: 10px;">
-         <form>
-            <h1 class="modal-login__text text-center mb-3">Увійти</h1>
-            <div class="mb-3 text-center">
-               <label for="exampleInputEmail1" class="modal-login__label form-label">поштa</label>
-               <input type="email" class="form-control" id="loginEmail" style="border-color:#6BB961;">
-               <div id="emailHelp" class="form-text"></div>
-            </div>
-            <div class="mb-3 text-center">
-               <label for="exampleInputPassword1" class="modal-login__label form-label">пароль</label>
-               <input type="password" class="form-control" id="loginPassword" style="border-color:#6BB961;">
-            </div>
-            <div class="container mt-4 d-flex justify-content-between">
-               <button type="button" class="modal-login__btn-close btn btn-lg btn-success ">Закрити</button>
-               <button type="button" class="modal-login__btn-done btn btn-lg btn-success ">Готово</button>
-            </div>
+          <button class="filter__refresh-btn ">
+            <img src="./src/img/refresh.png" alt="refresh icon">
+          </button>
 
-         </form>
+          <div class="filter__one container mx-1 d-flex justify-content-end align-items-center position-relative p-0">
+            <label for="exampleInputEmail1" class="filter__lable form-label text-uppercase mt-2 me-2">по
+              змісту</label>
+            <input type="text" class="filter__input form-control mx-2" id="filter-text"
+              style="border-color:#6BB961; color: #307570;  height: 30px;">
+            <button type="button" id="filter-serch-btn"
+              class="filter__search-btn search-btn position-absolute border-0 bg-white">
+              <img src="./dist/img/search-icon.png" alt="search-icon">
+            </button>
+          </div>
+
+          <div class="filter__two container mx-1 d-flex justify-content-center align-items-center p-0">
+            <label for="exampleInputEmail1" class="filter__lable form-label text-uppercase mt-2 me-3">по
+              статусу</label>
+            <button type="button" id="filter-open-btn" class="filter__btn me-1 ">
+              open
+            </button>
+            <button type="button" id="filter-done-btn" class="filter__btn">
+              done
+            </button>
+          </div>
+
+          <div class="filter__three container mx-1 d-flex justify-content-center align-items-center p-0">
+            <label for="exampleInputEmail1" class="filter__lable form-label text-uppercase mt-2 me-3">по
+              терміновості</label>
+            <button type="button" id="filter-high-btn" class="filter__btn me-1 ">
+              high
+            </button>
+            <button type="button" id="filter-normal-btn" class="filter__btn-lg me-1">
+              normal
+            </button>
+            <button type="button" id="filter-low-btn" class="filter__btn">
+              low
+            </button>
+          </div>
+
+        </div>
+        <div class="line container"></div>
       </div>
-   </section>
 
-
-   <section class="main-section">
-      <div class="main-section-container container">
-
-         <!-- -----------------filter-------------------->
-
-         <!-- small filter buttons -->
-         <div class="small-filte-btns container position-relative">
-         <button type="button" id="open-filter-btn" class="open-filter-btn position-relative ">
-            <img src="/dist/img/Більше інфо-light.png" alt="#">
-         </button>
-         <button type="button" id="close-filter-btn" class="close-filter-btn position-relative invisible">
-            <img src="/dist/img/close-filter-btn.png" alt="#">
-         </button>
-         </div>
-         <!-- small filter -->
-         <div class="filter-wrapper filter-sm container-fluid position-relative invisible">
-            <div class="filter-s container d-flex flex-column position-absolute p-2" >
-
-               <div class="filter-s__one container mx-1 d-flex align-items-center position-relative p-0">
-                  <label for="exampleInputEmail1" class="filter-s__lable form-label text-uppercase mt-2 me-5">по
-                     змісту</label>
-                  <input type="text" class="filter-s__input form-control mx-2 ms-3" id="filter-text-s"
-                     style="border-color:#6BB961; color: #307570; height: 30px;">
-                  <button type="button" id="filter-serch-btn-s"
-                     class="filter-s__search-btn search-btn position-absolute border-0 bg-white">
-                     <img src="./dist/img/search-icon.png" alt="search-icon">
-                  </button>
-               </div>
-
-               <div class="filter-s__two container mx-1 d-flex align-items-center p-0">
-                  <label for="exampleInputEmail1" class="filter-s__lable form-label text-uppercase mt-2 me-5">по
-                     статусу</label>
-                  <button type="button" id="filter-open-btn-s" class="filter-s__btn me-1 ms-3 ">
-                     open
-                  </button>
-                  <button type="button" id="filter-done-btn-s" class="filter-s__btn filter__btn--active ">
-                     done
-                  </button>
-               </div>
-
-               <div class="filter-s__three container mx-1 d-flex align-items-center p-0">
-                  <label for="exampleInputEmail1" class="filter-s__lable form-label text-uppercase mt-2 ">по
-                     терміновості</label>
-                  <button type="button" id="filter-high-btn-s" class="filter-s__btn me-1 ms-3 ">
-                     high
-                  </button>
-                  <button type="button" id="filter-normal-btn-s" class="filter-s__btn-lg me-1">
-                     normal
-                  </button>
-                  <button type="button" id="filter-low-btn-s" class="filter-s__btn filter-s__btn--active">
-                     low
-                  </button>
-               </div>
-            </div>
-         </div>
-         <!-- large filter -->
-         <div class="filter-wrapper filter-lg container-fluid">
-            <div class="filter filter-wrapper-sm container d-flex justify-content-center position-relative mt-3 p-0 " style="height: 50px;">
-
-               <div class="filter__one container mx-1 d-flex justify-content-end align-items-center position-relative p-0"
-                 >
-                <label for="exampleInputEmail1" class="filter__lable form-label text-uppercase mt-2 me-2">по
-                    змісту</label>
-                <input type="text" class="filter__input form-control mx-2" id="filter-text"
-                       style="border-color:#6BB961; color: #307570;  height: 30px;">
-                <button type="button" id="filter-serch-btn"
-                        class="filter__search-btn search-btn position-absolute border-0 bg-white" >
-                     <img src="./dist/img/search-icon.png" alt="search-icon">
-                  </button>
-               </div>
-
-               <div class="filter__two container mx-1 d-flex justify-content-center align-items-center p-0">
-                <label for="exampleInputEmail1" class="filter__lable form-label text-uppercase mt-2 me-3">по
-                    статусу</label>
-                <button type="button" id="filter-open-btn" class="filter__btn me-1 ">
-                    open
-                </button>
-                <button type="button" id="filter-done-btn" class="filter__btn">
-                    done
-                </button>
-            </div>
-
-               <div class="filter__three container mx-1 d-flex justify-content-center align-items-center p-0">
-                <label for="exampleInputEmail1" class="filter__lable form-label text-uppercase mt-2 me-3">по
-                    терміновості</label>
-                <button type="button" id="filter-high-btn" class="filter__btn me-1 ">
-                    high
-                </button>
-                <button type="button" id="filter-normal-btn" class="filter__btn-lg me-1">
-                    normal
-                </button>
-                <button type="button" id="filter-low-btn" class="filter__btn">
-                    low
-                </button>
-</div>
-            </div>
-
-            <div class="line container"></div>
-         </div>
-
-        <!-- -----------------main-------------------->
-         <div class="main-section__wrapper">
-            <h2 class="main-section__header-novisit mb-0 ms-5" style="margin-left: 0">немає візитів</h2>
-            <div class="main-section__cards-container">
-            </div>
-         </div>
+      <!-- -----------------main-------------------->
+      <div class="main-section__wrapper">
+        <h2 class="main-section__header-novisit mb-0 ms-5" style="margin-left: 0">немає візитів</h2>
+        <div class="main-section__cards-container">
+        </div>
       </div>
-   </section>
+    </div>
+  </section>
 
-   <div class="modal-login container-fluid p-0 vh-100 position-fixed top-0 start-0 bg-black bg-opacity-25"
-      style="backdrop-filter: blur(3px); overflow: hidden; display: none" id="new-visit-form">
-      <div class="main-section__new-visit container-sm bg-white position-absolute top-50 start-50 translate-middle p-4"
-         style="border-radius:10px; width: 40vw; overflow: scroll; max-height: 90%">
-         <h2 style="color: #6BB961; text-decoration: underline; text-align: center">новий візит</h2>
-         <div class="form-group">
-            <label for="doctor-type-select" class="form-label">Оберіть лікаря</label>
-            <select class="form-control" id="doctor-type-select" style="color: #307570;">
-                <option  value="cardiolog">Кардиолог</option>
-                <option  value="stomatolog">Стоматолог</option>
-                <option  value="terapevt">Терапевт</option>
+  <div class="modal-login container-fluid p-0 vh-100 position-fixed top-0 start-0 bg-black bg-opacity-25"
+    style="backdrop-filter: blur(3px); overflow: hidden; display: none" id="new-visit-form">
+    <div class="main-section__new-visit container-sm bg-white position-absolute top-50 start-50 translate-middle p-4"
+      style="border-radius:10px; width: 40vw; overflow: scroll; max-height: 90%">
+      <h2 style="color: #6BB961; text-decoration: underline; text-align: center">новий візит</h2>
+      <div class="form-group">
+        <label for="doctor-type-select" class="form-label">Оберіть лікаря</label>
+        <select class="form-control" id="doctor-type-select" style="color: #307570;">
+          <option value="cardiolog">Кардиолог</option>
+          <option value="stomatolog">Стоматолог</option>
+          <option value="terapevt">Терапевт</option>
+        </select>
+      </div>
+      <form>
+        <div class="form-group" id="doctors-form">
+          <div class="col">
+            <input type="text" id="patient_name" class="form-control" placeholder="ПІБ(пацієнта)">
+          </div>
+          <div class="col">
+            <input type="text" id="visit-propose" class="form-control" placeholder="Ціль візита">
+          </div>
+          <div class="optional-inputs">
+            <div class="col">
+              <input type="number" class="form-control" id="user-age-cardiolog" placeholder="Вік">
+            </div>
+            <div class="col">
+              <input type="number" class="form-control" id="normal-pressure" placeholder="Звичайний тиск">
+            </div>
+            <div class="col">
+              <input type="number" class="form-control" id="body-mass-index" placeholder="Індекс маси тіла">
+            </div>
+            <div class="col">
+              <textarea type="text" class="form-control" id="cardiovascular-disease"
+                placeholder="Змінні захворювання серцево-судинної системи"></textarea>
+            </div>
+          </div>
+          <div class="col">
+            <textarea type="text" class="form-control" id="short-text" placeholder="Короткі замітки"></textarea>
+          </div>
+          <div class="col">
+            <label for="urgently" style="text-align: center">Терміновість візита</label>
+            <select class="form-control" id="urgently" style="color: #307570;">
+              <option value="High">High</option>
+              <option value="Normal">Normal</option>
+              <option value="Low">Low</option>
             </select>
-         </div>
-         <form>
-            <div class="form-group" id="doctors-form">
-                <div class="col">
-                    <input type="text" id="patient_name" class="form-control" placeholder="ПІБ(пацієнта)">
-                </div>
-                <div class="col">
-                    <input type="text" id="visit-propose" class="form-control" placeholder="Ціль візита">
-                </div>
-                <div class="optional-inputs">
-                    <div class="col">
-                        <input type="number" class="form-control"  id="user-age-cardiolog" placeholder="Вік">
-                    </div>
-                    <div class="col">
-                        <input type="number" class="form-control" id="normal-pressure" placeholder="Звичайний тиск">
-                    </div>
-                    <div class="col">
-                        <input type="number" class="form-control"  id="body-mass-index" placeholder="Індекс маси тіла">
-                    </div>
-                    <div class="col">
-                                <textarea type="text" class="form-control" id="cardiovascular-disease"
-                                          placeholder="Змінні захворювання серцево-судинної системи"></textarea>
-                    </div>
-                </div>
-                <div class="col">
-                    <textarea type="text" class="form-control" id="short-text" placeholder="Короткі замітки"></textarea>
-                </div>
-                <div class="col">
-                    <label for="urgently" style="text-align: center">Терміновість візита</label>
-                    <select class="form-control" id="urgently" style="color: #307570;">
-                        <option value="High">High</option>
-                        <option value="Normal">Normal</option>
-                        <option value="Low">Low</option>
-                    </select>
-                </div>
-            </div>
-         </form>
-         <div class="main-section__button-container">
-            <button type="button" class="modal-login__btn-done btn  btn-success" id="close_new_visit"
-               style="margin-top: 20px; background-color: #D24B4B;">Закрити
-            </button>
-            <button type="button" class="modal-login__btn-done btn btn-success" id="add_new_visit_button" style="margin-top: 20px">
-                Створити
-            </button>
-         </div>
+          </div>
+        </div>
+      </form>
+      <div class="main-section__button-container">
+        <button type="button" class="modal-login__btn-done btn  btn-success" id="close_new_visit"
+          style="margin-top: 20px; background-color: #D24B4B;">Закрити
+        </button>
+        <button type="button" class="modal-login__btn-done btn btn-success" id="add_new_visit_button"
+          style="margin-top: 20px">
+          Створити
+        </button>
       </div>
-   </div>
+    </div>
+  </div>
 
-   <script src="./dist/js/scripts.min.js"></script>
+  <script src="./dist/js/scripts.min.js"></script>
 </body>
 
 </html>
