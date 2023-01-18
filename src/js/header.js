@@ -5,6 +5,8 @@ const modalLoginBtnDone = document.querySelector('.modal-login__btn-done');
 const modalLoginBtnClose = document.querySelector('.modal-login__btn-close');
 let token = '';
 
+window.addEventListener('reload', sessionStorage.clear())
+
 //-----------------------------header btn function------------------------------------
 function headerLogin() {
 	const modalLogin = document.querySelector('.modal-login');
@@ -63,14 +65,21 @@ async function modalDoneBtn() {
 				},
 			})
 				.then(resp => resp.json())
-				.then(allCard => {
-					if (allCard.length != 0) {
-						document.querySelector('.main-section__header-novisit').style.display = 'none';
-					}
-					for (const card of allCard) {
-						cardsController.addCard(card);
-					}
-				});
+        .then(allCard => {
+          //----------------clean '.main-section__cards-container'
+          cleanContainer(
+            document.querySelector('.main-section__cards-container')
+          );
+          
+          if (allCard.length != 0) {
+            document.querySelector(
+              '.main-section__header-novisit'
+            ).style.display = 'none';
+          }
+          for (const card of allCard) {
+            cardsController.addCard(card);
+          }
+        });
 		});
 }
 
