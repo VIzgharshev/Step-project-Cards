@@ -49,532 +49,606 @@ searchBtn.addEventListener('click', onInputBtn);
 
 //--------------------function for cleane main card container
 function cleanContainer(parent) {
-	while (parent.firstChild) {
-		parent.removeChild(parent.firstChild);
-	}
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
 }
 
 //--------------------refreshFilter
 function refreshFilter() {
-	highBtn.classList.remove('filter__btn--active');
-	normalBtn.classList.remove('filter__btn--active');
-	lowBtn.classList.remove('filter__btn--active');
-	highBtnS.classList.remove('filter-s__btn--active');
-	normalBtnS.classList.remove('filter-s__btn--active');
-	lowBtnS.classList.remove('filter-s__btn--active');
-	openBtn.classList.remove('filter__btn--active');
-	openBtnS.classList.remove('filter-s__btn--active');
-	doneBtn.classList.remove('filter__btn--active');
-	doneBtnS.classList.remove('filter-s__btn--active');
+  highBtn.classList.remove('filter__btn--active');
+  normalBtn.classList.remove('filter__btn--active');
+  lowBtn.classList.remove('filter__btn--active');
+  highBtnS.classList.remove('filter-s__btn--active');
+  normalBtnS.classList.remove('filter-s__btn--active');
+  lowBtnS.classList.remove('filter-s__btn--active');
+  openBtn.classList.remove('filter__btn--active');
+  openBtnS.classList.remove('filter-s__btn--active');
+  doneBtn.classList.remove('filter__btn--active');
+  doneBtnS.classList.remove('filter-s__btn--active');
 
-	//----------------clean '.main-section__cards-container'
-	cleanContainer(document.querySelector('.main-section__cards-container'));
+  //----------------clean '.main-section__cards-container'
+  cleanContainer(document.querySelector('.main-section__cards-container'));
 
-	fetch('https://ajax.test-danit.com/api/v2/cards', {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${sessionStorage.token}`,
-		},
-	})
-		.then(resp => resp.json())
-		.then(allCard => {
-			//---------------hide title
-			if (allCard.length != 0) {
-				document.querySelector('.main-section__header-novisit').style.display = 'none';
-			}
-			//-----------------check input value in context object key and render it
-			for (const card of allCard) {
-				cardsController.addCard(card);
-			}
-		});
+  fetch('https://ajax.test-danit.com/api/v2/cards', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${sessionStorage.token}`,
+    },
+  })
+    .then((resp) => resp.json())
+    .then((allCard) => {
+      //---------------hide title
+      if (allCard.length != 0) {
+        document.querySelector('.main-section__header-novisit').style.display =
+          'none';
+      }
+      //-----------------check input value in context object key and render it
+      for (const card of allCard) {
+        cardsController.addCard(card);
+      }
+    });
 }
 
 //-----------------------------------INPUT FILTER--------------------------------------------
 function onInputEnter(e) {
-	if (e.keyCode === 13) {
-		openBtnS.classList.remove('filter-s__btn--active');
-		doneBtnS.classList.remove('filter-s__btn--active');
-		highBtnS.classList.remove('filter-s__btn--active');
-		normalBtnS.classList.remove('filter-s__btn--active');
-		lowBtnS.classList.remove('filter-s__btn--active');
-		openBtn.classList.remove('filter__btn--active');
-		doneBtn.classList.remove('filter__btn--active');
-		highBtn.classList.remove('filter__btn--active');
-		normalBtn.classList.remove('filter__btn--active');
-		lowBtn.classList.remove('filter__btn--active');
+  if (e.keyCode === 13) {
+    openBtnS.classList.remove('filter-s__btn--active');
+    doneBtnS.classList.remove('filter-s__btn--active');
+    highBtnS.classList.remove('filter-s__btn--active');
+    normalBtnS.classList.remove('filter-s__btn--active');
+    lowBtnS.classList.remove('filter-s__btn--active');
+    openBtn.classList.remove('filter__btn--active');
+    doneBtn.classList.remove('filter__btn--active');
+    highBtn.classList.remove('filter__btn--active');
+    normalBtn.classList.remove('filter__btn--active');
+    lowBtn.classList.remove('filter__btn--active');
 
-		const inputValueSmallFilter = document.querySelector('#filter-text-s').value;
-		const inputValueLargeFilter = document.querySelector('#filter-text').value;
-		let inputForCheck = '';
+    const inputValueSmallFilter =
+      document.querySelector('#filter-text-s').value;
+    const inputValueLargeFilter = document.querySelector('#filter-text').value;
+    let inputForCheck = '';
 
-		//---------------getiing value for cicles
-		if (inputValueSmallFilter.length === 0) {
-			inputForCheck = String(inputValueLargeFilter);
-		} else {
-			inputForCheck = String(inputValueSmallFilter);
-		}
-		//----------------clean '.main-section__cards-container'
-		cleanContainer(document.querySelector('.main-section__cards-container'));
+    //---------------getiing value for cicles
+    if (inputValueSmallFilter.length === 0) {
+      inputForCheck = String(inputValueLargeFilter);
+    } else {
+      inputForCheck = String(inputValueSmallFilter);
+    }
+    //----------------clean '.main-section__cards-container'
+    cleanContainer(document.querySelector('.main-section__cards-container'));
 
-		//----------------CHECKING...
-		if (inputForCheck != '') {
-			fetch('https://ajax.test-danit.com/api/v2/cards', {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${sessionStorage.token}`,
-				},
-			})
-				.then(resp => resp.json())
-				.then(allCard => {
-					//---------------hide title
+    //----------------CHECKING...
+    if (inputForCheck != '') {
+      fetch('https://ajax.test-danit.com/api/v2/cards', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sessionStorage.token}`,
+        },
+      })
+        .then((resp) => resp.json())
+        .then((allCard) => {
+          //---------------hide title
 
-					let counter = 0;
-					if (counter === 0) {
-						document.querySelector('.main-section__header-novisit').style.display = 'none';
-					}
-					//-----------------check input value in context object key and render it
-					allCard.forEach(card => {
-						for (const key in card) {
-							if (String(card[key]).toLowerCase().includes(inputForCheck.toLowerCase())) {
-								counter++;
-								cardsController.addCard(card);
-							}
-						}
-					});
-					if (counter === 0) {
-						document.querySelector('.main-section__header-novisit').style.display = 'block';
-					}
-				});
-		} else if (inputForCheck === '') {
-			let counter = 0;
-			if (counter === 0) {
-				document.querySelector('.main-section__header-novisit').style.display = 'block';
-			}
-		}
-	}
+          let counter = 0;
+          if (counter === 0) {
+            document.querySelector(
+              '.main-section__header-novisit'
+            ).style.display = 'none';
+          }
+          //-----------------check input value in context object key and render it
+          allCard.forEach((card) => {
+            if (
+              String(card.title)
+                .toLowerCase()
+                .includes(inputForCheck.toLowerCase()) ||
+              String(card.description)
+                .toLowerCase()
+                .includes(inputForCheck.toLowerCase())
+            ) {
+              counter++;
+              cardsController.addCard(card);
+            }
+            //for (const key in card) {
+            //  console.log(card.title);
+            //  console.log(card.description);
+            //  if (String(card[key]).toLowerCase().includes(inputForCheck.toLowerCase())) {
+            //  	counter++;
+            //  	cardsController.addCard(card);
+            //  }
+            //}
+          });
+          if (counter === 0) {
+            document.querySelector(
+              '.main-section__header-novisit'
+            ).style.display = 'block';
+          }
+        });
+    } else if (inputForCheck === '') {
+      let counter = 0;
+      if (counter === 0) {
+        document.querySelector('.main-section__header-novisit').style.display =
+          'block';
+      }
+    }
+  }
 }
 
 function onInputBtn() {
-	openBtnS.classList.remove('filter-s__btn--active');
-	doneBtnS.classList.remove('filter-s__btn--active');
-	highBtnS.classList.remove('filter-s__btn--active');
-	normalBtnS.classList.remove('filter-s__btn--active');
-	lowBtnS.classList.remove('filter-s__btn--active');
-	openBtn.classList.remove('filter__btn--active');
-	doneBtn.classList.remove('filter__btn--active');
-	highBtn.classList.remove('filter__btn--active');
-	normalBtn.classList.remove('filter__btn--active');
-	lowBtn.classList.remove('filter__btn--active');
+  openBtnS.classList.remove('filter-s__btn--active');
+  doneBtnS.classList.remove('filter-s__btn--active');
+  highBtnS.classList.remove('filter-s__btn--active');
+  normalBtnS.classList.remove('filter-s__btn--active');
+  lowBtnS.classList.remove('filter-s__btn--active');
+  openBtn.classList.remove('filter__btn--active');
+  doneBtn.classList.remove('filter__btn--active');
+  highBtn.classList.remove('filter__btn--active');
+  normalBtn.classList.remove('filter__btn--active');
+  lowBtn.classList.remove('filter__btn--active');
 
-	const inputValueSmallFilter = document.querySelector('#filter-text-s').value;
-	const inputValueLargeFilter = document.querySelector('#filter-text').value;
-	let inputForCheck = '';
+  const inputValueSmallFilter = document.querySelector('#filter-text-s').value;
+  const inputValueLargeFilter = document.querySelector('#filter-text').value;
+  let inputForCheck = '';
 
-	//---------------getiing value for cicles
-	if (inputValueSmallFilter.length === 0) {
-		inputForCheck = String(inputValueLargeFilter);
-	} else {
-		inputForCheck = String(inputValueSmallFilter);
-	}
-	//----------------clean '.main-section__cards-container'
-	cleanContainer(document.querySelector('.main-section__cards-container'));
+  //---------------getiing value for cicles
+  if (inputValueSmallFilter.length === 0) {
+    inputForCheck = String(inputValueLargeFilter);
+  } else {
+    inputForCheck = String(inputValueSmallFilter);
+  }
+  //----------------clean '.main-section__cards-container'
+  cleanContainer(document.querySelector('.main-section__cards-container'));
 
-	//----------------CHECKING...
-	if (inputForCheck != '') {
-		fetch('https://ajax.test-danit.com/api/v2/cards', {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${sessionStorage.token}`,
-			},
-		})
-			.then(resp => resp.json())
-			.then(allCard => {
-				//---------------hide title
-				let counter = 0;
-				if (counter === 0) {
-					document.querySelector('.main-section__header-novisit').style.display = 'none';
-				}
-				//-----------------check input value in context object key and render it
-				allCard.forEach(card => {
-					for (const key in card) {
-						if (String(card[key]).toLowerCase().includes(inputForCheck.toLowerCase())) {
-							counter++;
-							cardsController.addCard(card);
-						}
-					}
-				});
-				if (counter === 0) {
-					document.querySelector('.main-section__header-novisit').style.display = 'block';
-				}
-			});
-	} else if (inputForCheck === '') {
-		let counter = 0;
-		if (counter === 0) {
-			document.querySelector('.main-section__header-novisit').style.display = 'block';
-		}
-	}
+  //----------------CHECKING...
+  if (inputForCheck != '') {
+    fetch('https://ajax.test-danit.com/api/v2/cards', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.token}`,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((allCard) => {
+        //---------------hide title
+        let counter = 0;
+        if (counter === 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'none';
+        }
+        //-----------------check input value in context object key and render it
+        allCard.forEach((card) => {
+          if (
+            String(card.title)
+              .toLowerCase()
+              .includes(inputForCheck.toLowerCase()) ||
+            String(card.description)
+              .toLowerCase()
+              .includes(inputForCheck.toLowerCase())
+          ) {
+            counter++;
+            cardsController.addCard(card);
+          }
+          //for (const key in card) {
+          //  if (
+          //    String(card[key])
+          //      .toLowerCase()
+          //      .includes(inputForCheck.toLowerCase())
+          //  ) {
+          //    counter++;
+          //    cardsController.addCard(card);
+          //  }
+          //}
+        });
+        if (counter === 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'block';
+        }
+      });
+  } else if (inputForCheck === '') {
+    let counter = 0;
+    if (counter === 0) {
+      document.querySelector('.main-section__header-novisit').style.display =
+        'block';
+    }
+  }
 }
 
 //------------small filter function-----------
 function openFilterFunc() {
-	const smallFilter = document.querySelector('.filter-sm');
-	openFilter.classList.add('invisible');
-	closeFilter.classList.remove('invisible');
-	smallFilter.classList.remove('invisible');
+  const smallFilter = document.querySelector('.filter-sm');
+  openFilter.classList.add('invisible');
+  closeFilter.classList.remove('invisible');
+  smallFilter.classList.remove('invisible');
 }
 
 function closeFilterFunc() {
-	const smallFilter = document.querySelector('.filter-sm');
-	closeFilter.classList.add('invisible');
-	openFilter.classList.remove('invisible');
-	smallFilter.classList.add('invisible');
+  const smallFilter = document.querySelector('.filter-sm');
+  closeFilter.classList.add('invisible');
+  openFilter.classList.remove('invisible');
+  smallFilter.classList.add('invisible');
 }
 
 function statusBtnsS(e) {
-	e.target.classList.add('filter-s__btn--active');
-	if (e.target === openBtnS) {
-		doneBtnS.classList.remove('filter-s__btn--active');
-		highBtnS.classList.remove('filter-s__btn--active');
-		normalBtnS.classList.remove('filter-s__btn--active');
-		lowBtnS.classList.remove('filter-s__btn--active');
-		//----------------clean '.main-section__cards-container'
-		cleanContainer(document.querySelector('.main-section__cards-container'));
-		//----------------CHECKING...
-		fetch('https://ajax.test-danit.com/api/v2/cards', {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${sessionStorage.token}`,
-			},
-		})
-			.then(resp => resp.json())
-			.then(allCard => {
-				//---------------hide title
-				let counter = 0;
-				if (counter === 0) {
-					document.querySelector('.main-section__header-novisit').style.display = 'none';
-				}
-				//-----------------check input value in context object key and render it
-				for (const card of allCard) {
-					if (card.visit === 'open') {
-						counter++;
-						cardsController.addCard(card);
-					}
-				}
-				if (counter === 0) {
-					document.querySelector('.main-section__header-novisit').style.display = 'block';
-				}
-			});
-	} else {
-		openBtnS.classList.remove('filter-s__btn--active');
-		highBtnS.classList.remove('filter-s__btn--active');
-		normalBtnS.classList.remove('filter-s__btn--active');
-		lowBtnS.classList.remove('filter-s__btn--active');
-		//----------------clean '.main-section__cards-container'
-		cleanContainer(document.querySelector('.main-section__cards-container'));
-		//----------------CHECKING...
-		fetch('https://ajax.test-danit.com/api/v2/cards', {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${sessionStorage.token}`,
-			},
-		})
-			.then(resp => resp.json())
-			.then(allCard => {
-				//---------------hide title
-				let counter = 0;
-				if (counter === 0) {
-					document.querySelector('.main-section__header-novisit').style.display = 'none';
-				}
-				//-----------------check input value in context object key and render it
-				for (const card of allCard) {
-					if (card.visit === 'close') {
-						counter++;
-						cardsController.addCard(card);
-					}
-				}
-				if (counter === 0) {
-					document.querySelector('.main-section__header-novisit').style.display = 'block';
-				}
-			});
-	}
+  e.target.classList.add('filter-s__btn--active');
+  if (e.target === openBtnS) {
+    doneBtnS.classList.remove('filter-s__btn--active');
+    highBtnS.classList.remove('filter-s__btn--active');
+    normalBtnS.classList.remove('filter-s__btn--active');
+    lowBtnS.classList.remove('filter-s__btn--active');
+    //----------------clean '.main-section__cards-container'
+    cleanContainer(document.querySelector('.main-section__cards-container'));
+    //----------------CHECKING...
+    fetch('https://ajax.test-danit.com/api/v2/cards', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.token}`,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((allCard) => {
+        //---------------hide title
+        let counter = 0;
+        if (counter === 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'none';
+        }
+        //-----------------check input value in context object key and render it
+        for (const card of allCard) {
+          if (card.visit === 'open') {
+            counter++;
+            cardsController.addCard(card);
+          }
+        }
+        if (counter === 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'block';
+        }
+      });
+  } else {
+    openBtnS.classList.remove('filter-s__btn--active');
+    highBtnS.classList.remove('filter-s__btn--active');
+    normalBtnS.classList.remove('filter-s__btn--active');
+    lowBtnS.classList.remove('filter-s__btn--active');
+    //----------------clean '.main-section__cards-container'
+    cleanContainer(document.querySelector('.main-section__cards-container'));
+    //----------------CHECKING...
+    fetch('https://ajax.test-danit.com/api/v2/cards', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.token}`,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((allCard) => {
+        //---------------hide title
+        let counter = 0;
+        if (counter === 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'none';
+        }
+        //-----------------check input value in context object key and render it
+        for (const card of allCard) {
+          if (card.visit === 'close') {
+            counter++;
+            cardsController.addCard(card);
+          }
+        }
+        if (counter === 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'block';
+        }
+      });
+  }
 }
 
 function urgencyBtnsS(e) {
-	e.target.classList.add('filter-s__btn--active');
-	openBtn.classList.remove('filter-s__btn--active');
-	openBtnS.classList.remove('filter-s__btn--active');
-	doneBtn.classList.remove('filter-s__btn--active');
-	doneBtnS.classList.remove('filter-s__btn--active');
+  e.target.classList.add('filter-s__btn--active');
+  openBtn.classList.remove('filter-s__btn--active');
+  openBtnS.classList.remove('filter-s__btn--active');
+  doneBtn.classList.remove('filter-s__btn--active');
+  doneBtnS.classList.remove('filter-s__btn--active');
 
-	if (e.target === highBtnS) {
-		normalBtnS.classList.remove('filter-s__btn--active');
-		lowBtnS.classList.remove('filter-s__btn--active');
+  if (e.target === highBtnS) {
+    normalBtnS.classList.remove('filter-s__btn--active');
+    lowBtnS.classList.remove('filter-s__btn--active');
 
-		//----------------clean '.main-section__cards-container'
-		cleanContainer(document.querySelector('.main-section__cards-container'));
+    //----------------clean '.main-section__cards-container'
+    cleanContainer(document.querySelector('.main-section__cards-container'));
 
-		//----------------CHECKING...
-		fetch('https://ajax.test-danit.com/api/v2/cards', {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${sessionStorage.token}`,
-			},
-		})
-			.then(resp => resp.json())
-			.then(allCard => {
-				//---------------hide title
-				if (allCard.length != 0) {
-					document.querySelector('.main-section__header-novisit').style.display = 'none';
-				}
-				//-----------------check input value in context object key and render it
-				for (const card of allCard) {
-					if (card.urgency === 'High') {
-						cardsController.addCard(card);
-					}
-				}
-			});
-	} else if (e.target === normalBtnS) {
-		highBtnS.classList.remove('filter-s__btn--active');
-		lowBtnS.classList.remove('filter-s__btn--active');
+    //----------------CHECKING...
+    fetch('https://ajax.test-danit.com/api/v2/cards', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.token}`,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((allCard) => {
+        //---------------hide title
+        if (allCard.length != 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'none';
+        }
+        //-----------------check input value in context object key and render it
+        for (const card of allCard) {
+          if (card.urgency === 'High') {
+            cardsController.addCard(card);
+          }
+        }
+      });
+  } else if (e.target === normalBtnS) {
+    highBtnS.classList.remove('filter-s__btn--active');
+    lowBtnS.classList.remove('filter-s__btn--active');
 
-		//----------------clean '.main-section__cards-container'
-		cleanContainer(document.querySelector('.main-section__cards-container'));
+    //----------------clean '.main-section__cards-container'
+    cleanContainer(document.querySelector('.main-section__cards-container'));
 
-		//----------------CHECKING...
-		fetch('https://ajax.test-danit.com/api/v2/cards', {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${sessionStorage.token}`,
-			},
-		})
-			.then(resp => resp.json())
-			.then(allCard => {
-				//---------------hide title
-				if (allCard.length != 0) {
-					document.querySelector('.main-section__header-novisit').style.display = 'none';
-				}
-				//-----------------check input value in context object key and render it
-				for (const card of allCard) {
-					if (card.urgency === 'Normal') {
-						cardsController.addCard(card);
-					}
-				}
-			});
-	} else {
-		highBtnS.classList.remove('filter-s__btn--active');
-		normalBtnS.classList.remove('filter-s__btn--active');
+    //----------------CHECKING...
+    fetch('https://ajax.test-danit.com/api/v2/cards', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.token}`,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((allCard) => {
+        //---------------hide title
+        if (allCard.length != 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'none';
+        }
+        //-----------------check input value in context object key and render it
+        for (const card of allCard) {
+          if (card.urgency === 'Normal') {
+            cardsController.addCard(card);
+          }
+        }
+      });
+  } else {
+    highBtnS.classList.remove('filter-s__btn--active');
+    normalBtnS.classList.remove('filter-s__btn--active');
 
-		//----------------clean '.main-section__cards-container'
-		cleanContainer(document.querySelector('.main-section__cards-container'));
+    //----------------clean '.main-section__cards-container'
+    cleanContainer(document.querySelector('.main-section__cards-container'));
 
-		//----------------CHECKING...
-		fetch('https://ajax.test-danit.com/api/v2/cards', {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${sessionStorage.token}`,
-			},
-		})
-			.then(resp => resp.json())
-			.then(allCard => {
-				//---------------hide title
-				if (allCard.length != 0) {
-					document.querySelector('.main-section__header-novisit').style.display = 'none';
-				}
-				//-----------------check input value in context object key and render it
-				for (const card of allCard) {
-					if (card.urgency === 'Low') {
-						cardsController.addCard(card);
-					}
-				}
-			});
-	}
+    //----------------CHECKING...
+    fetch('https://ajax.test-danit.com/api/v2/cards', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.token}`,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((allCard) => {
+        //---------------hide title
+        if (allCard.length != 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'none';
+        }
+        //-----------------check input value in context object key and render it
+        for (const card of allCard) {
+          if (card.urgency === 'Low') {
+            cardsController.addCard(card);
+          }
+        }
+      });
+  }
 }
 
 //------------large filter function-----------
 function statusBtns(e) {
-	e.target.classList.add('filter__btn--active');
-	if (e.target === openBtn) {
-		doneBtn.classList.remove('filter__btn--active');
-		highBtn.classList.remove('filter__btn--active');
-		normalBtn.classList.remove('filter__btn--active');
-		lowBtn.classList.remove('filter__btn--active');
-		//----------------clean '.main-section__cards-container'
-		cleanContainer(document.querySelector('.main-section__cards-container'));
-		//----------------CHECKING...
-		fetch('https://ajax.test-danit.com/api/v2/cards', {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${sessionStorage.token}`,
-			},
-		})
-			.then(resp => resp.json())
-			.then(allCard => {
-				//---------------hide title
-				let counter = 0;
-				if (counter === 0) {
-					document.querySelector('.main-section__header-novisit').style.display = 'none';
-				}
-				//-----------------check input value in context object key and render it
-				for (const card of allCard) {
-					if (card.visit === 'open') {
-						counter++;
-						cardsController.addCard(card);
-					}
-				}
-				if (counter === 0) {
-					document.querySelector('.main-section__header-novisit').style.display = 'block';
-				}
-			});
-	} else {
-		openBtn.classList.remove('filter__btn--active');
-		highBtn.classList.remove('filter__btn--active');
-		normalBtn.classList.remove('filter__btn--active');
-		lowBtn.classList.remove('filter__btn--active');
-		//----------------clean '.main-section__cards-container'
-		cleanContainer(document.querySelector('.main-section__cards-container'));
-		//----------------CHECKING...
-		fetch('https://ajax.test-danit.com/api/v2/cards', {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${sessionStorage.token}`,
-			},
-		})
-			.then(resp => resp.json())
-			.then(allCard => {
-				//---------------hide title
-				let counter = 0;
-				if (counter === 0) {
-					document.querySelector('.main-section__header-novisit').style.display = 'none';
-				}
-				//-----------------check input value in context object key and render it
-				for (const card of allCard) {
-					if (card.visit === 'close') {
-						counter++;
-						cardsController.addCard(card);
-					}
-				}
-				if (counter === 0) {
-					document.querySelector('.main-section__header-novisit').style.display = 'block';
-				}
-			});
-	}
+  e.target.classList.add('filter__btn--active');
+  if (e.target === openBtn) {
+    doneBtn.classList.remove('filter__btn--active');
+    highBtn.classList.remove('filter__btn--active');
+    normalBtn.classList.remove('filter__btn--active');
+    lowBtn.classList.remove('filter__btn--active');
+    //----------------clean '.main-section__cards-container'
+    cleanContainer(document.querySelector('.main-section__cards-container'));
+    //----------------CHECKING...
+    fetch('https://ajax.test-danit.com/api/v2/cards', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.token}`,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((allCard) => {
+        //---------------hide title
+        let counter = 0;
+        if (counter === 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'none';
+        }
+        //-----------------check input value in context object key and render it
+        for (const card of allCard) {
+          if (card.visit === 'open') {
+            counter++;
+            cardsController.addCard(card);
+          }
+        }
+        if (counter === 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'block';
+        }
+      });
+  } else {
+    openBtn.classList.remove('filter__btn--active');
+    highBtn.classList.remove('filter__btn--active');
+    normalBtn.classList.remove('filter__btn--active');
+    lowBtn.classList.remove('filter__btn--active');
+    //----------------clean '.main-section__cards-container'
+    cleanContainer(document.querySelector('.main-section__cards-container'));
+    //----------------CHECKING...
+    fetch('https://ajax.test-danit.com/api/v2/cards', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.token}`,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((allCard) => {
+        //---------------hide title
+        let counter = 0;
+        if (counter === 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'none';
+        }
+        //-----------------check input value in context object key and render it
+        for (const card of allCard) {
+          if (card.visit === 'close') {
+            counter++;
+            cardsController.addCard(card);
+          }
+        }
+        if (counter === 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'block';
+        }
+      });
+  }
 }
 
 function urgencyBtns(e) {
-	e.target.classList.add('filter__btn--active');
-	openBtn.classList.remove('filter__btn--active');
-	openBtnS.classList.remove('filter__btn--active');
-	doneBtn.classList.remove('filter__btn--active');
-	doneBtnS.classList.remove('filter__btn--active');
+  e.target.classList.add('filter__btn--active');
+  openBtn.classList.remove('filter__btn--active');
+  openBtnS.classList.remove('filter__btn--active');
+  doneBtn.classList.remove('filter__btn--active');
+  doneBtnS.classList.remove('filter__btn--active');
 
-	if (e.target === highBtn) {
-		normalBtn.classList.remove('filter__btn--active');
-		lowBtn.classList.remove('filter__btn--active');
+  if (e.target === highBtn) {
+    normalBtn.classList.remove('filter__btn--active');
+    lowBtn.classList.remove('filter__btn--active');
 
-		//----------------clean '.main-section__cards-container'
-		cleanContainer(document.querySelector('.main-section__cards-container'));
+    //----------------clean '.main-section__cards-container'
+    cleanContainer(document.querySelector('.main-section__cards-container'));
 
-		//----------------CHECKING...
-		fetch('https://ajax.test-danit.com/api/v2/cards', {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${sessionStorage.token}`,
-			},
-		})
-			.then(resp => resp.json())
-			.then(allCard => {
-				//---------------hide title
-				let counter = 0;
-				if (counter === 0) {
-					document.querySelector('.main-section__header-novisit').style.display = 'none';
-				}
-				//-----------------check input value in context object key and render it
-				for (const card of allCard) {
-					if (card.urgency === 'High') {
-						counter++;
-						cardsController.addCard(card);
-					}
-				}
-				if (counter === 0) {
-					document.querySelector('.main-section__header-novisit').style.display = 'block';
-				}
-			});
-	} else if (e.target === normalBtn) {
-		highBtn.classList.remove('filter__btn--active');
-		lowBtn.classList.remove('filter__btn--active');
+    //----------------CHECKING...
+    fetch('https://ajax.test-danit.com/api/v2/cards', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.token}`,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((allCard) => {
+        //---------------hide title
+        let counter = 0;
+        if (counter === 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'none';
+        }
+        //-----------------check input value in context object key and render it
+        for (const card of allCard) {
+          if (card.urgency === 'High') {
+            counter++;
+            cardsController.addCard(card);
+          }
+        }
+        if (counter === 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'block';
+        }
+      });
+  } else if (e.target === normalBtn) {
+    highBtn.classList.remove('filter__btn--active');
+    lowBtn.classList.remove('filter__btn--active');
 
-		//----------------clean '.main-section__cards-container'
-		cleanContainer(document.querySelector('.main-section__cards-container'));
+    //----------------clean '.main-section__cards-container'
+    cleanContainer(document.querySelector('.main-section__cards-container'));
 
-		//----------------CHECKING...
-		fetch('https://ajax.test-danit.com/api/v2/cards', {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${sessionStorage.token}`,
-			},
-		})
-			.then(resp => resp.json())
-			.then(allCard => {
-				//---------------hide title
-				let counter = 0;
-				if (counter === 0) {
-					document.querySelector('.main-section__header-novisit').style.display = 'none';
-				}
-				//-----------------check input value in context object key and render it
-				for (const card of allCard) {
+    //----------------CHECKING...
+    fetch('https://ajax.test-danit.com/api/v2/cards', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.token}`,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((allCard) => {
+        //---------------hide title
+        let counter = 0;
+        if (counter === 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'none';
+        }
+        //-----------------check input value in context object key and render it
+        for (const card of allCard) {
           if (card.urgency === 'Normal') {
-            counter++
-						cardsController.addCard(card);
-					}
-				}
-				if (counter === 0) {
-					document.querySelector('.main-section__header-novisit').style.display = 'block';
-				}
-			});
-	} else {
-		highBtn.classList.remove('filter__btn--active');
-		normalBtn.classList.remove('filter__btn--active');
+            counter++;
+            cardsController.addCard(card);
+          }
+        }
+        if (counter === 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'block';
+        }
+      });
+  } else {
+    highBtn.classList.remove('filter__btn--active');
+    normalBtn.classList.remove('filter__btn--active');
 
-		//----------------clean '.main-section__cards-container'
-		cleanContainer(document.querySelector('.main-section__cards-container'));
+    //----------------clean '.main-section__cards-container'
+    cleanContainer(document.querySelector('.main-section__cards-container'));
 
-		//----------------CHECKING...
-		fetch('https://ajax.test-danit.com/api/v2/cards', {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${sessionStorage.token}`,
-			},
-		})
-			.then(resp => resp.json())
-			.then(allCard => {
-				//---------------hide title
-				let counter = 0;
-				if (counter === 0) {
-					document.querySelector('.main-section__header-novisit').style.display = 'none';
-				}
-				//-----------------check input value in context object key and render it
-				for (const card of allCard) {
+    //----------------CHECKING...
+    fetch('https://ajax.test-danit.com/api/v2/cards', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.token}`,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((allCard) => {
+        //---------------hide title
+        let counter = 0;
+        if (counter === 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'none';
+        }
+        //-----------------check input value in context object key and render it
+        for (const card of allCard) {
           if (card.urgency === 'Low') {
             counter++;
-						cardsController.addCard(card);
-					}
-				}
-				if (counter === 0) {
-					document.querySelector('.main-section__header-novisit').style.display = 'block';
-				}
-			});
-	}
+            cardsController.addCard(card);
+          }
+        }
+        if (counter === 0) {
+          document.querySelector(
+            '.main-section__header-novisit'
+          ).style.display = 'block';
+        }
+      });
+  }
 }
