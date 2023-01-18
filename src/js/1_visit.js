@@ -31,7 +31,7 @@ class Visit {
         this.urgency = container.querySelector("#urgently").value;
         const visit = container.querySelector("#visit");
         if (visit) {
-            this.visit = visit.value
+            this.visit = visit.value;
         }
     }
 
@@ -42,15 +42,15 @@ class Visit {
        <div class="main-section__new-visit container-sm bg-white position-absolute top-50 start-50 translate-middle p-4"
             style="border-radius:10px; width: 40vw; overflow: scroll; max-height: 90%">
            <div class="information_wrapper">
-           <h2 class="main-section__see_all-info-header-text">Інфорамція візита</h2>
+           <h2 class="main-section__see_all-info-header-text">Iнфорамція візита</h2>
            <div>
                <h5 class="main-section__see-all-inf-header">Лікар: <span class="main-section__see-all-inf-span">${this.doctorLabel}</span></h5>
-               <h5 class="main-section__see-all-inf-header">ФІО пацієнта: <span class="main-section__see-all-inf-span">${this.patientName}</span></h5>
+               <h5 class="main-section__see-all-inf-header">ПІБ пацієнта: <span class="main-section__see-all-inf-span">${this.patientName}</span></h5>
                <h5 class="main-section__see-all-inf-header">Ціль візита: <span class="main-section__see-all-inf-span">${this.description}</span></h5>
                <h5 class="main-section__see-all-inf-header">Короткі замітки: <span class="main-section__see-all-inf-span">${this.title}</span></h5>
                <h5 class="main-section__see-all-inf-header">Терміновість візита: <span class="main-section__see-all-inf-span">${this.urgency}</span></h5>
                ${this.getOptionalInputsInfo()}
-               <h5 class="main-section__see-all-inf-header">Візит: <span class="main-section__see-all-inf-span">${this.visit}</span></h5>
+               <h5 class="main-section__see-all-inf-header">Статус: <span class="main-section__see-all-inf-span">${this.visit}</span></h5>
            </div>
            <button type="button" class="modal-login__btn-done btn btn-success" id="close_inform_popup" style="margin-top: 20px">
                ГОТОВО
@@ -71,43 +71,43 @@ class Visit {
             <div
                 class="main-section__new-visit container-sm bg-white position-absolute top-50 start-50 translate-middle p-4"
                 style="border-radius:10px; width: 40vw; overflow: scroll; max-height: 90%">
-                <h2 style="color: #6BB961; text-decoration: underline; text-align: center">редагувати візит</h2>
+                <h2 style="color: #6BB961; text-decoration: underline; text-align: center" class="edit-visit-header">Редагувати візит</h2>
                 <div class="form-group">
                     <label for="doctor-type-select" class="form-label">Лікар</label>
                     <select class="form-control" id="doctor-type-select" style="color: #307570;" disabled>
-                        <option value="cardiolog" ${this.doctor === 'cardiolog' && 'selected' || ''}>Кардиолог</option>
-                        <option value="stomatolog" ${this.doctor === 'stomatolog' && 'selected' || ''}>Стоматолог</option>
-                        <option value="terapevt" ${this.doctor === 'terapevt' && 'selected' || ''}>Терапевт</option>
+                        <option value="cardiolog" ${this.doctor === "cardiolog" && "selected" || ""}>Кардиолог</option>
+                        <option value="stomatolog" ${this.doctor === "stomatolog" && "selected" || ""}>Стоматолог</option>
+                        <option value="terapevt" ${this.doctor === "terapevt" && "selected" || ""}>Терапевт</option>
                     </select>
                 </div>
                 <form>
                     <div class="form-group" id="doctors-form">
                         <div class="col">
-                            <input type="text" id="patient_name" class="form-control" placeholder="ПІБ(пацієнта)" value=${this.patientName} >
+                           <p class="col_paragraph">ПІБ(пацієнта):</p> <input type="text" id="patient_name" class="form-control" placeholder="ПІБ(пацієнта)" value=${this.patientName} >
                         </div>
                         <div class="col">
-                            <input type="text" id="visit-propose" class="form-control" placeholder="Ціль візита" value=${this.description} >
+                           <p class="col_paragraph">Ціль візита:</p> <input type="text" id="visit-propose" class="form-control" placeholder="Ціль візита" value=${this.description} >
                         </div>
                         <div class="optional-inputs">
                             ${this.getOptionalInputs()}
                         </div>
                         <div class="col">
-                            <textarea type="text" class="form-control" id="short-text"
+                            <p class="col_paragraph">Короткі замітки:</p><textarea type="text" class="form-control" id="short-text"
                                       placeholder="Короткі замітки">${this.title}</textarea>
                         </div>
                         <div class="col">
-                            <label for="urgently" style="text-align: center">Терміновість візита</label>
+                            <label for="urgently" class="form-label" style="text-align: center">Терміновість візита</label>
                             <select class="form-control"  id="urgently" style="color: #307570;">
-                                <option value="High" ${this.urgency === 'High' && 'selected' || ''}>High</option>
-                                <option value="Normal" ${this.urgency === 'Normal' && 'selected' || ''}>Normal</option>
-                                <option value="Low" ${this.urgency === 'Low' && 'selected' || ''}>Low</option>
+                                <option value="High" ${this.urgency === "High" && "selected" || ""}>High</option>
+                                <option value="Normal" ${this.urgency === "Normal" && "selected" || ""}>Normal</option>
+                                <option value="Low" ${this.urgency === "Low" && "selected" || ""}>Low</option>
                             </select>
                         </div>
                               <div class="col">
-                            <label for="visit" style="text-align: center">Візит</label>
+                            <label for="visit" style="text-align: center">Статус</label>
                             <select class="form-control" id="visit" style="color: #307570;">
-                                <option value="close" ${this.visit === 'close' && 'selected' || ''}>close</option>
-                                <option value="open" ${this.visit === 'open' && 'selected' || ''}>open</option>
+                                <option value="close" ${this.visit === "close" && "selected" || ""}>close</option>
+                                <option value="open" ${this.visit === "open" && "selected" || ""}>open</option>
                             </select>
                         </div>
                     </div>
@@ -160,14 +160,14 @@ class VisitDentist extends Visit {
     getOptionalInputs() {
         return `
             <div class="col">
-                <input type="date" class="form-control" id="date-visit" placeholder="Дата останнього відвідування" value="${this.date}">
+           <p class="col_paragraph">Дата останнього відвідування:</p> <input type="date" class="form-control" id="date-visit" placeholder="Дата останнього відвідування" value="${this.date}">
             </div>
         `;
     }
 
     getOptionalInputsInfo() {
         return `
-            <h5 class="main-section__see-all-inf-header">Дата візиту: <span class="main-section__see-all-inf-span">${this.date}</span></h5>
+            <h5 class="main-section__see-all-inf-header">Дата візитa: <span class="main-section__see-all-inf-span">${this.date}</span></h5>
         `;
     }
 
@@ -195,18 +195,18 @@ class VisitCardiologist extends Visit {
     getOptionalInputs() {
         return `
             <div class="col">
-                 <input type="number" class="form-control" id="user-age-cardiolog"  placeholder="Вік" value=${this.age} >
+               <p class="col_paragraph"> Вік:</p>  <input type="number" class="form-control" id="user-age-cardiolog"  placeholder="Вік" value=${this.age} >
             </div>
              <div class="col">
-                 <input type="number" class="form-control" id="normal-pressure"
+               <p class="col_paragraph">Звичайний тиск:</p> <input type="number" class="form-control" id="normal-pressure"
                     placeholder="Звичайний тиск"  value=${this.normalPressure}  >
              </div>
              <div class="col">
-                 <input type="number" class="form-control" id="body-mass-index"
+              <p class="col_paragraph">Індекс маси тіла:</p>    <input type="number" class="form-control" id="body-mass-index"
                     placeholder="Індекс маси тіла" value=${this.bodyMassIndex}   >
              </div>
              <div class="col">
-                 <textarea type="text" class="form-control" id="cardiovascular-disease"
+             <p class="col_paragraph">Змінні захворювання серцево-судинної системи:</p> <textarea type="text" class="form-control" id="cardiovascular-disease"
                       placeholder="Змінні захворювання серцево-судинної системи">${this.cardiovascularDisease}</textarea>
              </div>
         `;
@@ -244,7 +244,7 @@ class VisitTherapist extends Visit {
     getOptionalInputs() {
         return `
             <div class="col">
-                <input type="number" class="form-control" id="user-age-terapevt"  placeholder="Вік" value=${this.age} >
+              <p class="col_paragraph">Вік:</p>  <input type="number" class="form-control" id="user-age-terapevt"  placeholder="Вік" value=${this.age} >
             </div>
         `;
     }
