@@ -39,8 +39,8 @@ class Visit {
         container.innerHTML = `
                   <div class="modal-login container-fluid p-0 vh-100 position-fixed top-0 start-0 bg-black bg-opacity-25"
         style="backdrop-filter: blur(3px); overflow: hidden;" id="modal-login">
-       <div class="main-section__new-visit container-sm bg-white position-absolute top-50 start-50 translate-middle p-4"
-            style="border-radius:10px; width: 40vw; overflow: scroll; max-height: 90%">
+       <div class="main-section__new-visit information_modal-login  container-sm bg-white position-absolute top-50 start-50 translate-middle p-4"
+          >
            <div class="information_wrapper">
            <h2 class="main-section__see_all-info-header-text">Iнфорамція візита</h2>
            <div>
@@ -76,7 +76,7 @@ class Visit {
              style="backdrop-filter: blur(3px); overflow: hidden;">
             <div
                 class="main-section__new-visit container-sm bg-white position-absolute top-50 start-50 translate-middle p-4"
-                style="border-radius:10px; width: 40vw; overflow: scroll; max-height: 90%">
+               >
                 <h2 style="color: #6BB961; text-decoration: underline; text-align: center" class="edit-visit-header">Редагувати візит</h2>
                 <div class="form-group">
                     <label for="doctor-type-select" class="form-label">Лікар</label>
