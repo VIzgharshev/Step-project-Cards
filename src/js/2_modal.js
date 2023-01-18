@@ -18,7 +18,12 @@ class Modal {
     handleCloseButtonClick(event) {
         event.preventDefault();
         this.modal.style.display = "none";
+
     }
+
+    // handleCloseModalClick(event){
+    //     console.log(event)
+    // }
 
     removeShowCloseListeners() {
         this.showButton.removeEventListener("click", this.handleShowButtonClick);
@@ -40,7 +45,13 @@ class DoctorVisitModal extends Modal {
             this.newVisitForm.style.display = "none";
             onModalFormSubmit(await this.sendDataServer());
         });
+        this.newVisitForm.addEventListener("click", (e)=>{
+           if(e.target.classList.contains("modal-login")){
+               this.newVisitForm.style.display="none"
+           }
+        })
     }
+
 
     handleShowButtonClick(event) {
         super.handleShowButtonClick(event);
@@ -54,6 +65,7 @@ class DoctorVisitModal extends Modal {
         this.setCardiologInputs();
         this.doctorSelect.value = "cardiolog";
     }
+
 
     changeDoctorType(event) {
         const nextDoctorType = event.target.value;

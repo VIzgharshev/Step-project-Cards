@@ -58,7 +58,13 @@ class Visit {
            </div>
        </div>
        </div>`;
+        container.querySelector(".modal-login").addEventListener("click", (e)=>{
+            if(e.target.classList.contains("modal-login")){
+                container.remove();
+            }
+        })
         container.querySelector("#close_inform_popup").addEventListener("click", () => {
+
             container.remove();
         });
         document.body.append(container);
@@ -132,9 +138,14 @@ class Visit {
             callbacks.onDelete();
             container.remove();
         });
-        container.querySelector("#close_edit_visit").addEventListener("click", () => {
+        container.querySelector("#close_edit_visit").addEventListener("click", (e) => {
             container.remove();
         });
+        container.querySelector(".modal-login").addEventListener("click",(e)=>{
+           if(e.target.classList.contains('modal-login')){
+               container.remove();
+           }
+        })
         container.querySelector("#edit_visit_btn").addEventListener("click", (e) => {
             e.preventDefault();
             this.collectDataFromInputs(container);
@@ -206,7 +217,7 @@ class VisitCardiologist extends Visit {
                     placeholder="Індекс маси тіла" value=${this.bodyMassIndex}   >
              </div>
              <div class="col">
-             <p class="col_paragraph">Змінні захворювання серцево-судинної системи:</p> <textarea type="text" class="form-control" id="cardiovascular-disease"
+             <p class="col_paragraph">Перенесені захворювання серцево-судинної системи:</p> <textarea type="text" class="form-control" id="cardiovascular-disease"
                       placeholder="Змінні захворювання серцево-судинної системи">${this.cardiovascularDisease}</textarea>
              </div>
         `;
@@ -217,7 +228,7 @@ class VisitCardiologist extends Visit {
             <h5 class="main-section__see-all-inf-header">Вік: <span class="main-section__see-all-inf-span">${this.age}</span></h5>
             <h5 class="main-section__see-all-inf-header">Звичайний тиск: <span class="main-section__see-all-inf-span">${this.normalPressure}</span></h5>
             <h5 class="main-section__see-all-inf-header">Індекс маси тіла: <span class="main-section__see-all-inf-span">${this.bodyMassIndex}</span></h5>
-            <h5 class="main-section__see-all-inf-header">Змінні захворювання серцево-судинної системи: <span class="main-section__see-all-inf-span">${this.cardiovascularDisease}</span></h5>
+            <h5 class="main-section__see-all-inf-header">Перенесені захворювання серцево-судинної системи: <span class="main-section__see-all-inf-span">${this.cardiovascularDisease}</span></h5>
         `;
     }
 
