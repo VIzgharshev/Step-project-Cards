@@ -534,7 +534,8 @@ function urgencyBtns(e) {
 				}
 				//-----------------check input value in context object key and render it
 				for (const card of allCard) {
-					if (card.urgency === 'Normal') {
+          if (card.urgency === 'Normal') {
+            counter++
 						cardsController.addCard(card);
 					}
 				}
@@ -566,7 +567,8 @@ function urgencyBtns(e) {
 				}
 				//-----------------check input value in context object key and render it
 				for (const card of allCard) {
-					if (card.urgency === 'Low') {
+          if (card.urgency === 'Low') {
+            counter++;
 						cardsController.addCard(card);
 					}
 				}
