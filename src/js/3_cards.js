@@ -9,7 +9,7 @@ class Card {
     }
 
     get cardBackgroundColor() {
-        return this.cardData.visit === "close" ? "#DB7093" : "#e3f3e1";
+        return this.cardData.visit === "close" ? "#F7DADA" : "#e3f3e1";
     }
 
     get urgencyColor() {
@@ -27,7 +27,7 @@ class Card {
     }
 
     get patientNameLabel() {
-        let patientName = this.cardData.patientName ?? "Ім'я пацієнта не вказане";
+        let patientName = this.cardData.patientName || "Ім'я пацієнта не вказане";
         return `Пацієнт: ${patientName}`;
     }
 
