@@ -1,5 +1,7 @@
 # Step-project-Cards
-Medical card service project, work in team of three members
+Medical card service project, work in team of two members
+
+
 
 # Базова збірка Gulp
 

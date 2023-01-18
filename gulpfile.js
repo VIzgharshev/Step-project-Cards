@@ -131,35 +131,6 @@ function clean() {
 
 }
 
-function scriptsDev() {
-    return gulp
-        .src([`${path.src.js}/*`, './node_modules/bootstrap/dist/js/bootstrap.bundle.js', './node_modules/@popperjs/core/dist/umd/popper.js'])
-        .pipe(babel({
-            presets: ['@babel/env']
-        }))
-        .pipe(concat('scripts.min.js'))
-        .pipe(jsmin())
-        .pipe(gulp.dest(path.dist.js))
-}
-
-function stylesDev() {
-    return gulp
-        .src(`${path.src.scss}/style.scss`)
-        .pipe(sass().on('error', sass.logError))
-        .pipe(cleanCSS({
-            level: 2
-        }))
-        .pipe(rename({
-            basename: "styles",
-            suffix: ".min",
-        }))
-        .pipe(autoprefixer({
-            cascade: false
-        }))
-        .pipe(cssmin())
-        .pipe(gulp.dest(path.dist.css))
-}
-
 function watch() {
     browsersync.init({
         server: {
@@ -174,7 +145,7 @@ function watch() {
 }
 
 const build = series(clean, html, styles, scripts, images, watch);
-const dev = series(clean, html, stylesDev, scriptsDev, images, watch);
+const dev = series(clean, html, styles, scripts, images, watch);
 
 exports.build = build
 exports.dev = dev
