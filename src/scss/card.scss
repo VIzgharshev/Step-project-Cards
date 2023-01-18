@@ -14,6 +14,13 @@
     overflow: hidden;
   }
 
+  &__new-visit{
+    border-radius: 10px;
+    width: 40vw;
+    overflow: scroll;
+    max-height: 90%;
+  }
+
   &__wrapper {
     width: 100%;
     height: 95%;
@@ -46,6 +53,15 @@
     height: 170px;
     max-height: 200px;
     overflow-y: hidden;
+    overflow-x: hidden;
+    & {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
   }
 
   &__urgency {
@@ -241,10 +257,22 @@ select option {
 }
 
 @media (min-width: 320px) and (max-width: 545px) {
+  .information_modal-login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .main-section {
     &-container {
       height: 100vh;
       margin: 0;
+    }
+    &__new-visit{
+      width: 100%;
+      height: 100vh;
+      max-height: 100vh;
+      margin: 0 auto;
     }
     &__header-novisit {
       left: 35%;
@@ -270,6 +298,11 @@ select option {
 }
 
 @media (min-width: 546px) and (max-width: 575px) {
+  .information_modal-login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .main-section {
     &-container {
       height: 100vh;
@@ -277,6 +310,11 @@ select option {
     }
     &__header-novisit {
       left: 41%;
+    }
+    &__new-visit{
+      width: 100%;
+      height: 100vh;
+      max-height: 100vh;
     }
     &__cards-container {
       justify-content: center;
@@ -289,7 +327,17 @@ select option {
   }
 }
 @media (min-width: 576px) and (max-width: 766px) {
+  .information_modal-login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .main-section {
+    &__new-visit{
+      width: 100vw;
+      height: 100vh;
+      max-height: 100vh;
+    }
     &__button-container {
       flex-wrap: wrap;
       justify-content: space-around;
