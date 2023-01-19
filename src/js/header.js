@@ -10,7 +10,6 @@ let token = '';
 let userEmail = null;
 let userPassword = null;
 
-//window.addEventListener('reload', sessionStorage.clear());
 window.addEventListener('load', async (e) => {
   if (
     sessionStorage.getItem('email') != null &&
