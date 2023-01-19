@@ -16,6 +16,7 @@
  
 ## Ізгаршев Володимир
 - Розробка дизайн проєкту в Figma. Посилання на макет для проєкту [тут](https://www.figma.com/file/ELZPhY87gsQyntMjR2tvMf/Step-Project-%22Cards%22?node-id=0%3A1&t=g4PyxTMx60p4PUcr-1).
+- Робота з sessionStorage.
 - Розробка частини Header section, модальне вікно 'Вхід', адаптив під різні девайси, верстка. (файли: header.js, header.scss)
 - Розробка частини Filter section, адаптив під різні девайси, верстка. (файли: filter.js, filter.scss)
 - Організація робочого процесу, планування, взаємодія.
